@@ -15,6 +15,9 @@
     "babel-loader": "^5.2.2",
     "css-loader": "^0.15.1",
     "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
+    "jade": "^1.11.0",
+    "jade-html-loader": "^0.0.3",
     "jshint": "^2.8.0",
     "jshint-loader": "^0.8.3",
     "ng-annotate-loader": "^0.0.10",
@@ -22,10 +25,8 @@
     "node-sass": "^3.2.0",
     "sass-loader": "^1.0.2",
     "style-loader": "^0.12.3",
-    "jade-html-loader": "^0.0.3",
-    "file-loader": "^0.8.4",
-    "webpack": "^1.10.0",
-    "webpack-dev-server": "^1.10.1"
+    "webpack": "^1.12.6",
+    "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
     "angular": "^1.4.1",
