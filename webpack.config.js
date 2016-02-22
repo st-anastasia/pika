@@ -1,8 +1,9 @@
 'use strict';
-var webpack = require('webpack');
-var path = require('path');
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -43,7 +44,7 @@ module.exports = {
         loader: 'ng-annotate!babel!jshint',
         exclude: /node_modules|bower_components/
       },
-      { test: /\.jade$/,  loader: "file-loader?name=[path][name].html!jade-html-loader" }
+      { test: /\.jade$/,  loader: 'file-loader?name=[path][name].html!jade-html-loader' }
     ]
   },
   plugins: [

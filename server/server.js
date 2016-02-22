@@ -1,11 +1,11 @@
-"use strict";
-let express   = require('express'),
-  app         = express(),
-  config      = require('./config/config.js'),
-  bodyParser  = require('body-parser'),
-  morgan      = require('morgan'),
-  mongoose   = require('mongoose');
+'use strict';
 
+const express   = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const config = require('./config/config.js');
 
 mongoose.connect(config.mongoConnection);
 

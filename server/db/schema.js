@@ -1,7 +1,8 @@
 'use strict';
-let config = require('../config/config.js'),
-  mongoose = require('mongoose'),
-  User = require('../models/user');
+
+const mongoose  = require('mongoose');
+const config = require('../config/config.js');
+const User = require('../models/user');
 
 mongoose.connect(config.mongoConnection, function(err) {
   if (err) throw err;
@@ -9,7 +10,7 @@ mongoose.connect(config.mongoConnection, function(err) {
 });
 
 // create a user a new user
-let testUser = new User({
+const testUser = new User({
   username: 'chuck',
   password: '123456'
 });

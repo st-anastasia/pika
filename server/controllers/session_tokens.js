@@ -1,12 +1,13 @@
-"use strict";
-let User = require('../models/user'),
-    jwt = require('jsonwebtoken'),
-    config = require('../config/config.js'),
-    controller = {};
+'use strict';
+
+const jwt = require('jsonwebtoken');
+const config = require('../config/config.js');
+const User = require('../models/user');
+const controller = {};
 
 controller.create = function(req, res) {
-  var username = req.body.username || '';
-  var password = req.body.password || '';
+  const username = req.body.username || '';
+  const password = req.body.password || '';
   if (username == '' || password == '') return res.sendStatus(401);
 
   User.findOne({username: username})
@@ -15,7 +16,7 @@ controller.create = function(req, res) {
       return user.comparePassword(password)
     })
     .then(user => {
-      let token = jwt.sign({id: user._id}, config.tokenSecret, { expiresIn: config.tokenExpiration });
+      const token = jwt.sign({id: user._id}, config.tokenSecret, { expiresIn: config.tokenExpiration });
       return res.json({token:token});
     })
     .catch(err => {

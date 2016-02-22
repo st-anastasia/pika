@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-let mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  bcrypt = require('bcrypt'),
-  SALT_WORK_FACTOR = 10;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 
-let UserSchema = new Schema({
+const UserSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   updatedAt: Date
@@ -13,7 +13,7 @@ let UserSchema = new Schema({
 
 
 UserSchema.methods.hashPassword = function(next){
-  var user = this;
+  const user = this;
   if (!user.isModified('password')) return next();
 
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
@@ -29,7 +29,7 @@ UserSchema.methods.hashPassword = function(next){
 };
 
 UserSchema.methods.comparePassword = function(password) {
-  let user = this;
+  const user = this;
   return new Promise(function(resolve, reject){
     bcrypt.compare(password, user.password, function(err, isMatch) {
       if (err) reject(err);

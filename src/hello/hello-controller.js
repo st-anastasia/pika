@@ -2,7 +2,7 @@
 
 class HelloController {
 	constructor(){
-    this.hello = "bla bla bla";
+    this.hello = 'bla bla bla';
 	}
 }
 
