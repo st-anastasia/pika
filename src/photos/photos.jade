@@ -1,3 +1,4 @@
 ul 
   li(ng-repeat="photo in controller.photos")
-    img(ng-src="{{photo.url}}")
+    a(href="#/photos/{{photo.id}}")
+      img(ng-src="{{photo.url}}")
