@@ -20,7 +20,12 @@ module.exports = {
   },
   context: __dirname + '/src',
   entry: {
-    vendor: ['angular', 'angular-route'],
+    vendor: [
+      'angular',
+      'angular-messages',
+      'angular-material',
+      'angular-route'
+    ],
     app: ['./app.js']
   },
   output: {
@@ -31,13 +36,10 @@ module.exports = {
   },
   module: {
     loaders: [
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap') },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          // activate source maps via loader query
-          'css?sourceMap!' +
-          'sass?sourceMap'
-        )
+        loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap')
       },
       {
         test: /\.js$/,
