@@ -1,5 +1,5 @@
 'use strict';
-
+import './index.html'
 import 'angular-material/angular-material.css';
 import './app.scss';
 
@@ -22,15 +22,15 @@ angular.module("pika", ['ngRoute', 'ngMaterial'])
  .config(function($routeProvider){
    $routeProvider
     .when('/', {
-      templateUrl: 'build/hello/hello.html',
+      templateUrl: 'hello/hello.html',
       controller: 'HelloController as controller'
     })
     .when('/photos', {
-      templateUrl: 'build/photos/photos.html',
+      templateUrl: 'photos/photos.html',
       controller: 'PhotosController as controller'
     })  
     .when("/photos/:photoId", {
-      templateUrl: "build/photos/photo-detail.html",
+      templateUrl: "photos/photo-detail.html",
       controller: "PhotoDetailController as controller"
     });
  });

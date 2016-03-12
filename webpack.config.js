@@ -16,7 +16,7 @@ module.exports = {
     colors: true,
     historyApiFallback: true,
     contentBase: 'public',
-    publicPath: '/build'
+    publicPath: '/'
   },
   context: __dirname + '/src',
   entry: {
@@ -29,7 +29,7 @@ module.exports = {
     app: ['./app.js']
   },
   output: {
-    path: __dirname + '/public/build',
+    path: __dirname + '/public',
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
     chunkFilename: '[id].chunk.js'
@@ -46,7 +46,9 @@ module.exports = {
         loader: 'ng-annotate!babel!jshint',
         exclude: /node_modules|bower_components/
       },
-      { test: /\.jade$/,  loader: 'file-loader?name=[path][name].html!jade-html-loader' }
+      { test: /\.jade$/,  loader: 'file-loader?name=[path][name].html!jade-html-loader' },
+      { test: /\.(png|jpg|svg|woff)$/, loader: 'file-loader?name=аssets/[path][name]-[hash].[ext]' },
+      { test: /\.html$/,  loader: 'file-loader?name=[path][name].[ext]' }
     ]
   },
   plugins: [
