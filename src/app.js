@@ -1,15 +1,10 @@
 'use strict';
-import './index.html'
 import 'angular-material/angular-material.css';
 import './app.scss';
 
 import angular from 'angular';
 import angular_route from 'angular-route';
 import angular_material from 'angular-material';
-
-import './hello/hello.jade';
-import './photos/photos.jade';
-import './photos/photo-detail.jade';
 
 import HelloController from './hello/hello-controller';
 import PhotosController from './photos/photos-controller';
@@ -21,16 +16,12 @@ angular.module("pika", ['ngRoute', 'ngMaterial'])
  .controller("PhotoDetailController", PhotoDetailController)
  .config(function($routeProvider){
    $routeProvider
-    .when('/', {
-      templateUrl: 'hello/hello.html',
-      controller: 'HelloController as controller'
-    })
     .when('/photos', {
-      templateUrl: 'photos/photos.html',
+      template: require('./photos/photos.jade'),
       controller: 'PhotosController as controller'
     })  
     .when("/photos/:photoId", {
-      templateUrl: "photos/photo-detail.html",
+      template: require('./photos/photo-detail.jade'),
       controller: "PhotoDetailController as controller"
     });
  });
