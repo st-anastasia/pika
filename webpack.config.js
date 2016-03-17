@@ -46,7 +46,8 @@ module.exports = {
         loader: 'ng-annotate!babel!jshint',
         exclude: /node_modules|bower_components/
       },
-      { test: /\.jade$/,  loader: 'file-loader?name=[path][name].html!jade-html-loader' }
+      { test: /\.jade$/,  loader: 'jade' },
+      { test: /\.(png|jpg|svg|woff)$/, loader: 'file-loader?name=аssets/[path][name]-[hash].[ext]' }
     ]
   },
   plugins: [
