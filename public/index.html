@@ -2,12 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="build/styles.css">
   <title>Pika</title>
 </head>
-<body ng-app="pika">
-	<div ng-view></div>
-  <md-button class="md-fab" > PUSH </md-button>
+<body ng-app="pika" layout="row">
+<div ng-controller="SideMenuController as sideMenuController" layout="column" style="height:500px;" ng-cloak="">
+  <section flex="">
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4">
+
+      <md-toolbar class="md-default-theme md-tall md-hue-2">
+        <h1 class="md-toolbar-tools">Sidenav Left</h1>
+      </md-toolbar>
+      <md-content layout-padding="">
+        <md-list>
+          <md-item ng-repeat="item in sideMenuController.menu">
+            <a>
+              <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                <div class="inset">
+                  <md-icon>{{item.icon}}</md-icon>
+                </div>
+                <div class="inset">{{item.title}}
+                </div>
+              </md-item-content>
+            </a>
+          </md-item>
+          <md-divider></md-divider>
+          <md-item ng-repeat="item in sideMenuController.adminMenu">
+            <a>
+              <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                <div class="inset">
+                  <md-icon>{{item.icon}}</md-icon>
+                </div>
+                <div class="inset">{{item.title}}
+                </div>
+              </md-item-content>
+            </a>
+          </md-item>
+        </md-list>
+        <md-button ng-click="sideMenuController.close()" class="md-primary">
+          Close Sidenav Left
+        </md-button>
+      </md-content>
+
+    </md-sidenav>
+
+    <md-content ng-view>
+    </md-content>
+    
+  </section>
+</div>
+
 <script src="build/vendor.js"></script>
 <script src="build/app.js"></script>
 </body>
