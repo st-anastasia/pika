@@ -6,8 +6,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const Grid = require('gridfs-stream');
 const config = require('./config/config.js');
 
+Grid.mongo = mongoose.mongo;
 mongoose.connect(config.mongoConnection);
 
 app.use(bodyParser.urlencoded({ extended: false }));
