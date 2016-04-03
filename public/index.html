@@ -7,50 +7,28 @@
   <title>Pika</title>
 </head>
 <body ng-app="pika" layout="row">
-<div ng-controller="SideMenuController as sideMenuController" layout="column" style="height:500px;" ng-cloak="">
-  <section flex="">
+<div ng-controller="SideMenuController as sideMenuController" layout="column" layout-fill ng-cloak="">
     <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4">
-
-      <md-toolbar class="md-default-theme md-tall md-hue-2">
+      <md-toolbar class="md-default-theme md-tall md-whiteframe-2dp">
         <h1 class="md-toolbar-tools">Sidenav Left</h1>
       </md-toolbar>
-      <md-content layout-padding="">
-        <md-list>
-          <md-item ng-repeat="item in sideMenuController.menu">
-            <a>
-              <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                <div class="inset">
-                  <md-icon>{{item.icon}}</md-icon>
-                </div>
-                <div class="inset">{{item.title}}
-                </div>
-              </md-item-content>
-            </a>
-          </md-item>
+      <md-content>
+        <md-list flex="">
+          <md-list-item ng-repeat="item in sideMenuController.menu" ng-click="null">
+            <md-icon class="blue_grey-400 material-icons step">{{item.icon}}</md-icon>
+            <p>{{item.title}}</p>
+          </md-list-item>
           <md-divider></md-divider>
-          <md-item ng-repeat="item in sideMenuController.adminMenu">
-            <a>
-              <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                <div class="inset">
-                  <md-icon>{{item.icon}}</md-icon>
-                </div>
-                <div class="inset">{{item.title}}
-                </div>
-              </md-item-content>
-            </a>
-          </md-item>
+          <md-list-item ng-repeat="item in sideMenuController.adminMenu" ng-click="null">
+            <md-icon class="blue_grey-400 material-icons step">{{item.icon}}</md-icon>
+            <p>{{item.title}}</p>
+          </md-list-item>
         </md-list>
-        <md-button ng-click="sideMenuController.close()" class="md-primary">
-          Close Sidenav Left
-        </md-button>
       </md-content>
-
     </md-sidenav>
 
-    <md-content ng-view>
-    </md-content>
-    
-  </section>
+    <div ng-view layout="column" role="main" flex>
+    </div>
 </div>
 
 <script src="build/vendor.js"></script>

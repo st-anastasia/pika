@@ -1,16 +1,15 @@
-md-toolbar
-  .md-toolbar-tools
-    md-button.md-icon-button(aria-label='Menu', ng-click='sideMenuController.toggle()')
-      md-icon menu
-    h2
-      span Toolbar with Icon Buttons
-    span(flex='')
-    md-button.md-icon-button(aria-label='Search')
-      md-icon search
-    md-button.md-icon-button(aria-label='More')
-      md-icon more_vert
-
-ul 
-  li(ng-repeat="photo in controller.photos")
-    a(href="#/photos/{{photo.id}}")
-      img(ng-src="{{photo.url}}")
+md-toolbar.md-whiteframe-2dp.md-hue-1.md-toolbar-tools
+  md-button.md-icon-button(aria-label='Menu', ng-click='sideMenuController.toggle()')
+    md-icon menu
+  h2
+    span Toolbar with Icon Buttons
+  span(flex='')
+  md-button.md-icon-button(aria-label='Search')
+    md-icon search
+  md-button.md-icon-button(aria-label='More')
+    md-icon more_vert
+md-content.layout-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
+  ul
+    li(ng-repeat="photo in controller.photos")
+      a(href="#/photos/{{photo.id}}")
+        img(ng-src="{{photo.url}}")
