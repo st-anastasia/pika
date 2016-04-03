@@ -1,15 +1,19 @@
+
 md-toolbar.md-whiteframe-2dp.md-hue-1.md-toolbar-tools
-  md-button.md-icon-button(aria-label='Menu', ng-click='sideMenuController.toggle()')
-    md-icon menu
-  h2
-    span Toolbar with Icon Buttons
-  span(flex='')
-  md-button.md-icon-button(aria-label='Search')
-    md-icon search
-  md-button.md-icon-button(aria-label='More')
-    md-icon more_vert
-md-content.layout-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
-  ul
-    li(ng-repeat="photo in controller.photos")
-      a(href="#/photos/{{photo.id}}")
-        img(ng-src="{{photo.url}}")
+    md-button.md-icon-button(aria-label='Menu', ng-click='sideMenuController.toggle()')
+      md-icon menu
+    h2
+      span Toolbar with Icon Buttons
+    span(flex='')
+    md-button.md-icon-button(aria-label='Search')
+      md-icon search
+    md-button.md-icon-button(aria-label='More')
+      md-icon more_vert
+md-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
+  md-grid-list(md-cols-gt-md='12', md-cols-xs='1', md-cols-sm='3', md-cols-md='8', md-row-height-gt-md='1:1', md-row-height='4:3', md-gutter-gt-md='16px', md-gutter-gt-sm='8px', md-gutter='10px')
+      md-grid-tile(ng-repeat='photo in controller.photos' style="background: yellow;")
+  //.layout-content
+    ul
+      li(ng-repeat="photo in controller.photos")
+        a(href="#/photos/{{photo.id}}")
+          img(ng-src="{{photo.url}}")
