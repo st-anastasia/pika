@@ -1,2 +1,21 @@
-.md-toolbar-tools md-toolbar md-icon.md-default-theme {
-  color: white; }
+.site-content-toolbar{
+  background: #ECEFF1;
+  color: #757575;
+}
+
+md-sidenav, md-sidenav md-list{
+  background-color: rgb(55,71,79);
+  color: rgba(255, 255, 255, 0.56);
+}
+md-sidenav md-list{
+  font-weight: 500;
+}
+md-sidenav md-divider{
+  border-top-color: #78909c;
+}
+md-sidenav md-icon{
+  margin-left: 0;
+}
+.blue_grey-400{
+  color: #78909c;
+}

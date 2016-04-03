@@ -1,7 +1,7 @@
 'use strict';
 
 class SideMenuController{
-  
+
   constructor($mdSidenav){
    this.$mdSidenav = $mdSidenav;
    this.initMenu();
@@ -22,7 +22,7 @@ class SideMenuController{
       }
     ];
   }
-  
+
   initAdminMenu(){
     this.adminMenu = [
       {
@@ -42,11 +42,12 @@ class SideMenuController{
       }
     ];
   }
-  
+
   toggle(){
     this.$mdSidenav('left').toggle();
   }
-  
+
+
   close(){
     this.$mdSidenav('left').close();
   }
