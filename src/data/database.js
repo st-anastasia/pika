@@ -1,25 +1,5 @@
 const photos = [
   {
-    "fileName": "11454863.jpg",
-    "name": "Ipsum labore deserunt consequatur.",
-    "title": "Quia debitis sequi sapiente possimus facilis."
-  },
-  {
-    "fileName": "1284946545-omgbhd5.jpg",
-    "name": "Velit ducimus fuga.",
-    "title": "Illum officiis sint quasi placeat."
-  },
-  {
-    "fileName": "13112582.jpg",
-    "name": "Rerum laudantium nemo qui.",
-    "title": "Officiis quis ratione odio."
-  },
-  {
-    "fileName": "13121163.jpg",
-    "name": "Molestias nostrum in tempora officiis sequi quod.",
-    "title": "Delectus et molestiae eveniet."
-  },
-  {
     "fileName": "168731824-4ab8e0df62-o.jpg",
     "name": "Officiis minus nemo aliquid.",
     "title": "Minima fugiat incidunt labore fugit autem."
@@ -275,26 +255,6 @@ const photos = [
     "title": "Et itaque deserunt esse provident."
   },
   {
-    "fileName": "kamille-01.jpg",
-    "name": "Vero dolorum dolorem molestiae ut voluptate.",
-    "title": "Et quis explicabo quas necessitatibus laboriosam a."
-  },
-  {
-    "fileName": "kamille-02.jpg",
-    "name": "Earum nulla eos laborum sunt.",
-    "title": "Eligendi consequuntur autem nemo sed nesciunt delectus."
-  },
-  {
-    "fileName": "lilie-2.jpg",
-    "name": "Vel ducimus explicabo vitae dolorem recusandae.",
-    "title": "Voluptas nobis omnis expedita aut quia eos velit."
-  },
-  {
-    "fileName": "lilie-3.jpg",
-    "name": "Aliquid deleniti modi fugiat eos nulla quibusdam.",
-    "title": "Temporibus qui explicabo qui voluptas omnis nihil et repellat."
-  },
-  {
     "fileName": "lilie-by-izyliaz.jpg",
     "name": "Deserunt aperiam natus soluta qui.",
     "title": "Impedit non sapiente accusamus minus."
@@ -365,31 +325,6 @@ const photos = [
     "title": "Et magnam laborum corporis saepe."
   },
   {
-    "fileName": "mohn-02.jpg",
-    "name": "Nisi corporis quia.",
-    "title": "Error consectetur natus consequatur tempore tenetur consequatur."
-  },
-  {
-    "fileName": "mohn-03.jpg",
-    "name": "Autem eveniet.",
-    "title": "Exercitationem qui qui tempora."
-  },
-  {
-    "fileName": "mohn-04.jpg",
-    "name": "Ad eius voluptatem vitae voluptatem.",
-    "title": "Quia qui doloremque est necessitatibus consequatur asperiores."
-  },
-  {
-    "fileName": "mohn-05.jpg",
-    "name": "Dicta doloremque itaque consectetur delectus quia ea.",
-    "title": "Odit velit aperiam veritatis."
-  },
-  {
-    "fileName": "old-house-59.4.jpg",
-    "name": "Et culpa esse vel minima nam deleniti.",
-    "title": "Quis maiores libero necessitatibus."
-  },
-  {
     "fileName": "phalaenopsis-orchids-moth-orchids.jpg",
     "name": "Qui ab aut facilis.",
     "title": "Quaerat vel minus et omnis nostrum tenetur sapiente omnis."
@@ -398,31 +333,6 @@ const photos = [
     "fileName": "phoenix-1440x900.jpg",
     "name": "Ea sit nostrum aliquam unde possimus consectetur.",
     "title": "Laudantium quia non consequatur minus."
-  },
-  {
-    "fileName": "sb10066927aj-001.jpg",
-    "name": "Aut corrupti nesciunt beatae minima et.",
-    "title": "Aut architecto quas aliquid tenetur praesentium cumque est."
-  },
-  {
-    "fileName": "snowdrop,-the-first-spring-flower.jpg",
-    "name": "Cum quam.",
-    "title": "Labore vitae facilis et."
-  },
-  {
-    "fileName": "strawberry-01.jpg",
-    "name": "Aliquam placeat consequatur et nulla ducimus minus.",
-    "title": "Ad aut sint optio soluta tempore sunt reiciendis earum."
-  },
-  {
-    "fileName": "strawberry-02.jpg",
-    "name": "Tenetur similique inventore.",
-    "title": "Neque aut quis nemo."
-  },
-  {
-    "fileName": "vista-15-1280x1024.jpg",
-    "name": "Consectetur voluptas architecto.",
-    "title": "Tenetur nostrum debitis perferendis sint ratione officia eos."
   },
   {
     "fileName": "yachtcharter-thailand-james-bond.jpg",
