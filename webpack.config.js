@@ -47,7 +47,7 @@ module.exports = {
         exclude: /node_modules|bower_components/
       },
       { test: /\.jade$/,  loader: 'jade' },
-      { test: /\.(png|jpg|svg|woff)$/, loader: 'file-loader?name=аssets/[path][name]-[hash].[ext]' }
+      { test: /\.(png|jpg|svg|woff)$/, loader: 'file-loader?name=assets/[path][name]-[hash].[ext]' }
     ]
   },
   plugins: [

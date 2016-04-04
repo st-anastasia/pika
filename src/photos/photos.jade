@@ -11,7 +11,9 @@ md-toolbar.md-whiteframe-2dp.md-hue-1.md-toolbar-tools
       md-icon more_vert
 md-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
   md-grid-list(md-cols-gt-md='12', md-cols-xs='1', md-cols-sm='3', md-cols-md='8', md-row-height-gt-md='1:1', md-row-height='4:3', md-gutter-gt-md='16px', md-gutter-gt-sm='8px', md-gutter='10px')
-      md-grid-tile(ng-repeat='photo in controller.photos' style="background: yellow;")
+      md-grid-tile(ng-repeat='photo in controller.photos')
+         a(href="#/photos/{{$index}}")
+          img(ng-src="{{photo.url}}")
   //.layout-content
     ul
       li(ng-repeat="photo in controller.photos")
