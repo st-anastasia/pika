@@ -22,6 +22,7 @@ class SideMenuController{
       }
     ];
   }
+
   initAdminMenu(){
     this.adminMenu = [
       {

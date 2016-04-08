@@ -3,8 +3,13 @@
 import { getPhotos } from "../data/database";
 
 class PhotosController{
-  constructor(){
+  constructor($location){
     this.photos = getPhotos();
+    this.location = $location;
+  }
+
+  openPhoto(index){
+    this.location.path('photos/' + index);
   }
 }
 
