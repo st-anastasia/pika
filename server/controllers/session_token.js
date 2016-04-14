@@ -9,11 +9,10 @@ controller.create = function(req, res) {
   const username = req.body.username || '';
   const password = req.body.password || '';
   if (username == '' || password == '') return res.sendStatus(401);
-
   User.findOne({username: username})
     .then(user => {
       if (user == undefined) throw new Error('user not found');
-      return user.comparePassword(password)
+      return user.comparePassword(password);
     })
     .then(user => {
       const token = jwt.sign({id: user._id}, config.tokenSecret, { expiresIn: config.tokenExpiration });
