@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = new express.Router();
-const session_token_controller = require('../controllers/session_token');
+const session_token_controller = require('../controllers/session-token');
 
 router.post('/session_token', session_token_controller.create);
 
