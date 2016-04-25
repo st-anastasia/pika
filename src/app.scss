@@ -3,6 +3,7 @@
   color: #757575;
 }
 
+/*----Sidenav----*/
 md-sidenav, md-sidenav md-list{
   background-color: rgb(55,71,79);
   color: rgba(255, 255, 255, 0.56);
@@ -16,6 +17,37 @@ md-sidenav md-divider{
 md-sidenav md-icon{
   margin-left: 0;
 }
+/*----Sidenav----*/
+
+/*----Toolbar----*/
+.transparent_gradient{
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background-image: -moz-linear-gradient(top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+  background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+md-toolbar.transparent_gradient{
+  background-color: transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 64px;
+}
+/*----Toolbar----*/
+
+#img_wrapper{
+  flex: 1 1 auto;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+#img_wrapper img{
+  display: block;
+  max-width: 100%;
+}
+
 .blue_grey-400{
   color: #78909c;
 }
+
