@@ -1,15 +1,21 @@
 md-toolbar.md-toolbar-tools.transparent_gradient
-    md-button.md-icon-button(aria-label='Menu', ng-click='sideMenuController.toggle()')
-      md-icon menu
-    span(flex='')
-    md-button.md-icon-button(aria-label='Zoom in')
-      md-icon zoom_in
-    md-button.md-icon-button(aria-label='Info')
-      md-icon info
-    md-button.md-icon-button(aria-label='Delete')
-      md-icon delete
-    md-button.md-icon-button(aria-label='More')
-      md-icon more_vert
+  md-button.md-icon-button(aria-label='Menu', ng-click='sideMenuController.toggle()')
+    md-icon menu
+  span(flex='')
+  md-button.md-icon-button(aria-label='Zoom in')
+    md-icon zoom_in
+  md-button.md-icon-button(aria-label='Info')
+    md-icon info
+  md-button.md-icon-button(aria-label='Delete')
+    md-icon delete
+  md-menu(md-position-mode='target-right target')
+    md-button.md-icon-button(aria-label='More' class="md-icon-button" ng-click='controller.openMenu($mdOpenMenu, $event)')
+      md-icon(md-menu-origin='') more_vert
+    md-menu-content(width='3')
+      md-menu-item(ng-repeat='item in [1, 2, 3]')
+        md-button(class="md-accent" ng-click='controller.menuItemClick($index)')
+          div(layout='row', flex='')
+            p(flex='') Option {{item}}
 md-content.md-background.md-hue-2(md-scroll-y, layout='column', flex='', layout-fill)
   #img_wrapper
     img(ng-src="{{ controller.photo.url }}")
