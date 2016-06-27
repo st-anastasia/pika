@@ -1,19 +1,29 @@
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .site-content-toolbar{
   background: #ECEFF1;
   color: #757575;
 }
 
 /*----Sidenav----*/
-md-sidenav, md-sidenav md-list{
+md-sidenav.md-sidenav-left, md-sidenav.md-sidenav-left md-list {
   background-color: rgb(55,71,79);
   color: rgba(255, 255, 255, 0.56);
 }
-md-sidenav md-list{
+
+md-sidenav.md-sidenav-left md-list{
   font-weight: 500;
 }
+
 md-sidenav md-divider{
   border-top-color: #78909c;
 }
+
 md-sidenav md-icon{
   margin-left: 0;
 }
@@ -35,19 +45,48 @@ md-toolbar.transparent_gradient{
 }
 /*----Toolbar----*/
 
-#img_wrapper{
-  flex: 1 1 auto;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-}
-#img_wrapper img{
-  display: block;
+#img-wrapper img {
+  max-height: 100%;
   max-width: 100%;
+  object-fit: contain;
+  padding: 0 18px;
 }
 
 .blue_grey-400{
   color: #78909c;
 }
 
+/*----Sidenav right----*/
+#photo_detail_input md-input-container{
+  margin: 0;
+  padding: 0;
+}
+
+.md-sidenav-right md-divider{
+  margin: 0 -8px;
+}
+
+.md-sidenav-right md-input-container label, .md-sidenav-right md-input-container .md-input{
+  text-shadow: none;
+}
+
+.md-sidenav-right md-input-container label{
+  color: rgba(96, 125, 139, 0.5);
+}
+
+.md-sidenav-right md-input-container .md-input{
+  color: rgb(96, 125, 139);
+}
+.md-sidenav-right md-input-container:not(.md-input-invalid).md-input-has-value label{
+  color: rgb(0, 188, 212);
+}
+
+.md-sidenav-right md-list md-list-item.md-2-line .md-list-item-text span{
+  color: rgba(0,0,0,0.54);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.010em;
+  line-height: 1.6em;
+  margin-right: 12px;
+}
+/*----Sidenav right----*/

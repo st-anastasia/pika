@@ -50,6 +50,13 @@ class SideMenuController{
   close(){
     this.$mdSidenav('left').close();
   }
+  /*toggle(){
+    this.$mdSidenav('right').toggle();
+  }
+
+  close(){
+    this.$mdSidenav('right').close();
+  }*/
 }
 
 export default SideMenuController;

@@ -15,6 +15,7 @@ angular.module("pika", ['ngRoute', 'ngMaterial'])
  .controller('PhotosController', PhotosController)
  .controller("PhotoDetailController", PhotoDetailController)
  .config(function($routeProvider, $mdThemingProvider){
+
    $routeProvider
     .when('/photos', {
       template: require('./photos/photos.jade'),
@@ -22,10 +23,11 @@ angular.module("pika", ['ngRoute', 'ngMaterial'])
     })
     .when("/photos/:photoId", {
       template: require('./photos/photo-detail.jade'),
-      controller: "PhotoDetailController as controller"
+      controller: "PhotoDetailController as photoDetailController"
     });
+
     $mdThemingProvider.theme('default')
-      .primaryPalette('blue-grey', {
+        .primaryPalette('blue-grey', {
         'default': '400',
         'hue-1': '50',
         'hue-2': '800',
@@ -35,7 +37,8 @@ angular.module("pika", ['ngRoute', 'ngMaterial'])
         'hue-1': '800',
         'hue-2': '900'
       })
-      .accentPalette('cyan')
-      .dark();
+      .accentPalette('cyan', {
+        'default': '500'
+      });
  });
 
