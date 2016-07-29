@@ -1,14 +1,16 @@
 'use strict';
 
-import { getPhoto } from "../data/database";
+import { getPhoto, getPhotos } from "../data/database";
 
 class PhotoDetailController{
   constructor($routeParams, $mdDialog, $mdSidenav){
-    this.photo = getPhoto($routeParams.photoId);
-
-    this.originatorEvent = null;
     this.$mdDialog = $mdDialog;
     this.$mdSidenav = $mdSidenav;
+
+    this.photo = getPhoto($routeParams.photoId);
+    this.photos = getPhotos();
+
+    this.originatorEvent = null;
     this.isFotoFormOpen = false;
   }
 
