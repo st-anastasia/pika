@@ -3,15 +3,19 @@
 import { getPhoto, getPhotos } from "../data/database";
 
 class PhotoDetailController{
-  constructor($routeParams, $mdDialog, $mdSidenav){
+  constructor($routeParams, $mdDialog, $mdSidenav, $location){
     this.$mdDialog = $mdDialog;
     this.$mdSidenav = $mdSidenav;
+    this.$location = $location;
 
     this.photo = getPhoto($routeParams.photoId);
     this.photos = getPhotos();
+    this.currentPhotoId = parseInt($routeParams.photoId);
 
     this.originatorEvent = null;
     this.isFotoFormOpen = false;
+
+    this.displayButtons();
   }
 
   openMenu($mdOpenMenu, event){
@@ -38,6 +42,30 @@ class PhotoDetailController{
 
   close(){
     this.$mdSidenav('right').close();
+  }
+
+  showPrev(){
+    if(this.currentPhotoId > 0){
+      this.currentPhotoId--;
+    }
+    this.showPhoto();
+  }
+  showNext(){
+    if(this.currentPhotoId < this.photos.length - 1){
+      this.currentPhotoId++;
+    }
+    this.showPhoto();
+  }
+
+  showPhoto(){
+    this.$location.path('photos/' + this.currentPhotoId);
+  }
+
+  displayButtons(){
+    this.arrowButtons = {
+      leftArrowVisible: this.currentPhotoId > 0,
+      rightArrowVisible: this.currentPhotoId < this.photos.length - 1
+    };
   }
 }
 

@@ -21,9 +21,15 @@ div(flex layout='row' layout-fill)
   md-content.md-background.md-hue-2(id="img-wrapper" layout="row" layout-align="center center" layout-fill flex='')
     img(ng-src="{{ photoDetailController.photo.url }}")
 
-  md-button.slider-button.md-accent.slider-button-prev.md-icon-button
+  md-button.slider-button.md-accent.slider-button-prev.md-icon-button(
+    ng-click="photoDetailController.showPrev()"
+    ng-show="photoDetailController.arrowButtons.leftArrowVisible"
+  )
     md-icon.md-48(aria-label='Naviagte Before') navigate_before
-  md-button.slider-button.md-accent.slider-button-next.md-icon-button
+  md-button.slider-button.md-accent.slider-button-next.md-icon-button(
+    ng-click="photoDetailController.showNext()"
+    ng-show="photoDetailController.arrowButtons.rightArrowVisible"
+  )
     md-icon.md-48(aria-label='Navigate Next') navigate_next
 
 
