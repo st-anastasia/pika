@@ -16,9 +16,23 @@ md-toolbar.md-toolbar-tools.transparent_gradient
         md-button(class="md-accent" ng-click='photoDetailController.menuItemClick($index)')
           div(layout='row', flex='')
             p(flex='') Option {{item}}
+
 div(flex layout='row' layout-fill)
   md-content.md-background.md-hue-2(id="img-wrapper" layout="row" layout-align="center center" layout-fill flex='')
     img(ng-src="{{ photoDetailController.photo.url }}")
+
+  md-button.slider-button.md-accent.slider-button-prev.md-icon-button(
+    ng-click="photoDetailController.showPrev()"
+    ng-show="photoDetailController.arrowButtons.leftArrowVisible"
+  )
+    md-icon.md-48(aria-label='Naviagte Before') navigate_before
+  md-button.slider-button.md-accent.slider-button-next.md-icon-button(
+    ng-click="photoDetailController.showNext()"
+    ng-show="photoDetailController.arrowButtons.rightArrowVisible"
+  )
+    md-icon.md-48(aria-label='Navigate Next') navigate_next
+
+
   md-sidenav.md-sidenav-right(md-component-id='right', md-disable-backdrop='', md-is-open="photoDetailController.isFotoFormOpen" md-is-locked-open="photoDetailController.isFotoFormOpen", flex-xs="100")
     md-toolbar.md-default-theme.md-hue-1(layout="row")
       h1.md-toolbar-tools Info

@@ -5,9 +5,15 @@ html {
   padding: 0;
 }
 
-.site-content-toolbar{
+.site-content-toolbar {
   background: #ECEFF1;
   color: #757575;
+}
+
+.md-48 {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
 }
 
 /*----Sidenav----*/
@@ -16,27 +22,27 @@ md-sidenav.md-sidenav-left, md-sidenav.md-sidenav-left md-list {
   color: rgba(255, 255, 255, 0.56);
 }
 
-md-sidenav.md-sidenav-left md-list{
+md-sidenav.md-sidenav-left md-list {
   font-weight: 500;
 }
 
-md-sidenav md-divider{
+md-sidenav md-divider {
   border-top-color: #78909c;
 }
 
-md-sidenav md-icon{
+md-sidenav md-icon {
   margin-left: 0;
 }
 /*----Sidenav----*/
 
 /*----Toolbar----*/
-.transparent_gradient{
+.transparent_gradient {
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   background-image: -moz-linear-gradient(top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
   background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
 }
-md-toolbar.transparent_gradient{
+md-toolbar.transparent_gradient {
   background-color: transparent;
   position: absolute;
   left: 0;
@@ -45,6 +51,7 @@ md-toolbar.transparent_gradient{
 }
 /*----Toolbar----*/
 
+/*----Slider----*/
 #img-wrapper img {
   max-height: 100%;
   max-width: 100%;
@@ -52,36 +59,77 @@ md-toolbar.transparent_gradient{
   padding: 0 18px;
 }
 
-.blue_grey-400{
+.md-button.slider-button {
+  position: absolute;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin-top: -28px;
+  z-index: 10;
+  cursor: pointer;
+  -moz-background-size: 27px 44px;
+  -webkit-background-size: 27px 44px;
+  background-size: 27px 44px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+
+  &:not([disabled]):hover {
+   background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .md-48 {
+    line-height: 0.9;
+  }
+}
+
+.slider-button-prev {
+  left: 12px;
+
+  .md-48 {
+    margin-left: -4px;
+  }
+}
+.slider-button-next {
+  right: 12px;
+
+  .md-48 {
+    margin-left: -2px;
+  }
+}
+/*----Slider----*/
+
+.blue_grey-400 {
   color: #78909c;
 }
 
 /*----Sidenav right----*/
-#photo_detail_input md-input-container{
+#photo_detail_input md-input-container {
   margin: 0;
   padding: 0;
 }
 
-.md-sidenav-right md-divider{
+.md-sidenav-right md-divider {
   margin: 0 -8px;
 }
 
-.md-sidenav-right md-input-container label, .md-sidenav-right md-input-container .md-input{
+.md-sidenav-right md-input-container label, .md-sidenav-right md-input-container .md-input {
   text-shadow: none;
 }
 
-.md-sidenav-right md-input-container label{
+.md-sidenav-right md-input-container label {
   color: rgba(96, 125, 139, 0.5);
 }
 
-.md-sidenav-right md-input-container .md-input{
+.md-sidenav-right md-input-container .md-input {
   color: rgb(96, 125, 139);
 }
-.md-sidenav-right md-input-container:not(.md-input-invalid).md-input-has-value label{
+.md-sidenav-right md-input-container:not(.md-input-invalid).md-input-has-value label {
   color: rgb(0, 188, 212);
 }
 
-.md-sidenav-right md-list md-list-item.md-2-line .md-list-item-text span{
+.md-sidenav-right md-list md-list-item.md-2-line .md-list-item-text span {
   color: rgba(0,0,0,0.54);
   font-size: 14px;
   font-weight: 500;

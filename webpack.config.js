@@ -24,7 +24,9 @@ module.exports = {
       'angular',
       'angular-messages',
       'angular-material',
-      'angular-route'
+      'angular-route',
+      'angular-mocks',
+      'angular-sanitize'
     ],
     app: ['./app.js']
   },
