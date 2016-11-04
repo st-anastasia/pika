@@ -1,3 +1,5 @@
+import sideMenuTemplate from './side-menu.jade';
+
 class SideMenuController{
 
   /** @ngInject */
@@ -58,9 +60,8 @@ class SideMenuController{
   }*/
 }
 
-
 export const SideMenuComponent = {
-  template: require('./side-menu.jade')(),
+  template: sideMenuTemplate(),
   controller: SideMenuController
 };
 
