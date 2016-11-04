@@ -1,7 +1,6 @@
-'use strict';
-
 class SideMenuController{
 
+  /** @ngInject */
   constructor($mdSidenav){
    this.$mdSidenav = $mdSidenav;
    this.initMenu();
@@ -59,4 +58,9 @@ class SideMenuController{
   }*/
 }
 
-export default SideMenuController;
+
+export const SideMenuComponent = {
+  template: require('./side-menu.jade')(),
+  controller: SideMenuController
+};
+

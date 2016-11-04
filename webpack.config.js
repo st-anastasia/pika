@@ -24,11 +24,11 @@ module.exports = {
       'angular',
       'angular-messages',
       'angular-material',
-      'angular-route',
+      'angular-ui-router',
       'angular-mocks',
       'angular-sanitize'
     ],
-    app: ['./app.js']
+    index: ['./index.js']
   },
   output: {
     path: __dirname + '/public/build',
