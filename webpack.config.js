@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'ng-annotate!babel!eslint',
+        loader: 'ng-annotate!babel',
         exclude: /node_modules|bower_components/
       },
       { test: /\.jade$/,  loader: 'jade' },

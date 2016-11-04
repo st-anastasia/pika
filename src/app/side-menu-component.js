@@ -1,54 +1,54 @@
 import sideMenuTemplate from './side-menu.jade';
 
-class SideMenuController{
+class SideMenuController {
 
   /** @ngInject */
-  constructor($mdSidenav){
-   this.$mdSidenav = $mdSidenav;
-   this.initMenu();
-   this.initAdminMenu();
+  constructor($mdSidenav) {
+    this.$mdSidenav = $mdSidenav;
+    this.initMenu();
+    this.initAdminMenu();
   }
 
-  initMenu(){
+  initMenu() {
     this.menu = [
       {
-        link : '',
+        link: '',
         title: 'Photos',
-        icon: 'image'
+        icon: 'image',
       },
       {
-        link : '',
+        link: '',
         title: 'Albums',
-        icon: 'collections'
-      }
+        icon: 'collections',
+      },
     ];
   }
 
-  initAdminMenu(){
+  initAdminMenu() {
     this.adminMenu = [
       {
-        link : '',
+        link: '',
         title: 'Profile',
-        icon: 'account_box'
+        icon: 'account_box',
       },
       {
-        link : '',
+        Link: '',
         title: 'Trash',
-        icon: 'delete'
+        icon: 'delete',
       },
       {
-        link : '',
+        link: '',
         title: 'Settings',
-        icon: 'settings'
-      }
+        icon: 'settings',
+      },
     ];
   }
 
-  toggle(){
+  toggle() {
     this.$mdSidenav('left').toggle();
   }
 
-  close(){
+  close() {
     this.$mdSidenav('left').close();
   }
   /*toggle(){
@@ -60,8 +60,8 @@ class SideMenuController{
   }*/
 }
 
-export const SideMenuComponent = {
+export default {
   template: sideMenuTemplate(),
-  controller: SideMenuController
+  controller: SideMenuController,
 };
 
