@@ -1,16 +1,15 @@
-'use strict';
+import { getPhoto, getPhotos } from '../data/database';
 
-import { getPhoto, getPhotos } from "../data/database";
-
-class PhotoDetailController{
-  constructor($routeParams, $mdDialog, $mdSidenav, $location){
+class PhotoDetailController {
+  /** @ngInject */
+  constructor($routeParams, $mdDialog, $mdSidenav, $location) {
     this.$mdDialog = $mdDialog;
     this.$mdSidenav = $mdSidenav;
     this.$location = $location;
 
     this.photo = getPhoto($routeParams.photoId);
     this.photos = getPhotos();
-    this.currentPhotoId = parseInt($routeParams.photoId);
+    this.currentPhotoId = parseInt($routeParams.photoId, 10);
 
     this.originatorEvent = null;
     this.isFotoFormOpen = false;
@@ -18,16 +17,16 @@ class PhotoDetailController{
     this.displayButtons();
   }
 
-  openMenu($mdOpenMenu, event){
+  openMenu($mdOpenMenu, event) {
     this.originatorEvent = event;
     $mdOpenMenu(event);
   }
 
-  menuItemClick(index){
+  menuItemClick(index) {
     this.$mdDialog.show(
       this.$mdDialog.alert()
         .title('You clicked!')
-        .textContent('Menu Item clicked, index: ' + index)
+        .textContent(`Menu Item clicked, index: ${index}`)
         .ok('OK')
         .targetEvent(this.originatorEvent)
     );
@@ -35,36 +34,35 @@ class PhotoDetailController{
     this.originatorEvent = null;
   }
 
-  toggleFotoForm(){
-    console.log('mach die Sidenav auf');
+  toggleFotoForm() {
     this.$mdSidenav('right').toggle();
   }
 
-  close(){
+  close() {
     this.$mdSidenav('right').close();
   }
 
-  showPrev(){
-    if(this.currentPhotoId > 0){
-      this.currentPhotoId--;
+  showPrev() {
+    if (this.currentPhotoId > 0) {
+      this.currentPhotoId -= 1;
     }
     this.showPhoto();
   }
-  showNext(){
-    if(this.currentPhotoId < this.photos.length - 1){
-      this.currentPhotoId++;
+  showNext() {
+    if (this.currentPhotoId < this.photos.length - 1) {
+      this.currentPhotoId += 1;
     }
     this.showPhoto();
   }
 
-  showPhoto(){
-    this.$location.path('photos/' + this.currentPhotoId);
+  showPhoto() {
+    this.$location.path(`photos/${this.currentPhotoId}`);
   }
 
-  displayButtons(){
+  displayButtons() {
     this.arrowButtons = {
       leftArrowVisible: this.currentPhotoId > 0,
-      rightArrowVisible: this.currentPhotoId < this.photos.length - 1
+      rightArrowVisible: this.currentPhotoId < this.photos.length - 1,
     };
   }
 }

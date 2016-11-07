@@ -10,3 +10,5 @@ md-sidenav.md-sidenav-left(md-component-id='left', md-disable-backdrop='', md-wh
       md-list-item(ng-repeat='item in sideMenuController.adminMenu', ng-click='null')
         md-icon.blue_grey-400.material-icons.step {{item.icon}}
         p {{item.title}}
+    md-button(ng-click='sideMenuController.close()', class='md-primary') Close
+

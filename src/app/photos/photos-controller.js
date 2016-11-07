@@ -1,7 +1,5 @@
 import { getPhotos } from '../data/database';
 
-const photosTemplate = require('./photos.jade');
-
 class PhotosController {
   /** @ngInject */
   constructor($location, $mdSidenav) {
@@ -19,7 +17,4 @@ class PhotosController {
   }
 }
 
-export default {
-  template: photosTemplate(),
-  controller: PhotosController,
-};
+export default PhotosController;

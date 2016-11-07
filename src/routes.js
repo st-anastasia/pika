@@ -1,16 +1,15 @@
-function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
-  $locationProvider.html5Mode(true).hashPrefix('!');
-  $urlRouterProvider.otherwise('/');
+const photosTemplate = require('./app/photos/photos.jade');
+const photoDetailTemplate = require('./app/photos/photo-detail.jade');
 
-  $stateProvider
-    .state('photos', {
-      url: '/photos',
-      component: 'photos',
+function routesConfig($routeProvider) {
+  $routeProvider
+    .when('/photos', {
+      template: photosTemplate,
+      controller: 'photosController as $ctrl',
     })
-
-    .state('photoDetail', {
-      url: '/photos/:photoId',
-      controller: 'photoDetailComponent',
+    .when('/photos/:photoId', {
+      template: photoDetailTemplate,
+      controller: 'photoDetailController as $ctrl',
     });
 }
 
