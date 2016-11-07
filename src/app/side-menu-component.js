@@ -63,5 +63,6 @@ class SideMenuController {
 export default {
   template: sideMenuTemplate(),
   controller: SideMenuController,
+  controllerAs: 'sideMenuController',
 };
 

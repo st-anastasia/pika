@@ -1,16 +1,25 @@
-'use strict';
+import { getPhotos } from '../data/database';
 
-import { getPhotos } from "../data/database";
+const photosTemplate = require('./photos.jade');
 
-class PhotosController{
-  constructor($location){
+class PhotosController {
+  /** @ngInject */
+  constructor($location, $mdSidenav) {
     this.photos = getPhotos();
-    this.location = $location;
+    this.$location = $location;
+    this.$mdSidenav = $mdSidenav;
   }
 
-  openPhoto(index){
-    this.location.path('photos/' + index);
+  openPhoto(index) {
+    this.$location.path(`photos/${index}`);
+  }
+
+  toggleSideMenu() {
+    this.$mdSidenav('left').toggle();
   }
 }
 
-export default PhotosController;
+export default {
+  template: photosTemplate(),
+  controller: PhotosController,
+};

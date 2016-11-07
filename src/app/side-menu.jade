@@ -3,10 +3,10 @@ md-sidenav.md-sidenav-left(md-component-id='left', md-disable-backdrop='', md-wh
     h1.md-toolbar-tools Sidenav Left
   md-content
     md-list(flex='')
-      md-list-item(ng-repeat='item in $ctrl.menu', ng-click='null')
+      md-list-item(ng-repeat='item in sideMenuController.menu', ng-click='null')
         md-icon.blue_grey-400.material-icons.step {{item.icon}}
         p {{item.title}}
       md-divider
-      md-list-item(ng-repeat='item in $ctrl.adminMenu', ng-click='null')
+      md-list-item(ng-repeat='item in sideMenuController.adminMenu', ng-click='null')
         md-icon.blue_grey-400.material-icons.step {{item.icon}}
         p {{item.title}}
