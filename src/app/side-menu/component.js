@@ -1,4 +1,4 @@
-import sideMenuTemplate from './side-menu.jade';
+import template from './index.jade';
 
 class SideMenuController {
 
@@ -61,7 +61,7 @@ class SideMenuController {
 }
 
 export default {
-  template: sideMenuTemplate(),
+  template: template(),
   controller: SideMenuController,
   controllerAs: 'sideMenuController',
 };

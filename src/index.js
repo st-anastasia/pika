@@ -5,17 +5,20 @@ import 'angular-route';
 import 'angular-material/angular-material.css';
 import './index.scss';
 
-import SideMenuComponent from './app/side-menu-component';
-import PhotosComponent from './app/photos/photos-controller';
-import PhotoDetailComponent from './app/photos/photo-detail-controller';
+import SideMenuComponent from './app/side-menu/component';
+import PhotosToolbarComponent from './app/photos/toolbar-component';
+import PhotosController from './app/photos/controller';
+import PhotoDetailToolbarComponent from './app/photo-detail/toolbar-component';
+import PhotoDetailController from './app/photo-detail/controller';
 
 import routesConfig from './routes';
 import themingConfig from './theming';
 
 angular.module('pika', ['ngRoute', 'ngMaterial'])
   .component('sideMenu', SideMenuComponent)
-  .controller('photosController', PhotosComponent)
-  .controller('photoDetailController', PhotoDetailComponent)
+  .component('photosToolbar', PhotosToolbarComponent)
+  .controller('photosController', PhotosController)
+  .component('photoDetailToolbar', PhotoDetailToolbarComponent)
+  .controller('photoDetailController', PhotoDetailController)
   .config(routesConfig)
   .config(themingConfig);
-

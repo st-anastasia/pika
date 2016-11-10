@@ -1,5 +1,5 @@
-const photosTemplate = require('./app/photos/photos.jade');
-const photoDetailTemplate = require('./app/photos/photo-detail.jade');
+const photosTemplate = require('./app/photos/index.jade');
+const photoDetailTemplate = require('./app/photo-detail/index.jade');
 
 function routesConfig($routeProvider) {
   $routeProvider

@@ -17,27 +17,6 @@ class PhotoDetailController {
     this.displayButtons();
   }
 
-  openMenu($mdOpenMenu, event) {
-    this.originatorEvent = event;
-    $mdOpenMenu(event);
-  }
-
-  menuItemClick(index) {
-    this.$mdDialog.show(
-      this.$mdDialog.alert()
-        .title('You clicked!')
-        .textContent(`Menu Item clicked, index: ${index}`)
-        .ok('OK')
-        .targetEvent(this.originatorEvent)
-    );
-
-    this.originatorEvent = null;
-  }
-
-  toggleFotoForm() {
-    this.$mdSidenav('right').toggle();
-  }
-
   close() {
     this.$mdSidenav('right').close();
   }
