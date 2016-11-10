@@ -11,14 +11,8 @@ class PhotoDetailController {
     this.photos = getPhotos();
     this.currentPhotoId = parseInt($routeParams.photoId, 10);
 
-    this.originatorEvent = null;
     this.isFotoFormOpen = false;
-
     this.displayButtons();
-  }
-
-  close() {
-    this.$mdSidenav('right').close();
   }
 
   showPrev() {
