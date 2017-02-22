@@ -1,0 +1,38 @@
+md-toolbar.md-default-theme.md-hue-1(layout="row")
+  h1.md-toolbar-tools Info
+  md-button.md-icon-button(aria-label='Close', ng-click='$ctrl.close()')
+    md-icon close
+md-content(layout-padding='')
+  #photo_detail_input
+    form
+      md-input-container.md-block.md-accent
+        label(for='testInput') Test input
+        input#testInput(type='text', ng-model='data', md-autofocus='')
+  md-divider
+
+  md-list(flex='')
+    md-subheader.md-no-sticky Details
+    md-list-item.md-2-line
+      md-icon(aria-label='Insert invitation') insert_invitation
+      .md-list-item-text
+        h3 22. April
+        p Fr., 16:53
+    md-list-item.md-2-line
+      md-icon(aria-label='Camera') camera
+      .md-list-item-text
+        h3 D5803
+        div
+          span f/2
+          span 1/400
+          span 4.6 mm
+          span ISO 50
+    md-list-item.md-2-line
+      md-icon(aria-label='Image') image
+      .md-list-item-text
+        h3 {{$ctrl.photo.fileName}}
+        div
+          span 8.3 MP
+          span 3840 × 2160
+          span 1.8 MB
+  md-button.md-primary(ng-click='$ctrl.close()')
+    | Close Sidenav Right
