@@ -1,5 +1,3 @@
-'use strict';
-
 const webpack = require('webpack');
 const path = require('path');
 
@@ -16,7 +14,7 @@ module.exports = {
     colors: true,
     historyApiFallback: true,
     contentBase: 'public',
-    publicPath: '/build'
+    publicPath: '/build',
   },
   context: __dirname + '/src',
   entry: {
@@ -26,31 +24,31 @@ module.exports = {
       'angular-material',
       'angular-route',
       'angular-mocks',
-      'angular-sanitize'
+      'angular-sanitize',
     ],
-    app: ['./app.js']
+    index: ['./index.js'],
   },
   output: {
     path: __dirname + '/public/build',
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
-    chunkFilename: '[id].chunk.js'
+    chunkFilename: '[id].chunk.js',
   },
   module: {
     loaders: [
       { test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap') },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap')
+        loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap'),
       },
       {
         test: /\.js$/,
-        loader: 'ng-annotate!babel!jshint',
-        exclude: /node_modules|bower_components/
+        loader: 'ng-annotate!babel',
+        exclude: /node_modules|bower_components/,
       },
-      { test: /\.jade$/,  loader: 'jade' },
-      { test: /\.(png|jpg|svg|woff)$/, loader: 'file-loader?name=assets/[path][name]-[hash].[ext]' }
-    ]
+      { test: /\.jade$/, loader: 'jade' },
+      { test: /\.(png|jpg|svg|woff)$/, loader: 'file-loader?name=assets/[path][name]-[hash].[ext]' },
+    ],
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
@@ -58,6 +56,6 @@ module.exports = {
       minChunks: Infinity,
     }),
     // extract inline css into separate 'styles.css'
-    new ExtractTextPlugin('styles.css')
-   ]
+    new ExtractTextPlugin('styles.css'),
+  ],
 };

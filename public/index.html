@@ -1,37 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <base href="/">
   <meta charset="UTF-8">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="build/styles.css">
   <title>Pika</title>
 </head>
 <body ng-app="pika" layout="row" layout-fill>
-<div ng-controller="SideMenuController as sideMenuController" layout="column" layout-fill ng-cloak="">
-  <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4">
-    <md-toolbar class="md-default-theme md-tall md-whiteframe-2dp">
-      <h1 class="md-toolbar-tools">Sidenav Left</h1>
-    </md-toolbar>
-    <md-content>
-      <md-list flex>
-        <md-list-item ng-repeat="item in sideMenuController.menu" ng-click="null">
-          <md-icon class="blue_grey-400 material-icons step">{{item.icon}}</md-icon>
-          <p>{{item.title}}</p>
-        </md-list-item>
-        <md-divider></md-divider>
-        <md-list-item ng-repeat="item in sideMenuController.adminMenu" ng-click="null">
-          <md-icon class="blue_grey-400 material-icons step">{{item.icon}}</md-icon>
-          <p>{{item.title}}</p>
-        </md-list-item>
-      </md-list>
-    </md-content>
-  </md-sidenav>
-
-  <div ng-view role="main" layout="column" layout-fill>
-  </div>
+<div layout="column" layout-fill ng-cloak="">
+  <side-menu></side-menu>
+  <div ng-view role="main" layout="column" layout-fill></div>
 </div>
 
 <script src="build/vendor.js"></script>
-<script src="build/app.js"></script>
+<script src="build/index.js"></script>
 </body>
 </html>
