@@ -21,14 +21,16 @@ controller.create = function(req, res){
   const gfs = mongoose.connection.gfs;
 
   const photo = req.file;
+  const metadata = JSON.parse(req.body.metadata)
+
   const readStream = fs.createReadStream(photo.path);
-  const writeStream = gridfs.createWriteStream({
+  const writeStream = gfs.createWriteStream({
     filename: photo.filename,
     content_type: photo.mimetype,
     root: 'photos',
     metadata: {
-      title: req.body.title,
-      description: req.body.description,
+      title: metadata.title,
+      description: metadata.description,
       owner: ObjectId(req.user.id)
     }
   });

@@ -12,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
+app.use('/api', jwt({ secret: config.tokenSecret }).unless({path:'/api/session-token'}));
+
 app.get('/photos/:id', require('./controllers/photo-images').show);
 
 app.use('/api', require('./routes/session-tokens'));
