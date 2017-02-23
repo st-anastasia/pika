@@ -29,6 +29,7 @@
     "ng-annotate-loader": "^0.1.0",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.11.1",
+    "repl.history": "^0.1.4",
     "sass-loader": "^4.0.1",
     "style-loader": "^0.13.1"
   },
@@ -41,12 +42,14 @@
     "angular-mocks": "^1.5.7",
     "angular-route": "^1.5.8",
     "angular-sanitize": "^1.5.7",
-    "bcrypt": "^0.8.6",
-    "body-parser": "^1.15.0",
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.16.1",
     "express": "^4.13.4",
-    "express-jwt": "^3.3.0",
-    "mongoose": "^4.4.4",
+    "express-jwt": "^5.1.0",
+    "gridfs-stream": "^1.1.1",
+    "mongoose": "^4.4.12",
     "morgan": "^1.7.0",
+    "multer": "^1.1.0",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   }
