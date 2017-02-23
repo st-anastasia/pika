@@ -8,6 +8,7 @@ const controller = {};
 controller.create = function(req, res) {
   const username = req.body.username || '';
   const password = req.body.password || '';
+  console.log(req.body)
   if (username == '' || password == '') return res.sendStatus(401);
   User.findOne({username: username})
     .then(user => {

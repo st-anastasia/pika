@@ -30,7 +30,8 @@
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.11.1",
     "sass-loader": "^4.0.1",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "repl.history": "^0.1.4",
   },
   "dependencies": {
     "angular": "^1.5.0",
@@ -41,7 +42,7 @@
     "angular-mocks": "^1.5.7",
     "angular-route": "^1.5.8",
     "angular-sanitize": "^1.5.7",
-    "bcrypt": "^0.8.6",
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "express-jwt": "^3.3.0",

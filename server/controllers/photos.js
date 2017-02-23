@@ -18,7 +18,7 @@ controller.index = function(req, res){
 controller.show = function(req, res){};
 
 controller.create = function(req, res){
-  const gridfs = req.app.get('gridfs');
+  const gfs = mongoose.connection.gfs;
 
   const photo = req.file;
   const readStream = fs.createReadStream(photo.path);
