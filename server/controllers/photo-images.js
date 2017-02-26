@@ -2,19 +2,23 @@
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
+const Photo = require('../models/photo');
 const controller = {};
 
 controller.show = function(req, res){
-  const gridfs = req.app.get('gridfs');
-  const readstream = gridfs.createReadStream({_id: ObjectId(req.params.id), root: 'photos'});
-  readstream.pipe(res);
+  const readPhoto = (photo) => new Promise((resolve, reject) => {
+    const gfs = mongoose.connection.gfs;
+    const readstream = gfs.createReadStream({_id: photo.id, root: 'photos'});
+    readstream.pipe(res);
 
-  req.on('error', function(err) {
-    res.status(500).send(err);
+    readstream.on('error', function (err) {
+      reject(err)
+    });
   });
-  readstream.on('error', function (err) {
-    res.status(500).send(err);
-  });
+
+  Photo.findOne({filename: req.params.token})
+    .then(readPhoto)
+    .catch((err) => { res.status(500).send(err) });
 };
 
 module.exports = controller;
