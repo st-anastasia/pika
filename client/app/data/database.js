@@ -360,7 +360,7 @@ const photos = [
     "description": "Voluptatem sed itaque voluptas."
   }
 ].map(entry => {
-  entry.url = '/build/' + require('../images/photos_gallery/' + entry.fileName);
+  entry.url = require('../../images/photos-gallery/' + entry.fileName);
   return entry;
 });
 

@@ -4,58 +4,50 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  devtool: 'inline-source-map',
-  debug: true,
-  cache: false,
-  // our Development Server configs
-  devServer: {
-    hot: true,
-    inline: true,
-    colors: true,
-    historyApiFallback: true,
-    contentBase: 'public',
-    publicPath: '/build',
-  },
-  context: __dirname + '/src',
+  devtool: 'source-map',
+  context: __dirname + '/client',
   entry: {
     vendor: [
-      'angular',
-      'angular-messages',
-      'angular-material',
-      'angular-route',
-      'angular-mocks',
-      'angular-sanitize',
+      "angular",
+      "angular-animate",
+      "angular-aria",
+      "angular-material",
+      "angular-messages",
+      "angular-mocks",
+      "angular-route",
+      "angular-sanitize"
     ],
     index: ['./index.js'],
   },
   output: {
     path: __dirname + '/public/build',
-    filename: '[name].js',
-    sourceMapFilename: '[name].js.map',
-    chunkFilename: '[id].chunk.js',
+    filename: '[name].bundle.js',
+    publicPath: '/build/'
   },
   module: {
-    loaders: [
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap') },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap'),
-      },
-      {
-        test: /\.js$/,
-        loader: 'ng-annotate!babel',
-        exclude: /node_modules|bower_components/,
-      },
-      { test: /\.jade$/, loader: 'jade' },
-      { test: /\.(png|jpg|svg|woff)$/, loader: 'file-loader?name=assets/[path][name]-[hash].[ext]' },
-    ],
+    rules: [
+      {test: /\.css$/, use: ExtractTextPlugin.extract({use: 
+        {loader: 'css-loader', options: {sourceMap: true}}
+      })},
+      {test: /\.scss$/, use: ExtractTextPlugin.extract({use: [
+        {loader: 'css-loader', options: {sourceMap: true}},
+        {loader: 'sass-loader', options: {sourceMap: true}}
+      ]})},
+      {test: /\.js$/, use: ['ng-annotate-loader','babel-loader'],
+        exclude: /node_modules|bower_components/},
+      {test: /\.jade$/, use: 'pug-loader'},
+      {test: /\.(png|jpg|svg|woff)$/, use: {
+        loader: 'file-loader', 
+        options: {name: '[path][name]-[hash].[ext]'} 
+      }}
+    ]
   },
   plugins: [
+    new ExtractTextPlugin('styles.bundle.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
+      filename: 'vendor.bundle.js'
     }),
-    // extract inline css into separate 'styles.css'
-    new ExtractTextPlugin('styles.css'),
-  ],
+  ]
 };
