@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PhotoSchema = new Schema({
+  filename: String,
   contentType: String,
   length: Number,
   chunkSize: Number,
