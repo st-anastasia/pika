@@ -4,7 +4,7 @@ const jwt = require('express-jwt');
 const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const config = require('./config/config.js');
+const config = require('./config');
 const connection = require('./db/connection');
 
 app.use(bodyParser.urlencoded({ extended: false }));

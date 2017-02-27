@@ -1,6 +1,6 @@
 ```bash
 json="Content-Type: application/json"
-token=`curl -s -H $json -X POST -d '{"username":"chuck", "password": "123456"}' http://localhost:8000/api/session-token | jq -r '.token'`
+token=`curl -s -H $json -X POST -d '{"username":"pika", "password": "123456"}' http://localhost:8000/api/session-token | jq -r '.token'`
 auth="Authorization: Bearer $token"
 
 curl -H $auth http://localhost:8000/api/user

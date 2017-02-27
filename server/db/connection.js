@@ -3,7 +3,7 @@ const connection = mongoose.connection;
 
 if(!connection.db) {
   const Grid = require('gridfs-stream');
-  const config = require('../config/config.js');
+  const config = require('../config');
 
   mongoose.Promise = global.Promise;
   Grid.mongo = mongoose.mongo;

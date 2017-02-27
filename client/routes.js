@@ -3,6 +3,10 @@ const photoDetailTemplate = require('./app/photo-detail/index.jade');
 
 function routesConfig($routeProvider) {
   $routeProvider
+    .when('/', {
+      template: '<p>Pika</p>',
+      controller: 'sessionController as $ctrl'
+    })
     .when('/photos', {
       template: photosTemplate,
       controller: 'photosController as $ctrl',

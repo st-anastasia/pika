@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   port: 8000,
   mongoConnection: 'mongodb://localhost:27017/pika_development',
