@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const base64url = require('base64url');
 const fs = require("fs");
 
-const config = require('../config/config.js');
+const config = require('../config');
 const Photo = require('../models/photo');
 const controller = {};
 
