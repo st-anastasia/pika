@@ -1,1 +1,8 @@
-{ "presets": ["es2015"] }
+{ "presets": [
+  [ "env", {
+    "targets": {
+      "browsers": ["Chrome >= 56", "Firefox >= 51", "Safari >= 10"], 
+    },
+    "debug": true
+  }]
+]}
