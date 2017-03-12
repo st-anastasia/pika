@@ -7,6 +7,7 @@ import './index.scss';
 
 import SideMenuComponent from './app/side-menu/component';
 import Client from './app/client';
+import PhotosService from './app/photos/service';
 import SessionController from './app/session/controller';
 import PhotosController from './app/photos/controller';
 import PhotosToolbarComponent from './app/photos/toolbar-component';
@@ -20,6 +21,7 @@ import themingConfig from './theming';
 angular.module('pika', ['ngRoute', 'ngMaterial'])
   .component('sideMenu', SideMenuComponent)
   .service('client', Client)
+  .service('photosService', PhotosService)
   .controller('sessionController', SessionController)
   .controller('photosController', PhotosController)
   .component('photosToolbar', PhotosToolbarComponent)

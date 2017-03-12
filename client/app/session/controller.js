@@ -12,10 +12,11 @@ class SessionController {
     const _this = this;
     this.client.fetch('/api/session-token', {body: {username: 'pika', password: '123456'}})
     .then( user => {
-      console.log(user.token)
+      console.log(user.token);
+      _this.client.authorize(user);
       _this.$location.path('photos');
-      _this.$scope.$apply()
-    })
+      _this.$scope.$apply();
+    });
   }
 }
 
