@@ -1,5 +1,3 @@
-import { getPhotos } from '../data/database';
-
 class PhotosController {
   /** @ngInject */
   constructor($scope, $routeParams, $location, photosService){
@@ -14,13 +12,11 @@ class PhotosController {
   }
 
   openPhoto(id){
-    const _this = this;
-    console.log(id);
+    this.photosService.loadPhoto(id)
     this.$location.path(`photos/${id}`);
   }
 
   _loadPhotos(){
-    const _this = this;
     this.photosService.loadPhotos({offset: this.$routeParams.offset})
   }
 }

@@ -29,10 +29,10 @@ class Client {
       mergedOptions.method = 'POST';
     }
 
-    this._joinUrlQuery(mergedOptions.query);
+    const urlWithQuery = this._joinUrlQuery(url, mergedOptions.query);
     this._addAuthHeader(mergedOptions);
 
-    let fetch = window.fetch(url, mergedOptions);
+    let fetch = window.fetch(urlWithQuery, mergedOptions);
     fetch = fetch.then(_this._checkStatus);
 
     if (mergedOptions.headers['Accept'] === 'application/json'){

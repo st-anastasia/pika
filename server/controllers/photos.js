@@ -11,12 +11,14 @@ const Photo = require('../models/photo');
 const controller = {};
 
 controller.index = function(req, res){
-  req = Object.assign({offset: 0, limit: 50}, req);
-  
+  const query = Object.assign({offset: 0, limit: 50}, req.query);
+  const limit = parseInt(query.limit);
+  const skip = parseInt(query.offset) * limit;
+
   Promise.all([
     Photo.find({"metadata.owner": ObjectId(req.user.id)})
-      .skip(req.offset)
-      .limit(req.limit),
+      .skip(skip)
+      .limit(limit),
     Photo.count()
   ])
   .then( ([photos, totalSize]) => {
@@ -46,8 +48,8 @@ controller.update = function(req, res){
         description: metadata.description,
         owner: ObjectId(req.user.id)
       }
-    }
-  }
+    };
+  };
 
   const write = (photo) => {
     const gfs = mongoose.connection.gfs;
@@ -58,7 +60,7 @@ controller.update = function(req, res){
     writeStream.on('close', (file) => {
       fs.unlink(req.file.path, () => { res.json(200, file) });
     });
-  }
+  };
 
   generateToken().then( (token) => write(createPhoto(token)) );
 };

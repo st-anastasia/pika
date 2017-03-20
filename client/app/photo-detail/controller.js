@@ -1,8 +1,6 @@
-import { getPhoto, getPhotos } from '../data/database';
-
 class PhotoDetailController {
   /** @ngInject */
-  constructor($routeParams, $mdDialog, $mdSidenav, $location, photosService){
+  constructor($scope, $routeParams, $mdDialog, $mdSidenav, $location, photosService){
     this.$routeParams = $routeParams;
     this.$mdDialog = $mdDialog;
     this.$mdSidenav = $mdSidenav;
@@ -11,15 +9,16 @@ class PhotoDetailController {
     this.isFotoFormOpen = false;
 
     this.photosService = photosService;
+    this.photosService.$scope = $scope;
     this._loadPhoto();
   }
 
   showPrev(){
-    this.photosService.next();
+    this.photosService.prev();
   }
 
   showNext(){
-    this.photosService.prev();
+    this.photosService.next();
   }
 
   _loadPhoto(){
