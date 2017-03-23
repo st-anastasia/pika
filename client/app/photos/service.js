@@ -2,8 +2,8 @@ const LIMIT = 5;
 
 class PhotosService {
   /** @ngInject */
-  constructor(client) {
-    this.client = client;
+  constructor($http) {
+    this.$http = $http;
 
     this.photos = [];
     this.totalSize = 0;
@@ -27,8 +27,8 @@ class PhotosService {
       return;
     }
 
-    this.client.fetch(`/api/photos/${id}`).then(photo => {
-      _this._currentPhoto = photo;
+    this.$http.get(`/api/photos/${id}`).then(({data}) => {
+      _this._currentPhoto = data;
       _this._setSliding({state: 'off'});
 
       return photo;
@@ -39,14 +39,14 @@ class PhotosService {
     const _this = this;
     if(offset) this.currentOffset = offset;
 
-    return this.client.fetch('/api/photos', {query: {offset, limit}})
+    return this.$http.get('/api/photos', {params: {offset, limit}})
       .then( res => {
-        if(res.photos.length < 1) return res;
+        const {data: {photos, totalSize}} = res;
+        if(photos.length < 1) return _this.photos;
 
-        _this.photos = res.photos;
-        _this.totalSize = res.totalSize;
-        _this.$scope.$apply();
-        return res;
+        _this.photos = photos;
+        _this.totalSize = totalSize;
+        return photos;
     });
   }
 
