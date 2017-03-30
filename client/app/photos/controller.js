@@ -12,12 +12,12 @@ class PhotosController {
   }
 
   openPhoto(id){
-    this.photosService.loadPhoto(id)
-    this.$location.path(`photos/${id}`);
+    this.photosService.loadPhoto(id);
+    this.$location.path(`photo-detail`);
   }
 
   _loadPhotos(){
-    this.photosService.loadPhotos({offset: this.$routeParams.offset})
+    this.photosService.loadPhotos({page: this.photosService.currentPage});
   }
 }
 

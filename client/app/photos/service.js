@@ -1,4 +1,4 @@
-const LIMIT = 5;
+const LIMIT = 50;
 
 class PhotosService {
   /** @ngInject */
@@ -10,7 +10,7 @@ class PhotosService {
 
     this.currentPhoto = {};
     this.currentIndex = 0;
-    this.currentOffset = 0;
+    this.currentPage = 0;
     this.sliding = {
       prev: false,
       next: true
@@ -35,15 +35,13 @@ class PhotosService {
     });
   }
 
-  loadPhotos({offset, limit=LIMIT}={}){
+  loadPhotos({page=0, limit=LIMIT}={}){
     const _this = this;
-    if(offset) this.currentOffset = offset;
 
-    return this.$http.get('/api/photos', {params: {offset, limit}})
+    return this.$http.get('/api/photos', {params: {page, limit}})
       .then( res => {
         const {data: {photos, totalSize}} = res;
-        if(photos.length < 1) return _this.photos;
-
+        _this.currentPage = page;
         _this.photos = photos;
         _this.totalSize = totalSize;
         return photos;
@@ -52,12 +50,12 @@ class PhotosService {
 
   prev(step = 1){
     const _this = this;
-    if (this._setCurrentIndex(this.currentIndex - step)) return;
+    if (this._slideTo(this.currentIndex - step) !== null) return;
 
-    const prevOffset = this.currentOffset - 1;
-    if(prevOffset < 0) return;
+    const prevPage = this.currentPage - 1;
+    if(prevPage < 0) return;
 
-    this.loadPhotos({offset: prevOffset})
+    this.loadPhotos({page: prevPage})
       .then( photos => {
         _this._slideTo(photos.length - 1);
       });
@@ -65,18 +63,18 @@ class PhotosService {
 
   next(step = 1){
     const _this = this;
-    if (this._setCurrentIndex(this.currentIndex + step)) return;
+    if (this._slideTo(this.currentIndex + step) !== null) return;
 
-    const nextOffset = this.currentOffset + 1;
-    this.loadPhotos({offset: nextOffset})
-      .then( photos => {
-        _this._slideTo(0);
-      });
+    const nextPage = this.currentPage + 1;
+    this.loadPhotos({page: nextPage})
+      .then( photos => _this._slideTo(0) );
   }
 
   _slideTo(index){
-    this._setCurrentIndex(index);
+    if (this._setCurrentIndex(index) === null) return null;
+
     this._setSliding();
+    return this.currentIndex;
   }
 
   _setCurrentIndex(index){
@@ -92,9 +90,10 @@ class PhotosService {
       return this.sliding = {next: false, prev: false};
     }
 
+    const offset = this.currentPage * LIMIT + this.currentIndex;
     this.sliding = {
-      prev: this.currentIndex !== 0,
-      next: this.currentOffset * LIMIT + this.currentIndex + 1 !== this.totalSize
+      prev: offset !== 0,
+      next: offset + 1 !== this.totalSize
     };
     return this.sliding;
   }

@@ -10,7 +10,6 @@ class PhotoDetailController {
 
     this.photosService = photosService;
     this.photosService.$scope = $scope;
-    this._loadPhoto();
   }
 
   showPrev(){
@@ -19,10 +18,6 @@ class PhotoDetailController {
 
   showNext(){
     this.photosService.next();
-  }
-
-  _loadPhoto(){
-    this.photosService.loadPhoto(this.$routeParams.photoId);
   }
 }
 

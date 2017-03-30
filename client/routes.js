@@ -11,7 +11,7 @@ function routesConfig($routeProvider) {
       template: photosTemplate,
       controller: 'photosController as $ctrl',
     })
-    .when('/photos/:photoId', {
+    .when('/photo-detail', {
       template: photoDetailTemplate,
       controller: 'photoDetailController as $ctrl',
     });

@@ -11,9 +11,9 @@ const Photo = require('../models/photo');
 const controller = {};
 
 controller.index = function(req, res){
-  const query = Object.assign({offset: 0, limit: 50}, req.query);
+  const query = Object.assign({page: 0, limit: 50}, req.query);
   const limit = parseInt(query.limit);
-  const skip = parseInt(query.offset) * limit;
+  const skip = parseInt(query.page) * limit;
 
   Promise.all([
     Photo.find({"metadata.owner": ObjectId(req.user.id)})
