@@ -8,16 +8,23 @@ class PhotosController {
     this.photosService = photosService;
     this.photosService.$scope = $scope;
 
-    this._loadPhotos();
+    this.loadPhotos();
   }
 
   openPhoto(id){
     this.photosService.loadPhoto(id);
-    this.$location.path(`photo-detail`);
+    this.$location.path('photo-detail');
   }
 
-  _loadPhotos(){
-    this.photosService.loadPhotos({page: this.photosService.currentPage});
+  pageButtonClass(page){
+    if (page === this.photosService.currentPage) {
+      return 'md-primary';
+    }
+    return '';
+  }
+
+  loadPhotos({page=this.photosService.currentPage}={}){
+    this.photosService.loadPhotos({page});
   }
 }
 

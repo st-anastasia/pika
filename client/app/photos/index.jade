@@ -9,3 +9,9 @@ md-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
     )
       md-grid-tile-footer
         h3 {{photo.metadata.title}}
+
+  div(layout='row')
+    md-button(
+      ng-repeat='page in $ctrl.photosService.pages'
+      class='md-raised {{$ctrl.pageButtonClass(page)}}'
+      ) {{page + 1}}

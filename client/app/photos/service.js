@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const LIMIT = 50;
 
 class PhotosService {
@@ -6,6 +8,7 @@ class PhotosService {
     this.$http = $http;
 
     this.photos = [];
+    this.pages = [];
     this.totalSize = 0;
 
     this.currentPhoto = {};
@@ -44,6 +47,7 @@ class PhotosService {
         _this.currentPage = page;
         _this.photos = photos;
         _this.totalSize = totalSize;
+        _this._paginate();
         return photos;
     });
   }
@@ -70,6 +74,19 @@ class PhotosService {
       .then( photos => _this._slideTo(0) );
   }
 
+  _paginate(){
+    let start = this.currentPage - 2;
+    if (start < 0) start = 0;
+
+    let end = start + 5;
+    if (this.totalSize / LIMIT < 5 ) {
+      start =   0;
+      end   =   Math.ceil(this.totalSize / LIMIT );
+    }
+
+    this.pages = _.range(start, end);
+  }
+
   _slideTo(index){
     if (this._setCurrentIndex(index) === null) return null;
 
@@ -90,12 +107,15 @@ class PhotosService {
       return this.sliding = {next: false, prev: false};
     }
 
-    const offset = this.currentPage * LIMIT + this.currentIndex;
     this.sliding = {
-      prev: offset !== 0,
-      next: offset + 1 !== this.totalSize
+      prev: this.offset !== 0,
+      next: this.offset + 1 !== this.totalSize
     };
     return this.sliding;
+  }
+
+  _offset(){
+    return this.currentPage * LIMIT + this.currentIndex;
   }
 }
 

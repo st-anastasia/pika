@@ -51,6 +51,7 @@
     "express-jwt": "^5.1.0",
     "faker": "^4.1.0",
     "gridfs-stream": "^1.1.1",
+    "lodash": "^4.17.4",
     "mongoose": "^4.4.12",
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
