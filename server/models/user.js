@@ -11,7 +11,6 @@ const UserSchema = new Schema({
   updatedAt: Date
 });
 
-
 UserSchema.methods.hashPassword = function(next){
   const user = this;
   if (!user.isModified('password')) return next();

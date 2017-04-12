@@ -1,42 +1,34 @@
-import { getPhoto, getPhotos } from '../data/database';
-
 class PhotoDetailController {
   /** @ngInject */
-  constructor($routeParams, $mdDialog, $mdSidenav, $location) {
-    this.$mdDialog = $mdDialog;
-    this.$mdSidenav = $mdSidenav;
+  constructor($scope, $routeParams, $location, photosService){
+    this.$scope = $scope;
+    this.$routeParams = $routeParams;
     this.$location = $location;
 
-    this.photo = getPhoto($routeParams.photoId);
-    this.photos = getPhotos();
-    this.currentPhotoId = parseInt($routeParams.photoId, 10);
-
     this.isFotoFormOpen = false;
-    this.displayButtons();
+
+    this.photosService = photosService;
+
+    this._initWatchers();
+    this._loadPhoto();
   }
 
-  showPrev() {
-    if (this.currentPhotoId > 0) {
-      this.currentPhotoId -= 1;
-    }
-    this.showPhoto();
-  }
-  showNext() {
-    if (this.currentPhotoId < this.photos.length - 1) {
-      this.currentPhotoId += 1;
-    }
-    this.showPhoto();
+  showPrev(){
+    this.photosService.prev();
   }
 
-  showPhoto() {
-    this.$location.path(`photos/${this.currentPhotoId}`);
+  showNext(){
+    this.photosService.next();
   }
 
-  displayButtons() {
-    this.arrowButtons = {
-      leftArrowVisible: this.currentPhotoId > 0,
-      rightArrowVisible: this.currentPhotoId < this.photos.length - 1,
-    };
+  _initWatchers(){
+    this.$scope.$watch(() => this.photosService.currentPhoto, photo => {
+      this.$location.path(`photo-detail/${photo._id}`, false).replace();
+    });
+  }
+
+  _loadPhoto(){
+    this.photosService.loadPhoto(this.$routeParams.id);
   }
 }
 

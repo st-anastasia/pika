@@ -7,11 +7,11 @@ function routesConfig($routeProvider) {
       template: '<p>Pika</p>',
       controller: 'sessionController as $ctrl'
     })
-    .when('/photos', {
+    .when('/photos/:page?', {
       template: photosTemplate,
       controller: 'photosController as $ctrl',
     })
-    .when('/photos/:photoId', {
+    .when('/photo-detail/:id', {
       template: photoDetailTemplate,
       controller: 'photoDetailController as $ctrl',
     });

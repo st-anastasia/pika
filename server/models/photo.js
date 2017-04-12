@@ -15,6 +15,18 @@ const PhotoSchema = new Schema({
     owner: {type: Schema.Types.ObjectId, ref: 'User'},
   },
   md5: String,
-}, {collection: 'photos.files'});
+}, {
+  collection: 'photos.files',
+  toJSON: {
+    transform: (doc, ret, options) => {
+      ret.src = doc.src();
+      return ret;
+    }
+  }
+});
+
+PhotoSchema.methods.src = function(){
+  return `/photos/${this.filename}`;
+};
 
 module.exports = mongoose.model('Photo', PhotoSchema);
