@@ -30,8 +30,6 @@ class PhotoDetailController {
   _loadPhoto(){
     this.photosService.loadPhoto(this.$routeParams.id);
   }
-
-
 }
 
 export default PhotoDetailController;
