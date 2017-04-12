@@ -13,7 +13,7 @@ class PhotosService {
 
     this.currentPhoto = {};
     this.currentIndex = 0;
-    this.currentPage = 0;
+    this.currentPage = 1;
     this.sliding = {
       prev: false,
       next: true
@@ -38,7 +38,7 @@ class PhotosService {
     });
   }
 
-  loadPhotos({page=0, limit=LIMIT}={}){
+  loadPhotos({page=1, limit=LIMIT}={}){
     const _this = this;
 
     return this.$http.get('/api/photos', {params: {page, limit}})
@@ -76,12 +76,12 @@ class PhotosService {
 
   _paginate(){
     let start = this.currentPage - 2;
-    if (start < 0) start = 0;
+    if (start < 1) start = 1;
 
     let end = start + 5;
     if (this.totalSize / LIMIT < 5 ) {
-      start =   0;
-      end   =   Math.ceil(this.totalSize / LIMIT );
+      start =   1;
+      end   =   Math.ceil(this.totalSize / LIMIT ) + 1;
     }
 
     this.pages = _.range(start, end);
@@ -108,14 +108,14 @@ class PhotosService {
     }
 
     this.sliding = {
-      prev: this.offset !== 0,
-      next: this.offset + 1 !== this.totalSize
+      prev: this._offset() !== 0,
+      next: this._offset() + 1 !== this.totalSize
     };
     return this.sliding;
   }
 
   _offset(){
-    return this.currentPage * LIMIT + this.currentIndex;
+    return (this.currentPage - 1) * LIMIT + this.currentIndex;
   }
 }
 

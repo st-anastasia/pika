@@ -11,20 +11,27 @@ class PhotosController {
     this.loadPhotos();
   }
 
-  openPhoto(id){
-    this.photosService.loadPhoto(id);
-    this.$location.path('photo-detail');
+  showPhoto(id){
+    this.$location.path(`photo-detail/${id}`);
+  }
+
+  showPage(page){
+    this.$location.path(`photos/${page}`).replace();
   }
 
   pageButtonClass(page){
     if (page === this.photosService.currentPage) {
-      return 'md-primary';
+      return 'md-raised md-primary';
     }
-    return '';
+    return 'md-raised custom';
   }
 
-  loadPhotos({page=this.photosService.currentPage}={}){
+  loadPhotos({page=this._currentPage()}={}){
     this.photosService.loadPhotos({page});
+  }
+
+  _currentPage(){
+    return parseInt(this.$routeParams.page) || this.photosService.currentPage;
   }
 }
 

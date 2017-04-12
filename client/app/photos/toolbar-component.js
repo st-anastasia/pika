@@ -14,4 +14,4 @@ class ToolbarController {
 export default {
   template: template(),
   controller: ToolbarController,
-}
+};
