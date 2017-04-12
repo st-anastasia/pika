@@ -5,9 +5,12 @@ import 'angular-route';
 import 'angular-material/angular-material.css';
 import './index.scss';
 
+import HttpInterceptor from './app/http-interceptor';
+import Location from './app/location';
 import SideMenuComponent from './app/side-menu/component';
-import Client from './app/client';
+import Session from './app/session';
 import SessionController from './app/session/controller';
+import PhotosService from './app/photos/service';
 import PhotosController from './app/photos/controller';
 import PhotosToolbarComponent from './app/photos/toolbar-component';
 import PhotoDetailController from './app/photo-detail/controller';
@@ -19,7 +22,9 @@ import themingConfig from './theming';
 
 angular.module('pika', ['ngRoute', 'ngMaterial'])
   .component('sideMenu', SideMenuComponent)
-  .service('client', Client)
+  .service('photosService', PhotosService)
+  .service('session', Session)
+  .factory('httpInterceptor', HttpInterceptor)
   .controller('sessionController', SessionController)
   .controller('photosController', PhotosController)
   .component('photosToolbar', PhotosToolbarComponent)
@@ -27,4 +32,8 @@ angular.module('pika', ['ngRoute', 'ngMaterial'])
   .component('photoDetailToolbar', PhotoDetailToolbarComponent)
   .component('photoDetailForm', PhotoDetailFormComponent)
   .config(routesConfig)
-  .config(themingConfig);
+  .config(themingConfig)
+  .config(($httpProvider) => {
+    $httpProvider.interceptors.push('httpInterceptor');
+  })
+  .run(Location);

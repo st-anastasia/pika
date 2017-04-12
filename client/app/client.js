@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 const DEFAULT_OPTIONS = {
   headers: {
     'Accept': 'application/json',
@@ -10,16 +12,15 @@ class Client {
     this.user = {};
   }
 
-  authorize(user, options={headers: {}}){
+  authorize(user){
     this.user = user;
-    if(this.user.token) options.headers['Authorization:'] = `Bearer ${user.token}`;
-    return options;
+    //window.localStorage.setItem('')
   }
 
   fetch(url, options = {}, default_options = DEFAULT_OPTIONS) {
     const _this = this;
     const mergedOptions = Object.assign({}, default_options, options);
-    
+
     if(mergedOptions.body && mergedOptions.headers['Content-Type'] === 'application/json'){
       mergedOptions.body = JSON.stringify(options.body);
     }
@@ -28,8 +29,10 @@ class Client {
       mergedOptions.method = 'POST';
     }
 
-    this.authorize(this.user, mergedOptions);
-    let fetch = window.fetch(url, mergedOptions);
+    const urlWithQuery = this._joinUrlQuery(url, mergedOptions.query);
+    this._addAuthHeader(mergedOptions);
+
+    let fetch = window.fetch(urlWithQuery, mergedOptions);
     fetch = fetch.then(_this._checkStatus);
 
     if (mergedOptions.headers['Accept'] === 'application/json'){
@@ -37,6 +40,15 @@ class Client {
     }
 
     return fetch;
+  }
+
+  _joinUrlQuery(url, query={}){
+    return [url, qs.stringify(query)].filter( s => !!s ).join('?');
+  }
+
+  _addAuthHeader(options){
+    if(this.user.token) options.headers['Authorization'] = `Bearer ${this.user.token}`;
+    return options;
   }
 
   _checkStatus(response) {

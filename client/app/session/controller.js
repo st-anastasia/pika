@@ -1,21 +1,21 @@
 class SessionController {
   /** @ngInject */
-  constructor($scope, $location, client) {
-    this.$scope = $scope;
+  constructor($location, $http, session) {
     this.$location = $location;
-    this.client = client;
+    this.$http = $http;
+    this.session = session;
 
     this.create();
   }
 
   create() {
     const _this = this;
-    this.client.fetch('/api/session-token', {body: {username: 'pika', password: '123456'}})
-    .then( user => {
-      console.log(user.token)
+    this.$http.post('/api/session-token', {username: 'pika', password: '123456'})
+    .then( response => {
+      console.log(response.data);
+      _this.session.auth(response.data);
       _this.$location.path('photos');
-      _this.$scope.$apply()
-    })
+    });
   }
 }
 

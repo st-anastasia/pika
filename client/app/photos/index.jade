@@ -3,14 +3,16 @@ photos-toolbar
 md-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
   md-grid-list(flex md-cols='6', md-cols-xs='1', md-cols-sm='4', md-row-height='4:3', md-gutter='10px')
     md-grid-tile(
-      ng-repeat='photo in $ctrl.photos'
-      ng-style="{ 'background-image': 'url(' + photo.url + ')', 'background-size' : 'cover'}"
-      ng-click="$ctrl.openPhoto($index)"
+      ng-repeat='photo in $ctrl.photosService.photos'
+      ng-style="{ 'background-image': 'url(' + photo.src + ')', 'background-size' : 'cover'}"
+      ng-click="$ctrl.showPhoto(photo._id)"
     )
       md-grid-tile-footer
-        h3 {{photo.title}}
-//-.layout-content
-  ul
-    li(ng-repeat="photo in $ctrl.photos")
-      a(href="#/photos/{{photo.id}}")
-        img(ng-src="{{photo.url}}")
+        h3 {{photo.metadata.title}}
+
+  div(layout='row')
+    md-button(
+      ng-repeat='page in $ctrl.photosService.pages'
+      ng-class='$ctrl.pageButtonClass(page)'
+      ng-click='$ctrl.showPage(page)'
+   ) {{page}}
