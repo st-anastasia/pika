@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node_modules/.bin/webpack",
     "watch": "node_modules/.bin/webpack --watch",
-    "start": "node_modules/.bin/webpack-dev-server --display-error-details --display-cached --hot"
+    "start": "nodemon server/bin/serve.js"
   },
   "author": "",
   "license": "ISC",
