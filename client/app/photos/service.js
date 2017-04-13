@@ -54,24 +54,30 @@ class PhotosService {
 
   prev(step = 1){
     const _this = this;
-    if (this._slideTo(this.currentIndex - step) !== null) return;
+    if (this._slideTo(this.currentIndex - step) !== null) {
+      return Promise.resolve(this.currentPhoto);
+    }
 
     const prevPage = this.currentPage - 1;
-    if(prevPage < 0) return;
+    if(prevPage < 0) {
+      return Promise.resolve(this.currentPhoto);
+    }
 
-    this.loadPhotos({page: prevPage})
-      .then( photos => {
-        _this._slideTo(photos.length - 1);
-      });
+    return this.loadPhotos({page: prevPage}).then( photos => {
+      return _this._slideTo(photos.length - 1);
+    });
   }
 
   next(step = 1){
     const _this = this;
-    if (this._slideTo(this.currentIndex + step) !== null) return;
+    if (this._slideTo(this.currentIndex + step) !== null) {
+      return Promise.resolve(this.currentPhoto);
+    }
 
     const nextPage = this.currentPage + 1;
-    this.loadPhotos({page: nextPage})
-      .then( photos => _this._slideTo(0) );
+    return this.loadPhotos({page: nextPage}).then( photos => {
+      return _this._slideTo(0);
+    });
   }
 
   _paginate(){
@@ -91,7 +97,7 @@ class PhotosService {
     if (this._setCurrentIndex(index) === null) return null;
 
     this._setSliding();
-    return this.currentIndex;
+    return this.currentPhoto;
   }
 
   _setCurrentIndex(index){
