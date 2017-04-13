@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const LIMIT = 50;
+const LIMIT = 3;
 
 class PhotosService {
   /** @ngInject */
@@ -14,6 +14,8 @@ class PhotosService {
     this.currentPhoto = {};
     this.currentIndex = 0;
     this.currentPage = 1;
+    this.search = null;
+
     this.sliding = {
       prev: false,
       next: true
@@ -38,12 +40,14 @@ class PhotosService {
     });
   }
 
-  loadPhotos({page=1, limit=LIMIT, search=''}={}){
+  loadPhotos(params={}){
+    const {page=1, limit=LIMIT, search=this.search} = params;
     const _this = this;
 
     return this.$http.get('/api/photos', {params: {page, limit, search}})
       .then( res => {
         const {data: {photos, totalSize}} = res;
+        _this.search = search;
         _this.currentPage = page;
         _this.photos = photos;
         _this.totalSize = totalSize;

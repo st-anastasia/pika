@@ -8,7 +8,7 @@ class PhotosController {
     this.photosService = photosService;
     this.photosService.$scope = $scope;
 
-    this.loadPhotos();
+    this._loadPhotos();
   }
 
   showPhoto(id){
@@ -16,7 +16,8 @@ class PhotosController {
   }
 
   showPage(page){
-    this.$state.go('photos', {page}, {location: 'replace'});
+    this.$state.go('photos', {page, search: this.photosService.search},
+                   {location: 'replace'});
   }
 
   pageButtonClass(page){
@@ -26,11 +27,9 @@ class PhotosController {
     return 'md-raised custom';
   }
 
-  loadPhotos(params={}){
-    const {
-      page=this._currentPage(),
-      search=this.$stateParams.search
-    } = params;
+  _loadPhotos(){
+    const page = this._currentPage();
+    const search = this.$stateParams.search;
 
     console.log(`Search: ${search}`);
     this.photosService.loadPhotos({page, search});

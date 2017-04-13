@@ -10,7 +10,7 @@ function routesConfig($stateProvider, $urlRouterProvider) {
       controllerAs: '$ctrl'
     })
     .state('photos', {
-      url: '/photos/:page?',
+      url: '/photos/:page?search',
       template: photosTemplate,
       controller: 'photosController',
       controllerAs: '$ctrl'
