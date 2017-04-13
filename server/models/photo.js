@@ -25,6 +25,9 @@ const PhotoSchema = new Schema({
   }
 });
 
+
+PhotoSchema.index({'metadata.title': 'text', 'metadata.description':'text'});
+
 PhotoSchema.methods.src = function(){
   return `/photos/${this.filename}`;
 };

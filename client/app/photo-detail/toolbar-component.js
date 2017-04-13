@@ -2,10 +2,10 @@ const template = require('./toolbar.jade');
 
 class PhotoDetailToolbarController {
   /** @ngInject */
-  constructor($mdSidenav, $mdDialog, $location) {
+  constructor($mdSidenav, $mdDialog, $state) {
     this.$mdSidenav = $mdSidenav;
     this.$mdDialog = $mdDialog;
-    this.$location = $location;
+    this.$state = $state;
   }
 
   toggleSideMenu() {
@@ -34,7 +34,7 @@ class PhotoDetailToolbarController {
   }
 
   back() {
-    this.$location.path('photos');
+    this.$state.go('photos');
   }
 }
 

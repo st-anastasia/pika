@@ -38,10 +38,10 @@ class PhotosService {
     });
   }
 
-  loadPhotos({page=1, limit=LIMIT}={}){
+  loadPhotos({page=1, limit=LIMIT, search=''}={}){
     const _this = this;
 
-    return this.$http.get('/api/photos', {params: {page, limit}})
+    return this.$http.get('/api/photos', {params: {page, limit, search}})
       .then( res => {
         const {data: {photos, totalSize}} = res;
         _this.currentPage = page;

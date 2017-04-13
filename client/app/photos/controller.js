@@ -1,9 +1,9 @@
 class PhotosController {
   /** @ngInject */
-  constructor($scope, $routeParams, $location, photosService){
+  constructor($scope, $stateParams, $state, photosService){
     this.$scope = $scope;
-    this.$routeParams = $routeParams;
-    this.$location = $location;
+    this.$stateParams = $stateParams;
+    this.$state = $state;
 
     this.photosService = photosService;
     this.photosService.$scope = $scope;
@@ -12,11 +12,11 @@ class PhotosController {
   }
 
   showPhoto(id){
-    this.$location.path(`photo-detail/${id}`);
+    this.$state.go('photo-detail', {id: id});
   }
 
   showPage(page){
-    this.$location.path(`photos/${page}`).replace();
+    this.$state.go('photos', {page}, {location: 'replace'});
   }
 
   pageButtonClass(page){
@@ -26,12 +26,18 @@ class PhotosController {
     return 'md-raised custom';
   }
 
-  loadPhotos({page=this._currentPage()}={}){
-    this.photosService.loadPhotos({page});
+  loadPhotos(params={}){
+    const {
+      page=this._currentPage(),
+      search=this.$stateParams.search
+    } = params;
+
+    console.log(`Search: ${search}`);
+    this.photosService.loadPhotos({page, search});
   }
 
   _currentPage(){
-    return parseInt(this.$routeParams.page) || this.photosService.currentPage;
+    return parseInt(this.$stateParams.page) || this.photosService.currentPage;
   }
 }
 

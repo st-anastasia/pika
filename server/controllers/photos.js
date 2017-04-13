@@ -15,11 +15,12 @@ controller.index = function(req, res){
   const limit = parseInt(query.limit);
   const skip = parseInt(query.page -1) * limit;
 
+  const options = {'metadata.owner': ObjectId(req.user.id)};
+  if (!!query.search) options.$text = {$search: query.search};
+
   Promise.all([
-    Photo.find({"metadata.owner": ObjectId(req.user.id)})
-      .skip(skip)
-      .limit(limit),
-    Photo.count()
+    Photo.find(options).skip(skip).limit(limit),
+    Photo.find(options).count()
   ])
   .then( ([photos, totalSize]) => {
     res.json({photos, totalSize});
@@ -37,7 +38,7 @@ controller.update = function(req, res){
   });
 
   const createPhoto = (token) => {
-    const metadata = JSON.parse(req.body.metadata)
+    const metadata = JSON.parse(req.body.metadata);
 
     return {
       filename: token,
