@@ -9,10 +9,10 @@ class SessionController {
   }
 
   create() {
-    console.log("asfa")
+    console.log('asfa');
     const _this = this;
-    this.$http.post('/api/session-token', {username: 'pika', password: '123456'})
-    .then( response => {
+    this.$http.post('/api/session-token', { username: 'pika', password: '123456' })
+    .then((response) => {
       console.log(response.data);
       _this.session.auth(response.data);
       _this.$state.go('photos');

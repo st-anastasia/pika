@@ -2,18 +2,22 @@ import template from './toolbar.jade';
 
 class ToolbarController {
   /** @ngInject */
-  constructor($mdSidenav, $location) {
+  constructor($state, $mdSidenav, $location, photosService) {
     this.$mdSidenav = $mdSidenav;
     this.$location = $location;
-    this.search = '';
+    this.$state = $state;
+
+    this.photosService = photosService;
+    this.searchTerm = '';
   }
 
   toggleSideMenu() {
     this.$mdSidenav('left').toggle();
   }
 
-  search(){
-    this.$location.path(`photos?search=${this.search}`);
+  search() {
+    this.photosService.loadPhotos({ search: this.searchTerm });
+    this.$state.go('photos', { search: this.searchTerm }, { location: 'replace', notify: false });
   }
 }
 

@@ -1,4 +1,4 @@
-'use strict';
+
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -12,7 +12,7 @@ const PhotoSchema = new Schema({
   metadata: {
     title: String,
     description: String,
-    owner: {type: Schema.Types.ObjectId, ref: 'User'},
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
   },
   md5: String,
 }, {
@@ -21,14 +21,14 @@ const PhotoSchema = new Schema({
     transform: (doc, ret, options) => {
       ret.src = doc.src();
       return ret;
-    }
-  }
+    },
+  },
 });
 
 
-PhotoSchema.index({'metadata.title': 'text', 'metadata.description':'text'});
+PhotoSchema.index({ 'metadata.title': 'text', 'metadata.description': 'text' });
 
-PhotoSchema.methods.src = function(){
+PhotoSchema.methods.src = function () {
   return `/photos/${this.filename}`;
 };
 

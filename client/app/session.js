@@ -1,15 +1,15 @@
 class Session {
 
   /** @ngInject */
-  constructor(){
+  constructor() {
     this.user = {};
   }
 
-  auth(user){
+  auth(user) {
     this.user = user;
   }
 
-  isAuthenticated(){
+  isAuthenticated() {
     return !!this.user.token;
   }
 }

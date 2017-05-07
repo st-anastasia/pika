@@ -1,4 +1,4 @@
-'use strict';
+
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -8,10 +8,10 @@ const SALT_WORK_FACTOR = 10;
 const UserSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
-  updatedAt: Date
+  updatedAt: Date,
 });
 
-UserSchema.methods.hashPassword = function(next){
+UserSchema.methods.hashPassword = function (next) {
   const user = this;
   if (!user.isModified('password')) return next();
 
@@ -27,10 +27,10 @@ UserSchema.methods.hashPassword = function(next){
   });
 };
 
-UserSchema.methods.comparePassword = function(password) {
+UserSchema.methods.comparePassword = function (password) {
   const user = this;
-  return new Promise(function(resolve, reject){
-    bcrypt.compare(password, user.password, function(err, isMatch) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err) reject(err);
       if (!isMatch) reject(new Error('invalid'));
 
@@ -39,7 +39,7 @@ UserSchema.methods.comparePassword = function(password) {
   });
 };
 
-UserSchema.pre('save', function(next){
+UserSchema.pre('save', function (next) {
   this.updatedAt = new Date();
   console.log(this.username);
   this.hashPassword(next);

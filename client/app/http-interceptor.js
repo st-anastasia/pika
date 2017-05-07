@@ -1,10 +1,10 @@
-export default function(session){
+export default function (session) {
   return {
     request: (config) => {
-      if(session.isAuthenticated){
-        config.headers['Authorization'] = `Bearer ${session.user.token}`;
+      if (session.isAuthenticated) {
+        config.headers.Authorization = `Bearer ${session.user.token}`;
       }
       return config;
-    }
+    },
   };
 }
