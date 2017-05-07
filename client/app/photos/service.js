@@ -18,12 +18,12 @@ class PhotosService {
 
     this.sliding = {
       prev: false,
-      next: true
+      next: true,
     };
   }
 
-  loadPhoto(id){
-    const _this = this;
+  loadPhoto(id) {
+    const self = this;
     if (this.currentPhoto.id === id) return;
 
     const foundIndex = this.photos.findIndex(photo => photo._id === id );
@@ -33,8 +33,8 @@ class PhotosService {
     }
 
     this.$http.get(`/api/photos/${id}`).then(({data}) => {
-      _this._currentPhoto = data;
-      _this._setSliding({state: 'off'});
+      self._currentPhoto = data;
+      self._setSliding({state: 'off'});
 
       return photo;
     });
@@ -42,22 +42,22 @@ class PhotosService {
 
   loadPhotos(params={}){
     const {page=1, limit=LIMIT, search=this.search} = params;
-    const _this = this;
+    const self = this;
 
     return this.$http.get('/api/photos', {params: {page, limit, search}})
       .then( res => {
         const {data: {photos, totalSize}} = res;
-        _this.search = search;
-        _this.currentPage = page;
-        _this.photos = photos;
-        _this.totalSize = totalSize;
-        _this._paginate();
+        self.search = search;
+        self.currentPage = page;
+        self.photos = photos;
+        self.totalSize = totalSize;
+        self._paginate();
         return photos;
     });
   }
 
   prev(step = 1){
-    const _this = this;
+    const self = this;
     if (this._slideTo(this.currentIndex - step) !== null) {
       return Promise.resolve(this.currentPhoto);
     }
@@ -68,19 +68,19 @@ class PhotosService {
     }
 
     return this.loadPhotos({page: prevPage}).then( photos => {
-      return _this._slideTo(photos.length - 1);
+      return self._slideTo(photos.length - 1);
     });
   }
 
   next(step = 1){
-    const _this = this;
+    const self = this;
     if (this._slideTo(this.currentIndex + step) !== null) {
       return Promise.resolve(this.currentPhoto);
     }
 
     const nextPage = this.currentPage + 1;
     return this.loadPhotos({page: nextPage}).then( photos => {
-      return _this._slideTo(0);
+      return self._slideTo(0);
     });
   }
 

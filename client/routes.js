@@ -7,23 +7,22 @@ function routesConfig($stateProvider, $urlRouterProvider) {
       url: '/session',
       template: '<p>Pika</p>',
       controller: 'sessionController',
-      controllerAs: '$ctrl'
+      controllerAs: '$ctrl',
     })
     .state('photos', {
       url: '/photos/:page?search',
       template: photosTemplate,
       controller: 'photosController',
-      controllerAs: '$ctrl'
+      controllerAs: '$ctrl',
     })
     .state('photo-detail', {
       url: '/photo-detail/:id',
       template: photoDetailTemplate,
       controller: 'photoDetailController',
-      controllerAs: '$ctrl'
+      controllerAs: '$ctrl',
     });
 
   $urlRouterProvider.otherwise('/session');
-
 }
 
 export default routesConfig;
