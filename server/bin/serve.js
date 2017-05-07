@@ -7,11 +7,11 @@ const config = require('../config');
 const webpack_config = require('../../webpack.config.js');
 const compiler = webpack(webpack_config);
 
-app.use(webpackHotMiddleware(compiler))
+app.use(webpackHotMiddleware(compiler));
 app.use(webpackDevMiddleware(compiler, {
   noInfo: true,
-  publicPath: webpack_config.output.publicPath
-}))
+  publicPath: webpack_config.output.publicPath,
+}));
 
 app.listen(config.port);
-console.log('Pika running at http://localhost:' + config.port);
+console.log(`Pika running at http://localhost:${config.port}`);

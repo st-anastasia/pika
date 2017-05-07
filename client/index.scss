@@ -42,12 +42,18 @@ md-sidenav md-icon {
   background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
 }
-md-toolbar.transparent_gradient {
-  background-color: transparent;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 64px;
+md-toolbar {
+  md-input-container .md-errors-spacer {
+    min-height: 0px !important;
+  }
+
+  .transparent_gradient {
+    background-color: transparent;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 64px;
+  }
 }
 /*----Toolbar----*/
 

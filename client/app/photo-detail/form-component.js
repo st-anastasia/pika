@@ -16,5 +16,5 @@ export default {
   controller: PhotoDetailFormController,
   bindings: {
     photo: '=',
-  }
+  },
 };

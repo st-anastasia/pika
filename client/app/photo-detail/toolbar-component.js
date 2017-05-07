@@ -2,10 +2,10 @@ const template = require('./toolbar.jade');
 
 class PhotoDetailToolbarController {
   /** @ngInject */
-  constructor($mdSidenav, $mdDialog, $location) {
+  constructor($mdSidenav, $mdDialog, $state) {
     this.$mdSidenav = $mdSidenav;
     this.$mdDialog = $mdDialog;
-    this.$location = $location;
+    this.$state = $state;
   }
 
   toggleSideMenu() {
@@ -27,14 +27,14 @@ class PhotoDetailToolbarController {
         .title('You clicked!')
         .textContent(`Menu Item clicked, index: ${index}`)
         .ok('OK')
-        .targetEvent(this.originatorEvent)
+        .targetEvent(this.originatorEvent),
     );
 
     this.originatorEvent = null;
   }
 
   back() {
-    this.$location.path('photos');
+    this.$state.go('photos');
   }
 }
 
