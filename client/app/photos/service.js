@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const LIMIT = 3;
+const LIMIT = 50;
 
 class PhotosService {
   /** @ngInject */

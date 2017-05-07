@@ -1,19 +1,17 @@
-
-
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
 const crypto = require('crypto');
 const base64url = require('base64url');
 const fs = require('fs');
 
-const config = require('../config');
 const Photo = require('../models/photo');
+
+const ObjectId = mongoose.Types.ObjectId;
 const controller = {};
 
-controller.index = function (req, res) {
+controller.index = function(req, res) {
   const query = Object.assign({ page: 0, limit: 50 }, req.query);
-  const limit = parseInt(query.limit);
-  const skip = parseInt(query.page - 1) * limit;
+  const limit = parseInt(query.limit, 10);
+  const skip = parseInt(query.page - 1, 10) * limit;
 
   const options = { 'metadata.owner': ObjectId(req.user.id) };
   if (query.search) options.$text = { $search: query.search };
@@ -54,7 +52,7 @@ controller.update = function (req, res) {
 
   const write = (photo) => {
     const gfs = mongoose.connection.gfs;
-    const readStream = fs.createReadStream(req.file.path);
+    const readStream = fs.createRedStream(req.file.path);
     const writeStream = gfs.createWriteStream(photo);
     readStream.pipe(writeStream);
 
