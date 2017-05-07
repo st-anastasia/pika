@@ -1,16 +1,16 @@
-'use strict';
+
 
 const User = require('../models/user');
 const controller = {};
 
-controller.show = function(req, res){
+controller.show = function (req, res) {
   const id = req.user.id;
 
   User.findById(id)
     .select('_id username updatedAt __v')
-    .then( user => {
+    .then((user) => {
       if (user == undefined) res.setStatus(404);
-      res.json(user)
+      res.json(user);
     });
 };
 

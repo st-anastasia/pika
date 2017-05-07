@@ -1,20 +1,28 @@
 const photosTemplate = require('./app/photos/index.jade');
 const photoDetailTemplate = require('./app/photo-detail/index.jade');
 
-function routesConfig($routeProvider) {
-  $routeProvider
-    .when('/', {
+function routesConfig($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('session', {
+      url: '/session',
       template: '<p>Pika</p>',
-      controller: 'sessionController as $ctrl'
+      controller: 'sessionController',
+      controllerAs: '$ctrl',
     })
-    .when('/photos/:page?', {
+    .state('photos', {
+      url: '/photos/:page?search',
       template: photosTemplate,
-      controller: 'photosController as $ctrl',
+      controller: 'photosController',
+      controllerAs: '$ctrl',
     })
-    .when('/photo-detail/:id', {
+    .state('photo-detail', {
+      url: '/photo-detail/:id',
       template: photoDetailTemplate,
-      controller: 'photoDetailController as $ctrl',
+      controller: 'photoDetailController',
+      controllerAs: '$ctrl',
     });
+
+  $urlRouterProvider.otherwise('/session');
 }
 
 export default routesConfig;

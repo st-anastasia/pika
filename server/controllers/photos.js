@@ -1,35 +1,36 @@
-'use strict';
+
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const crypto = require('crypto');
 const base64url = require('base64url');
-const fs = require("fs");
+const fs = require('fs');
 
 const config = require('../config');
 const Photo = require('../models/photo');
 const controller = {};
 
-controller.index = function(req, res){
-  const query = Object.assign({page: 0, limit: 50}, req.query);
+controller.index = function (req, res) {
+  const query = Object.assign({ page: 0, limit: 50 }, req.query);
   const limit = parseInt(query.limit);
-  const skip = parseInt(query.page -1) * limit;
+  const skip = parseInt(query.page - 1) * limit;
+
+  const options = { 'metadata.owner': ObjectId(req.user.id) };
+  if (query.search) options.$text = { $search: query.search };
 
   Promise.all([
-    Photo.find({"metadata.owner": ObjectId(req.user.id)})
-      .skip(skip)
-      .limit(limit),
-    Photo.count()
+    Photo.find(options).skip(skip).limit(limit),
+    Photo.find(options).count(),
   ])
-  .then( ([photos, totalSize]) => {
-    res.json({photos, totalSize});
+  .then(([photos, totalSize]) => {
+    res.json({ photos, totalSize });
   });
 };
 
-controller.show = function(req, res){};
+controller.show = function (req, res) {};
 
-controller.update = function(req, res){
-  const generateToken = () => new Promise( (resolve, reject) => {
+controller.update = function (req, res) {
+  const generateToken = () => new Promise((resolve, reject) => {
     crypto.randomBytes(64, (err, buf) => {
       if (err) reject(err);
       resolve(base64url(buf));
@@ -37,7 +38,7 @@ controller.update = function(req, res){
   });
 
   const createPhoto = (token) => {
-    const metadata = JSON.parse(req.body.metadata)
+    const metadata = JSON.parse(req.body.metadata);
 
     return {
       filename: token,
@@ -46,8 +47,8 @@ controller.update = function(req, res){
       metadata: {
         title: metadata.title,
         description: metadata.description,
-        owner: ObjectId(req.user.id)
-      }
+        owner: ObjectId(req.user.id),
+      },
     };
   };
 
@@ -58,11 +59,11 @@ controller.update = function(req, res){
     readStream.pipe(writeStream);
 
     writeStream.on('close', (file) => {
-      fs.unlink(req.file.path, () => { res.json(200, file) });
+      fs.unlink(req.file.path, () => { res.json(200, file); });
     });
   };
 
-  generateToken().then( (token) => write(createPhoto(token)) );
+  generateToken().then(token => write(createPhoto(token)));
 };
 
 module.exports = controller;

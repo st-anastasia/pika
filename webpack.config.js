@@ -15,7 +15,8 @@ module.exports = {
       "angular-messages",
       "angular-mocks",
       "angular-route",
-      "angular-sanitize"
+      "angular-sanitize",
+      "angular-ui-router"
     ],
     index: ['./index.js'],
   },

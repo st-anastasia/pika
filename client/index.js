@@ -1,12 +1,11 @@
 import angular from 'angular';
 import 'angular-material';
-import 'angular-route';
+import 'angular-ui-router';
 
 import 'angular-material/angular-material.css';
 import './index.scss';
 
 import HttpInterceptor from './app/http-interceptor';
-import Location from './app/location';
 import SideMenuComponent from './app/side-menu/component';
 import Session from './app/session';
 import SessionController from './app/session/controller';
@@ -20,7 +19,7 @@ import PhotoDetailFormComponent from './app/photo-detail/form-component';
 import routesConfig from './routes';
 import themingConfig from './theming';
 
-angular.module('pika', ['ngRoute', 'ngMaterial'])
+angular.module('pika', ['ui.router', 'ngMaterial'])
   .component('sideMenu', SideMenuComponent)
   .service('photosService', PhotosService)
   .service('session', Session)
@@ -35,5 +34,4 @@ angular.module('pika', ['ngRoute', 'ngMaterial'])
   .config(themingConfig)
   .config(($httpProvider) => {
     $httpProvider.interceptors.push('httpInterceptor');
-  })
-  .run(Location);
+  });

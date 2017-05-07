@@ -1,7 +1,7 @@
 class SessionController {
   /** @ngInject */
-  constructor($location, $http, session) {
-    this.$location = $location;
+  constructor($state, $http, session) {
+    this.$state = $state;
     this.$http = $http;
     this.session = session;
 
@@ -9,12 +9,13 @@ class SessionController {
   }
 
   create() {
+    console.log('asfa');
     const _this = this;
-    this.$http.post('/api/session-token', {username: 'pika', password: '123456'})
-    .then( response => {
+    this.$http.post('/api/session-token', { username: 'pika', password: '123456' })
+    .then((response) => {
       console.log(response.data);
       _this.session.auth(response.data);
-      _this.$location.path('photos');
+      _this.$state.go('photos');
     });
   }
 }
