@@ -8,7 +8,7 @@ const Photo = require('../models/photo');
 const ObjectId = mongoose.Types.ObjectId;
 const controller = {};
 
-controller.index = function(req, res) {
+controller.index = (req, res) => {
   const query = Object.assign({ page: 0, limit: 50 }, req.query);
   const limit = parseInt(query.limit, 10);
   const skip = parseInt(query.page - 1, 10) * limit;
@@ -17,17 +17,16 @@ controller.index = function(req, res) {
   if (query.search) options.$text = { $search: query.search };
 
   Promise.all([
-    Photo.find(options).skip(skip).limit(limit),
+    Photo.find(options).sort({ uploadDate: 'desc' }).skip(skip).limit(limit),
     Photo.find(options).count(),
-  ])
-  .then(([photos, totalSize]) => {
+  ]).then(([photos, totalSize]) => {
     res.json({ photos, totalSize });
   });
 };
 
-controller.show = function (req, res) {};
+controller.show = (req, res) => {};
 
-controller.update = function (req, res) {
+controller.update = (req, res) => {
   const generateToken = () => new Promise((resolve, reject) => {
     crypto.randomBytes(64, (err, buf) => {
       if (err) reject(err);

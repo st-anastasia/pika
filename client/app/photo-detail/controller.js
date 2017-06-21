@@ -13,18 +13,18 @@ class PhotoDetailController {
     this.loadPhoto();
   }
 
+  initWatchers() {
+    this.$scope.$watch(() => this.photosService.currentPhoto, (photo) => {
+      this.$state.go('photo-detail', { id: photo._id }, { location: 'replace', notify: false });
+    });
+  }
+
   showPrev() {
     this.photosService.prev();
   }
 
   showNext() {
     this.photosService.next();
-  }
-
-  initWatchers() {
-    this.$scope.$watch(() => this.photosService.currentPhoto, (photo) => {
-      this.$state.go('photo-detail', { id: photo._id }, { location: 'replace', notify: false });
-    });
   }
 
   loadPhoto() {

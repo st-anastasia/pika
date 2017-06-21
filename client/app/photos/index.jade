@@ -1,5 +1,8 @@
 photos-toolbar
 
+div(ng-repeat='month in $ctrl.uploadMonths') {{month}}
+
+
 md-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
   md-grid-list(flex md-cols='6', md-cols-xs='1', md-cols-sm='4', md-row-height='4:3', md-gutter='10px')
     md-grid-tile(
