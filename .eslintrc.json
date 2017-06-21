@@ -1,4 +1,7 @@
 {
-    "extends": "airbnb",
-    "plugins": ["import" ]
+  "extends": "airbnb",
+  "plugins": ["import" ],
+  "rules": {
+    "class-methods-use-this": 1
+   }
 }

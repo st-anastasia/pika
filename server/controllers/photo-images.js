@@ -1,11 +1,9 @@
-
-
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
 const Photo = require('../models/photo');
+
 const controller = {};
 
-controller.show = function (req, res) {
+controller.show = (req, res) => {
   const readPhoto = photo => new Promise((resolve, reject) => {
     const gfs = mongoose.connection.gfs;
     const readstream = gfs.createReadStream({ _id: photo.id, root: 'photos' });
