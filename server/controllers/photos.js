@@ -26,7 +26,7 @@ controller.index = (req, res) => {
 
 controller.show = (req, res) => {};
 
-controller.update = (req, res) => {
+controller.create = (req, res) => {
   const generateToken = () => new Promise((resolve, reject) => {
     crypto.randomBytes(64, (err, buf) => {
       if (err) reject(err);

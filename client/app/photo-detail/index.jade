@@ -6,12 +6,12 @@ div(flex layout='row' layout-fill)
 
   md-button.slider-button.md-accent.slider-button-prev.md-icon-button(
     ng-click="$ctrl.showPrev()"
-    ng-show="$ctrl.photosService.sliding.prev"
+    ng-show="$ctrl.photosService.slidingControls.prev"
   )
     md-icon.md-48(aria-label='Naviagte Before') navigate_before
   md-button.slider-button.md-accent.slider-button-next.md-icon-button(
     ng-click="$ctrl.showNext()"
-    ng-show="$ctrl.photosService.sliding.next"
+    ng-show="$ctrl.photosService.slidingControls.next"
   )
     md-icon.md-48(aria-label='Navigate Next') navigate_next
 
