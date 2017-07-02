@@ -46,26 +46,20 @@ class PhotosController {
   }
 
   filterPhotosByUploadMonth(photos) {
-    const uploadMonth = (photo) => {
-      const date = new Date(photo.uploadDate);
-      const month = date.toLocaleString('en', { month: 'short' });
-      return `${month} ${date.getFullYear()}`;
-    };
+    this.photos = photos.reduce((photosByMonth, photo) => {
+      const uploadMonth = this.uploadMonth(photo);
+      if (!photosByMonth[uploadMonth]) photosByMonth[uploadMonth] = [];
 
-    this.photos = photos.reduce(
-      (photosByMonth, photo) => {
-        const photoUploadMonth = uploadMonth(photo);
-        if (!photosByMonth[photoUploadMonth]) {
-          photosByMonth[photoUploadMonth] = [];
-        }
-
-        photosByMonth[photoUploadMonth].push(photo);
-        return photosByMonth;
-      },
-      {},
-    );
+      photosByMonth[uploadMonth].push(photo);
+      return photosByMonth;
+    }, {});
   }
 
+  uploadMonth(photo) {
+    const date = new Date(photo.uploadDate);
+    const month = date.toLocaleString('en', { month: 'short' });
+    return `${month} ${date.getFullYear()}`;
+  }
 }
 
 export default PhotosController;
