@@ -65,7 +65,7 @@ class PhotosService {
 
     const onSuccces = () => {
       uploadedCount += 1;
-      if (uploadedCount === photos.size) console.log('ready');
+      if (uploadedCount === photos.length) self.loadPhotos();
     };
 
     const onFailure = (response) => {
@@ -80,7 +80,6 @@ class PhotosService {
     };
 
     const upload = (photo) => {
-      console.log(photo)
       this.Upload.upload({
         headers: { Authorization: `Bearer ${this.session.user.token}` },
         url: '/api/photos',
