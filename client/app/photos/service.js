@@ -4,8 +4,10 @@ const LIMIT = 50;
 
 class PhotosService {
   /** @ngInject */
-  constructor($http) {
+  constructor($http, session, Upload) {
     this.$http = $http;
+    this.session = session;
+    this.Upload = Upload;
 
     this.photos = [];
     this.pages = [];
@@ -78,6 +80,7 @@ class PhotosService {
     };
 
     const upload = (photo) => {
+      console.log(photo)
       this.Upload.upload({
         headers: { Authorization: `Bearer ${this.session.user.token}` },
         url: '/api/photos',

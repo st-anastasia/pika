@@ -23,7 +23,7 @@ class ToolbarController {
   }
 
   uploadPhotos(files) {
-    this.photosService.uploadPhotos(files.map(file => ({ file })));
+    this.photosService.uploadPhotos(files.map(file => ({ photo: file })));
   }
 }
 

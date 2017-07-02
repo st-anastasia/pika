@@ -6,6 +6,6 @@ const upload = multer({ dest: '/tmp' });
 const photosController = require('../controllers/photos');
 
 router.get('/photos', photosController.index);
-router.put('/photos', upload.single('photo'), photosController.create);
+router.post('/photos', upload.single('photo'), photosController.create);
 
 module.exports = router;
