@@ -58,4 +58,14 @@ controller.create = (req, res) => {
   generateToken().then(token => write(createPhoto(token)));
 };
 
+controller.update = (req, res) => {
+  Photo.update(
+    { _id: req.params.id }, { $set: { metadata: req.photo } },
+  ).then(() => res.status(200))
+    .catch((err) => {
+      console.log(err);
+      res.status(500);
+    });
+};
+
 module.exports = controller;
