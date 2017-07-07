@@ -13,3 +13,6 @@ md-toolbar.md-whiteframe-2dp.md-hue-1.md-toolbar-tools
 
     md-button.md-icon-button(aria-label='More')
       md-icon more_vert
+
+    md-button.md-icon-button(aria-label='Add', ngf-select='$ctrl.uploadPhotos($files, $invalidFiles)', multiple='', accept="image/*")
+      md-icon add

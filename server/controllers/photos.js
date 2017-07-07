@@ -26,7 +26,7 @@ controller.index = (req, res) => {
 
 controller.show = (req, res) => {};
 
-controller.update = (req, res) => {
+controller.create = (req, res) => {
   const generateToken = () => new Promise((resolve, reject) => {
     crypto.randomBytes(64, (err, buf) => {
       if (err) reject(err);
@@ -34,29 +34,23 @@ controller.update = (req, res) => {
     });
   });
 
-  const createPhoto = (token) => {
-    const metadata = JSON.parse(req.body.metadata);
-
-    return {
-      filename: token,
-      content_type: req.file.mimetype,
-      root: 'photos',
-      metadata: {
-        title: metadata.title,
-        description: metadata.description,
-        owner: ObjectId(req.user.id),
-      },
-    };
-  };
+  const createPhoto = token => ({
+    filename: token,
+    content_type: req.file.mimetype,
+    root: 'photos',
+    metadata: {
+      owner: ObjectId(req.user.id),
+    },
+  });
 
   const write = (photo) => {
     const gfs = mongoose.connection.gfs;
-    const readStream = fs.createRedStream(req.file.path);
+    const readStream = fs.createReadStream(req.file.path);
     const writeStream = gfs.createWriteStream(photo);
     readStream.pipe(writeStream);
 
     writeStream.on('close', (file) => {
-      fs.unlink(req.file.path, () => { res.json(200, file); });
+      fs.unlink(req.file.path, () => { res.status(200).json(file); });
     });
   };
 

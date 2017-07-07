@@ -1,6 +1,7 @@
 import angular from 'angular';
 import 'angular-material';
 import 'angular-ui-router';
+import 'ng-file-upload';
 
 import 'angular-material/angular-material.css';
 import './index.scss';
@@ -19,7 +20,7 @@ import PhotoDetailFormComponent from './app/photo-detail/form-component';
 import routesConfig from './routes';
 import themingConfig from './theming';
 
-angular.module('pika', ['ui.router', 'ngMaterial'])
+angular.module('pika', ['ui.router', 'ngMaterial', 'ngFileUpload'])
   .component('sideMenu', SideMenuComponent)
   .service('photosService', PhotosService)
   .service('session', Session)
