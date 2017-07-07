@@ -1,6 +1,5 @@
-
-
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const PhotoSchema = new Schema({
@@ -18,7 +17,7 @@ const PhotoSchema = new Schema({
 }, {
   collection: 'photos.files',
   toJSON: {
-    transform: (doc, ret, options) => {
+    transform: (doc, ret) => {
       ret.src = doc.src();
       return ret;
     },
@@ -28,8 +27,6 @@ const PhotoSchema = new Schema({
 
 PhotoSchema.index({ 'metadata.title': 'text', 'metadata.description': 'text' });
 
-PhotoSchema.methods.src = function () {
-  return `/photos/${this.filename}`;
-};
+PhotoSchema.methods.src = () => `/photos/${this.filename}`;
 
 module.exports = mongoose.model('Photo', PhotoSchema);

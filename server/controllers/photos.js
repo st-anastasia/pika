@@ -30,6 +30,7 @@ controller.create = (req, res) => {
   const generateToken = () => new Promise((resolve, reject) => {
     crypto.randomBytes(64, (err, buf) => {
       if (err) reject(err);
+
       resolve(base64url(buf));
     });
   });
