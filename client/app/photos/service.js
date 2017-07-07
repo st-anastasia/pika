@@ -4,8 +4,10 @@ const LIMIT = 50;
 
 class PhotosService {
   /** @ngInject */
-  constructor($http) {
+  constructor($http, session, Upload) {
     this.$http = $http;
+    this.session = session;
+    this.Upload = Upload;
 
     this.photos = [];
     this.pages = [];
@@ -16,7 +18,7 @@ class PhotosService {
     this.currentPage = 1;
     this.search = null;
 
-    this.sliding = {
+    this.slidingControls = {
       prev: false,
       next: true,
     };
@@ -35,7 +37,7 @@ class PhotosService {
 
     this.$http.get(`/api/photos/${id}`).then(({ photo }) => {
       self.currentPhoto = photo;
-      self.setSliding({ state: 'off' });
+      self.disableSliding();
 
       return photo;
     });
@@ -57,9 +59,43 @@ class PhotosService {
       });
   }
 
+  uploadPhotos(photos) {
+    const self = this;
+    let uploadedCount = 0;
+
+    const onSuccces = () => {
+      uploadedCount += 1;
+      if (uploadedCount === photos.length) self.loadPhotos();
+    };
+
+    const onFailure = (response) => {
+      if (response.status > 0) {
+        self.errorMsg = `${response.status}: ${response.data}`;
+      }
+    };
+
+    const onProgress = (event) => {
+      const percentage = (100.0 * (event.loaded / photos.size));
+      self.uploadProgress = Math.min(100, parseInt(percentage, 10));
+    };
+
+    const upload = (photo) => {
+      this.Upload.upload({
+        headers: { Authorization: `Bearer ${this.session.user.token}` },
+        url: '/api/photos',
+        data: photo,
+      }).then(onSuccces, onFailure, onProgress);
+    };
+
+    photos.forEach(photo => upload(photo));
+  }
+
   prev(step = 1) {
     const self = this;
-    if (this.slideTo(this.currentIndex - step) !== null) {
+
+    const nextIndex = this.currentIndex - step;
+    if (this.isIndexValid(nextIndex)) {
+      this.slideTo(nextIndex);
       return Promise.resolve(this.currentPhoto);
     }
 
@@ -73,12 +109,15 @@ class PhotosService {
 
   next(step = 1) {
     const self = this;
-    if (this.slideTo(this.currentIndex + step) !== null) {
+
+    const nextIndex = this.currentIndex + step;
+    if (this.isIndexValid(nextIndex)) {
+      this.slideTo(nextIndex);
       return Promise.resolve(this.currentPhoto);
     }
 
     const nextPage = this.currentPage + 1;
-    return this.loadPhotos({ page: nextPage }).then(photos => self.slideTo(0));
+    return this.loadPhotos({ page: nextPage }).then(() => self.slideTo(0));
   }
 
   paginate() {
@@ -95,33 +134,27 @@ class PhotosService {
   }
 
   slideTo(index) {
-    if (this.setCurrentIndex(index) === null) return null;
-
-    this.setSliding();
-    return this.currentPhoto;
-  }
-
-  setCurrentIndex(index) {
-    if (index < 0 || index > this.photos.length - 1) return null;
-
     this.currentPhoto = this.photos[index];
     this.currentIndex = index;
-    return this.currentIndex;
+    this.setSlidingControls();
   }
 
-  setSliding({ state } = {}) {
-    if (state === 'off') {
-      return this.sliding = { next: false, prev: false };
-    }
+  isIndexValid(index) {
+    return (index > 0 && index < this.photos.length);
+  }
 
-    this.sliding = {
-      prev: this._offset() !== 0,
-      next: this._offset() + 1 !== this.totalSize,
+  setSlidingControls() {
+    this.slidingControls = {
+      prev: this.offset() !== 0,
+      next: this.offset() + 1 !== this.totalSize,
     };
-    return this.sliding;
   }
 
-  _offset() {
+  disableSliding() {
+    this.slidingControls = { next: false, prev: false };
+  }
+
+  offset() {
     return (this.currentPage - 1) * LIMIT + this.currentIndex;
   }
 }

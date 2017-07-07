@@ -8,13 +8,14 @@ class PhotosController {
     this.photosService = photosService;
     this.photosService.$scope = $scope;
     this.uploadMonths = [];
+    this.photos = {};
 
     this.initWatchers();
     this.loadPhotos();
   }
 
   initWatchers() {
-    this.$scope.$watch(() => this.photosService.photos, this.setUploadMonths.bind(this));
+    this.$scope.$watch(() => this.photosService.photos, this.filterPhotosByUploadMonth.bind(this));
   }
 
   showPhoto(id) {
@@ -44,8 +45,14 @@ class PhotosController {
     return 'md-raised custom';
   }
 
-  setUploadMonths(photos) {
-    this.uploadMonths = Array.from(new Set(photos.map(this.uploadMonth)));
+  filterPhotosByUploadMonth(photos) {
+    this.photos = photos.reduce((photosByMonth, photo) => {
+      const uploadMonth = this.uploadMonth(photo);
+      if (!photosByMonth[uploadMonth]) photosByMonth[uploadMonth] = [];
+
+      photosByMonth[uploadMonth].push(photo);
+      return photosByMonth;
+    }, {});
   }
 
   uploadMonth(photo) {
