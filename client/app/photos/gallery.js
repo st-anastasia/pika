@@ -2,12 +2,10 @@ import _ from 'lodash';
 
 const LIMIT = 50;
 
-class PhotosService {
+class PhotosGallery {
   /** @ngInject */
-  constructor($http, session, Upload) {
-    this.$http = $http;
-    this.session = session;
-    this.Upload = Upload;
+  constructor(photosClient) {
+    this.client = photosClient;
 
     this.photos = [];
     this.pages = [];
@@ -24,7 +22,7 @@ class PhotosService {
     };
   }
 
-  loadPhoto(id) {
+  showPhoto(id) {
     const self = this;
     if (this.currentPhoto.id === id) return;
 
@@ -35,7 +33,7 @@ class PhotosService {
       return;
     }
 
-    this.$http.get(`/api/photos/${id}`).then(({ photo }) => {
+    this.client.findById(id).then(({ photo }) => {
       self.currentPhoto = photo;
       self.disableSliding();
 
@@ -43,19 +41,17 @@ class PhotosService {
     });
   }
 
-  loadPhotos(params = {}) {
-    const { page = 1, limit = LIMIT, search = this.search } = params;
+  showPhotos(params) {
+    const findParams = _.assign({ search: this.search }, params);
     const self = this;
 
-    return this.$http.get('/api/photos', { params: { page, limit, search } })
+    return this.client.find()
       .then((res) => {
-        const { data: { photos, totalSize } } = res;
-        self.search = search;
-        self.currentPage = page;
-        self.photos = photos;
-        self.totalSize = totalSize;
+        _.assign(self, _.pick(res.data, ['photos', 'totalSize']));
+        _.assign(self, _.pick(findParams, ['search', 'page']));
+
         self.paginate();
-        return photos;
+        return self.photos;
       });
   }
 
@@ -65,7 +61,7 @@ class PhotosService {
 
     const onSuccces = () => {
       uploadedCount += 1;
-      if (uploadedCount === photos.length) self.loadPhotos();
+      if (uploadedCount === photos.length) self.showPhotos();
     };
 
     const onFailure = (response) => {
@@ -79,15 +75,9 @@ class PhotosService {
       self.uploadProgress = Math.min(100, parseInt(percentage, 10));
     };
 
-    const upload = (photo) => {
-      this.Upload.upload({
-        headers: { Authorization: `Bearer ${this.session.user.token}` },
-        url: '/api/photos',
-        data: photo,
-      }).then(onSuccces, onFailure, onProgress);
-    };
-
-    photos.forEach(photo => upload(photo));
+    photos.forEach((photo) => {
+      this.client.create(photo).then(onSuccces, onFailure, onProgress);
+    });
   }
 
   prev(step = 1) {
@@ -104,7 +94,7 @@ class PhotosService {
       return Promise.resolve(this.currentPhoto);
     }
 
-    return this.loadPhotos({ page: prevPage }).then(photos => self.slideTo(photos.length - 1));
+    return this.showPhotos({ page: prevPage }).then(photos => self.slideTo(photos.length - 1));
   }
 
   next(step = 1) {
@@ -117,7 +107,7 @@ class PhotosService {
     }
 
     const nextPage = this.currentPage + 1;
-    return this.loadPhotos({ page: nextPage }).then(() => self.slideTo(0));
+    return this.showPhotos({ page: nextPage }).then(() => self.slideTo(0));
   }
 
   paginate() {
@@ -159,4 +149,4 @@ class PhotosService {
   }
 }
 
-export default PhotosService;
+export default PhotosGallery;

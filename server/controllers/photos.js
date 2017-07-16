@@ -9,7 +9,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const controller = {};
 
 controller.index = (req, res) => {
-  const query = Object.assign({ page: 0, limit: 50 }, req.query);
+  const query = Object.assign({ page: 1, limit: 50 }, req.query);
   const limit = parseInt(query.limit, 10);
   const skip = parseInt(query.page - 1, 10) * limit;
 

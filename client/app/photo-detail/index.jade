@@ -2,18 +2,18 @@ photo-detail-toolbar
 
 div(flex layout='row' layout-fill)
   md-content.md-background.md-hue-2(id="img-wrapper" layout="row" layout-align="center center" layout-fill flex='')
-    img(ng-src="{{ $ctrl.photosService.currentPhoto.src }}")
+    img(ng-src="{{ $ctrl.photosGallery.currentPhoto.src }}")
 
   md-button.slider-button.md-accent.slider-button-prev.md-icon-button(
     ng-click="$ctrl.showPrev()"
-    ng-show="$ctrl.photosService.slidingControls.prev"
+    ng-show="$ctrl.photosGallery.slidingControls.prev"
   )
     md-icon.md-48(aria-label='Naviagte Before') navigate_before
   md-button.slider-button.md-accent.slider-button-next.md-icon-button(
     ng-click="$ctrl.showNext()"
-    ng-show="$ctrl.photosService.slidingControls.next"
+    ng-show="$ctrl.photosGallery.slidingControls.next"
   )
     md-icon.md-48(aria-label='Navigate Next') navigate_next
 
   md-sidenav.md-sidenav-right(md-component-id='right', md-disable-backdrop='', md-is-open="$ctrl.isFotoFormOpen" md-is-locked-open="$ctrl.isFotoFormOpen", flex-xs="100" layout-fill)
-    photo-detail-form(photo="$ctrl.photosService.currentPhoto")
+    photo-detail-form(photo="$ctrl.photosGallery.currentPhoto")

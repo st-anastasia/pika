@@ -2,11 +2,11 @@ import template from './toolbar.jade';
 
 class ToolbarController {
   /** @ngInject */
-  constructor($state, $mdSidenav, $location, photosService) {
+  constructor($state, $mdSidenav, $location, photosGallery) {
     this.$state = $state;
     this.$mdSidenav = $mdSidenav;
     this.$location = $location;
-    this.photosService = photosService;
+    this.photosGallery = photosGallery;
 
     this.searchTerm = '';
     this.uploadProgress = 0;
@@ -18,12 +18,12 @@ class ToolbarController {
   }
 
   search() {
-    this.photosService.loadPhotos({ search: this.searchTerm });
+    this.photosGallery.showPhotos({ search: this.searchTerm });
     this.$state.go('photos', { search: this.searchTerm }, { location: 'replace', notify: false });
   }
 
   uploadPhotos(files) {
-    this.photosService.uploadPhotos(files.map(file => ({ photo: file })));
+    this.photosGallery.uploadPhotos(files.map(file => ({ photo: file })));
   }
 }
 
