@@ -29,7 +29,7 @@ class PhotosGallery {
     // eslint-disable-next-line no-underscore-dangle
     const foundIndex = this.photos.findIndex(photo => photo._id === id);
     if (foundIndex >= 0) {
-      this.slideTo(foundIndex);
+      this.setIndex(foundIndex);
       return;
     }
 
@@ -45,92 +45,58 @@ class PhotosGallery {
     const findParams = _.assign({ search: this.search }, params);
     const self = this;
 
-    return this.client.find()
+    return this.client.find(findParams)
       .then((res) => {
         _.assign(self, _.pick(res.data, ['photos', 'totalSize']));
-        _.assign(self, _.pick(findParams, ['search', 'page']));
+        self.currentPage = findParams.page;
+        self.search = findParams.search;
 
         self.paginate();
         return self.photos;
       });
   }
 
-  uploadPhotos(photos) {
-    const self = this;
-    let uploadedCount = 0;
 
-    const onSuccces = () => {
-      uploadedCount += 1;
-      if (uploadedCount === photos.length) self.showPhotos();
-    };
-
-    const onFailure = (response) => {
-      if (response.status > 0) {
-        self.errorMsg = `${response.status}: ${response.data}`;
-      }
-    };
-
-    const onProgress = (event) => {
-      const percentage = (100.0 * (event.loaded / photos.size));
-      self.uploadProgress = Math.min(100, parseInt(percentage, 10));
-    };
-
-    photos.forEach((photo) => {
-      this.client.create(photo).then(onSuccces, onFailure, onProgress);
-    });
+  next(step = 1) {
+    return this.slide(step);
   }
 
   prev(step = 1) {
-    const self = this;
-
-    const nextIndex = this.currentIndex - step;
-    if (this.isIndexValid(nextIndex)) {
-      this.slideTo(nextIndex);
-      return Promise.resolve(this.currentPhoto);
-    }
-
-    const prevPage = this.currentPage - 1;
-    if (prevPage < 0) {
-      return Promise.resolve(this.currentPhoto);
-    }
-
-    return this.showPhotos({ page: prevPage }).then(photos => self.slideTo(photos.length - 1));
+    return this.slide(step * -1);
   }
 
-  next(step = 1) {
+  slide(step = 1) {
     const self = this;
-
     const nextIndex = this.currentIndex + step;
+
+    let nextPage = this.currentPage + 1;
+    let slideToNextPage = () => this.setIndex(0);
+
+    if (step < 0) {
+      nextPage = this.currentPage - 1;
+      slideToNextPage = photos => self.setIndex(photos.length - 1);
+    }
+
     if (this.isIndexValid(nextIndex)) {
-      this.slideTo(nextIndex);
+      this.setIndex(nextIndex);
       return Promise.resolve(this.currentPhoto);
     }
 
-    const nextPage = this.currentPage + 1;
-    return this.showPhotos({ page: nextPage }).then(() => self.slideTo(0));
-  }
-
-  paginate() {
-    let start = this.currentPage - 2;
-    if (start < 1) start = 1;
-
-    let end = start + 5;
-    if (this.totalSize / LIMIT < 5) {
-      start = 1;
-      end = Math.ceil(this.totalSize / LIMIT) + 1;
+    if (nextPage <= 0) {
+      return Promise.resolve(this.currentPhoto);
     }
 
-    this.pages = _.range(start, end);
+    return this.showPhotos({ page: nextPage }).then(slideToNextPage);
   }
 
-  slideTo(index) {
+  setIndex(index) {
     this.currentPhoto = this.photos[index];
     this.currentIndex = index;
     this.setSlidingControls();
   }
 
   isIndexValid(index) {
-    return (index > 0 && index < this.photos.length);
+    return (index >= 0 && index < this.photos.length);
   }
 
   setSlidingControls() {
@@ -147,6 +113,20 @@ class PhotosGallery {
   offset() {
     return (this.currentPage - 1) * LIMIT + this.currentIndex;
   }
+
+  paginate() {
+    let start = this.currentPage - 2;
+    if (start < 1) start = 1;
+
+    let end = start + 5;
+    if (this.totalSize / LIMIT < 5) {
+      start = 1;
+      end = Math.ceil(this.totalSize / LIMIT) + 1;
+    }
+
+    this.pages = _.range(start, end);
+  }
+
 }
 
 export default PhotosGallery;
