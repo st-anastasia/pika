@@ -9,7 +9,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const controller = {};
 
 controller.index = (req, res) => {
-  const query = Object.assign({ page: 0, limit: 50 }, req.query);
+  const query = Object.assign({ page: 1, limit: 50 }, req.query);
   const limit = parseInt(query.limit, 10);
   const skip = parseInt(query.page - 1, 10) * limit;
 
@@ -60,12 +60,9 @@ controller.create = (req, res) => {
 
 controller.update = (req, res) => {
   Photo.update(
-    { _id: req.params.id }, { $set: { metadata: req.photo } },
-  ).then(() => res.status(200))
-    .catch((err) => {
-      console.log(err);
-      res.status(500);
-    });
+    { _id: req.params.id }, { $set: { metadata: req.body.photo } },
+  ).then(() => res.status(200).json({}))
+    .catch(() => res.status(500).json({}));
 };
 
 module.exports = controller;
