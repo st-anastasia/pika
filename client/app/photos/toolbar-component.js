@@ -6,7 +6,9 @@ class PhotosToolbarController {
     this.$state = $state;
     this.$mdSidenav = $mdSidenav;
     this.$location = $location;
+
     this.photosGallery = photosGallery;
+    this.photosClient = photosClient;
 
     this.searchTerm = '';
     this.uploadProgress = 0;
@@ -28,7 +30,7 @@ class PhotosToolbarController {
 
     const onSuccces = () => {
       uploadedCount += 1;
-      if (uploadedCount === files.length) self.showPhotos();
+      if (uploadedCount === files.length) self.photosGallery.showPhotos();
     };
 
     const onFailure = (response) => {
