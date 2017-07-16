@@ -57,25 +57,18 @@ class PhotosGallery {
   }
 
 
-  next(step = 1) {
-    return this.slide(step);
+  next() {
+    return this.slide(1);
   }
 
-  prev(step = 1) {
-    return this.slide(step * -1);
+  prev() {
+    return this.slide(-1);
   }
 
   slide(step = 1) {
     const self = this;
     const nextIndex = this.currentIndex + step;
-
-    let nextPage = this.currentPage + 1;
-    let slideToNextPage = () => this.setIndex(0);
-
-    if (step < 0) {
-      nextPage = this.currentPage - 1;
-      slideToNextPage = photos => self.setIndex(photos.length - 1);
-    }
+    const nextPage = this.currentPage + Math.sign(step);
 
     if (this.isIndexValid(nextIndex)) {
       this.setIndex(nextIndex);
@@ -86,6 +79,9 @@ class PhotosGallery {
       return Promise.resolve(this.currentPhoto);
     }
 
+    const slideToNextPage = (photos) => {
+      self.setIndex(step > 0 ? 0 : photos.length - 1);
+    };
     return this.showPhotos({ page: nextPage }).then(slideToNextPage);
   }
 
