@@ -23,11 +23,19 @@ controller.index = (req, res) => {
 };
 
 controller.create = (req, res) => {
-  const photo = {file: req.file, metadata: req.body}
-  photo.metadata.owner = ObjectId(req.user.id);
+  const metadata = req.body.photo || {}
+  metadata.owner = ObjectId(req.user.id);
+  const photo = { file: req.file, metadata }
 
   return new PhotoWriter(photo).execute()
     .then(photo => res.status(200).json(photo));
+};
+
+controller.update = (req, res) => {
+  Photo.update(
+    { _id: req.params.id }, { $set: { metadata: req.body.photo } }
+  ).then(() => res.status(200).json({}))
+    .catch(() => res.status(500).json({}));
 };
 
 controller.delete = (req, res) => {
@@ -38,13 +46,6 @@ controller.delete = (req, res) => {
 
     return res.status(200).json({});
   });
-};
-
-controller.update = (req, res) => {
-  Photo.update(
-    { _id: req.params.id }, { $set: { metadata: req.body.photo } },
-  ).then(() => res.status(200).json({}))
-    .catch(() => res.status(500).json({}));
 };
 
 module.exports = controller;
