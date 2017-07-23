@@ -27,6 +27,8 @@ const PhotoSchema = new Schema({
 
 PhotoSchema.index({ 'metadata.title': 'text', 'metadata.description': 'text' });
 
-PhotoSchema.methods.src = () => `/photos/${this.filename}`;
+PhotoSchema.methods.src = function () {
+  return `/photos/${this.filename}`;
+};
 
 module.exports = mongoose.model('Photo', PhotoSchema);

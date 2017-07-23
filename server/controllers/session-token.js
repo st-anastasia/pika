@@ -15,7 +15,7 @@ controller.create = (req, res) => {
     return user.comparePassword(password);
   }).then((user) => {
     const token = jwt.sign(
-      { id: user._id }, config.tokenSecret, { expiresIn: config.tokenExpiration },
+      { id: user._id }, config.tokenSecret, { expiresIn: config.tokenExpiration }
     );
 
     return res.json({ token });

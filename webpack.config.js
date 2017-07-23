@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -27,7 +26,7 @@ module.exports = {
   },
   module: {
     rules: [
-      {test: /\.css$/, use: ExtractTextPlugin.extract({use: 
+      {test: /\.css$/, use: ExtractTextPlugin.extract({use:
         {loader: 'css-loader', options: {sourceMap: true}}
       })},
       {test: /\.scss$/, use: ExtractTextPlugin.extract({use: [
@@ -38,8 +37,8 @@ module.exports = {
         exclude: /node_modules|bower_components/},
       {test: /\.jade$/, use: 'pug-loader'},
       {test: /\.(png|jpg|svg|woff)$/, use: {
-        loader: 'file-loader', 
-        options: {name: '[path][name]-[hash].[ext]'} 
+        loader: 'file-loader',
+        options: {name: '[path][name]-[hash].[ext]'}
       }}
     ]
   },
