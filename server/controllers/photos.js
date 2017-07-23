@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const mongoose = require('mongoose');
 
 const Photo = require('../models/photo');
@@ -29,6 +28,16 @@ controller.create = (req, res) => {
 
   return new PhotoWriter(photo).execute()
     .then(photo => res.status(200).json(photo));
+};
+
+controller.delete = (req, res) => {
+  const gfs = mongoose.connection.gfs;
+
+  gfs.remove({ _id: req.params.id, root: 'photos' }, (err) => {
+    if (err) return res.status(500).json({});
+
+    return res.status(200).json({});
+  });
 };
 
 module.exports = controller;

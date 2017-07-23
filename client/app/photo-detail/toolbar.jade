@@ -6,9 +6,9 @@ md-toolbar.md-toolbar-tools.transparent_gradient
   span(flex='')
   md-button.md-icon-button(aria-label='Zoom in')
     md-icon zoom_in
-  md-button.md-icon-button(aria-label='Info', ng-click='$ctrl.toggleFotoForm()')
+  md-button.md-icon-button(aria-label='Info', ng-click='$ctrl.togglePhotoForm()')
     md-icon info
-  md-button.md-icon-button(aria-label='Delete')
+  md-button.md-icon-button(aria-label='Delete', ng-click='$ctrl.deletePhoto()')
     md-icon delete
   md-menu(md-position-mode='target-right target')
     md-button.md-icon-button(aria-label='More' class="md-icon-button" ng-click='$ctrl.openMenu($mdOpenMenu, $event)')

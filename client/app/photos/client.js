@@ -20,6 +20,10 @@ class PhotosClient {
       data: params,
     });
   }
+
+  delete(id) {
+    return this.$http.delete(`/api/photos/${id}`)
+  }
 }
 
 export default PhotosClient;
