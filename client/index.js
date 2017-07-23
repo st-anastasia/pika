@@ -10,7 +10,8 @@ import HttpInterceptor from './app/http-interceptor';
 import SideMenuComponent from './app/side-menu/component';
 import Session from './app/session';
 import SessionController from './app/session/controller';
-import PhotosService from './app/photos/service';
+import PhotosClient from './app/photos/client';
+import PhotosGallery from './app/photos/gallery';
 import PhotosController from './app/photos/controller';
 import PhotosToolbarComponent from './app/photos/toolbar-component';
 import PhotoDetailController from './app/photo-detail/controller';
@@ -22,7 +23,8 @@ import themingConfig from './theming';
 
 angular.module('pika', ['ui.router', 'ngMaterial', 'ngFileUpload'])
   .component('sideMenu', SideMenuComponent)
-  .service('photosService', PhotosService)
+  .factory('photosClient', PhotosClient)
+  .service('photosGallery', PhotosGallery)
   .service('session', Session)
   .factory('httpInterceptor', HttpInterceptor)
   .controller('sessionController', SessionController)

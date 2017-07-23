@@ -27,7 +27,7 @@ class PhotoDetailToolbarController {
         .title('You clicked!')
         .textContent(`Menu Item clicked, index: ${index}`)
         .ok('OK')
-        .targetEvent(this.originatorEvent),
+        .targetEvent(this.originatorEvent)
     );
 
     this.originatorEvent = null;

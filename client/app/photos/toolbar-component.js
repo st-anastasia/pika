@@ -1,12 +1,14 @@
 import template from './toolbar.jade';
 
-class ToolbarController {
+class PhotosToolbarController {
   /** @ngInject */
-  constructor($state, $mdSidenav, $location, photosService) {
+  constructor($state, $mdSidenav, $location, photosClient, photosGallery) {
     this.$state = $state;
     this.$mdSidenav = $mdSidenav;
     this.$location = $location;
-    this.photosService = photosService;
+
+    this.photosGallery = photosGallery;
+    this.photosClient = photosClient;
 
     this.searchTerm = '';
     this.uploadProgress = 0;
@@ -18,16 +20,37 @@ class ToolbarController {
   }
 
   search() {
-    this.photosService.loadPhotos({ search: this.searchTerm });
+    this.photosGallery.showPhotos({ search: this.searchTerm });
     this.$state.go('photos', { search: this.searchTerm }, { location: 'replace', notify: false });
   }
 
   uploadPhotos(files) {
-    this.photosService.uploadPhotos(files.map(file => ({ photo: file })));
+    const self = this;
+    let uploadedCount = 0;
+
+    const onSuccces = () => {
+      uploadedCount += 1;
+      if (uploadedCount === files.length) self.photosGallery.showPhotos();
+    };
+
+    const onFailure = (response) => {
+      if (response.status > 0) {
+        self.errorMsg = `${response.status}: ${response.data}`;
+      }
+    };
+
+    const onProgress = (event) => {
+      const percentage = (100.0 * (event.loaded / files.size));
+      self.uploadProgress = Math.min(100, parseInt(percentage, 10));
+    };
+
+    files.forEach((file) => {
+      this.photosClient.create({ photo: file }).then(onSuccces, onFailure, onProgress);
+    });
   }
 }
 
 export default {
   template: template(),
-  controller: ToolbarController,
+  controller: PhotosToolbarController,
 };
