@@ -7,5 +7,6 @@ const photosController = require('../controllers/photos');
 
 router.get('/photos', photosController.index);
 router.post('/photos', upload.single('photo'), photosController.create);
+router.delete('/photos/:id', photosController.delete);
 
 module.exports = router;
