@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const mongoose = require('mongoose');
 
 const Photo = require('../models/photo');
@@ -23,8 +24,10 @@ controller.index = (req, res) => {
 };
 
 controller.create = (req, res) => {
-  new PhotoWriter(req.user, req.file)
-    .execute()
+  const photo = {file: req.file, metadata: req.body}
+  photo.metadata.owner = ObjectId(req.user.id);
+
+  return new PhotoWriter(photo).execute()
     .then(photo => res.status(200).json(photo));
 };
 

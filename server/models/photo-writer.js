@@ -3,12 +3,9 @@ const crypto = require('crypto');
 const base64url = require('base64url');
 const fs = require('fs');
 
-const ObjectId = mongoose.Types.ObjectId;
-
 class PhotoWriter {
-  constructor(user, file) {
-    this.user = user;
-    this.file = file;
+  constructor(photo) {
+    this.photo = photo;
   }
 
   execute() {
@@ -28,7 +25,7 @@ class PhotoWriter {
   save() {
     return new Promise((resolve) => {
       const gfs = mongoose.connection.gfs;
-      const readStream = fs.createReadStream(this.file.path);
+      const readStream = fs.createReadStream(this.photo.file.path);
       const writeStream = gfs.createWriteStream(this.photoData);
       readStream.pipe(writeStream);
 
@@ -40,17 +37,15 @@ class PhotoWriter {
   }
 
   deleteFile() {
-    return new Promise(resolve => fs.unlink(this.file.path, resolve));
+    return new Promise(resolve => fs.unlink(this.photo.file.path, resolve));
   }
 
   createPhotoData() {
     this.photoData = {
       filename: this.token,
-      content_type: this.file.mimetype,
+      content_type: this.photo.file.mimetype,
       root: 'photos',
-      metadata: {
-        owner: ObjectId(this.user.id),
-      },
+      metadata: this.photo.metadata,
     };
   }
 
