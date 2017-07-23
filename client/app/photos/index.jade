@@ -16,7 +16,7 @@ md-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
 
   div(layout='row')
     md-button(
-      ng-repeat='page in $ctrl.photosService.pages'
+      ng-repeat='page in $ctrl.photosGallery.pages'
       ng-class='$ctrl.pageButtonClass(page)'
       ng-click='$ctrl.showPage(page)'
    ) {{page}}

@@ -1,34 +1,34 @@
 class PhotoDetailController {
   /** @ngInject */
-  constructor($scope, $stateParams, $state, photosService) {
+  constructor($scope, $stateParams, $state, photosGallery) {
     this.$scope = $scope;
     this.$stateParams = $stateParams;
     this.$state = $state;
 
     this.isFotoFormOpen = false;
 
-    this.photosService = photosService;
+    this.photosGallery = photosGallery;
 
     this.initWatchers();
-    this.loadPhoto();
+    this.showPhoto();
   }
 
   initWatchers() {
-    this.$scope.$watch(() => this.photosService.currentPhoto, (photo) => {
+    this.$scope.$watch(() => this.photosGallery.currentPhoto, (photo) => {
       this.$state.go('photo-detail', { id: photo._id }, { location: 'replace', notify: false });
     });
   }
 
   showPrev() {
-    this.photosService.prev();
+    this.photosGallery.prev();
   }
 
   showNext() {
-    this.photosService.next();
+    this.photosGallery.next();
   }
 
-  loadPhoto() {
-    this.photosService.loadPhoto(this.$stateParams.id);
+  showPhoto() {
+    this.photosGallery.showPhoto(this.$stateParams.id);
   }
 }
 

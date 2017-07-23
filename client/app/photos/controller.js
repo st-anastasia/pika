@@ -1,21 +1,21 @@
 class PhotosController {
   /** @ngInject */
-  constructor($scope, $stateParams, $state, photosService) {
+  constructor($scope, $stateParams, $state, photosGallery) {
     this.$scope = $scope;
     this.$stateParams = $stateParams;
     this.$state = $state;
 
-    this.photosService = photosService;
-    this.photosService.$scope = $scope;
+    this.photosGallery = photosGallery;
+    this.photosGallery.$scope = $scope;
     this.uploadMonths = [];
     this.photos = {};
 
     this.initWatchers();
-    this.loadPhotos();
+    this.showPhotos();
   }
 
   initWatchers() {
-    this.$scope.$watch(() => this.photosService.photos, this.filterPhotosByUploadMonth.bind(this));
+    this.$scope.$watch(() => this.photosGallery.photos, this.filterPhotosByUploadMonth.bind(this));
   }
 
   showPhoto(id) {
@@ -23,23 +23,23 @@ class PhotosController {
   }
 
   showPage(page) {
-    this.$state.go('photos', { page, search: this.photosService.search },
+    this.$state.go('photos', { page, search: this.photosGallery.search },
                    { location: 'replace' });
   }
 
-  loadPhotos() {
+  showPhotos() {
     const page = this.currentPage();
     const search = this.$stateParams.search;
 
-    this.photosService.loadPhotos({ page, search });
+    this.photosGallery.showPhotos({ page, search });
   }
 
   currentPage() {
-    return parseInt(this.$stateParams.page, 10) || this.photosService.currentPage;
+    return parseInt(this.$stateParams.page, 10) || this.photosGallery.currentPage;
   }
 
   pageButtonClass(page) {
-    if (page === this.photosService.currentPage) {
+    if (page === this.photosGallery.currentPage) {
       return 'md-raised md-primary';
     }
     return 'md-raised custom';
