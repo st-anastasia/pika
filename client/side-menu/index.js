@@ -1,3 +1,4 @@
+import angular from 'angular';
 import template from './index.jade';
 
 class SideMenuController {
@@ -51,18 +52,11 @@ class SideMenuController {
   close() {
     this.$mdSidenav('left').close();
   }
-  /* toggle(){
-    this.$mdSidenav('right').toggle();
-  }
-
-  close(){
-    this.$mdSidenav('right').close();
-  }*/
 }
 
-export default {
-  template: template(),
-  controller: SideMenuController,
-  controllerAs: 'sideMenuController',
-};
-
+export default angular.module('pika.side-menu', [])
+  .component('sideMenu', {
+    template: template(),
+    controller: SideMenuController,
+    controllerAs: 'sideMenuController',
+  });
