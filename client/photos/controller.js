@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 class PhotosController {
   /** @ngInject */
   constructor($scope, $stateParams, $state, photosGallery) {
@@ -6,7 +8,6 @@ class PhotosController {
     this.$state = $state;
 
     this.photosGallery = photosGallery;
-    this.photosGallery.$scope = $scope;
     this.uploadMonths = [];
     this.photos = {};
 
@@ -62,4 +63,5 @@ class PhotosController {
   }
 }
 
-export default PhotosController;
+export default angular.module('photos.controller', [])
+  .controller('photosController', PhotosController);

@@ -1,3 +1,4 @@
+import angular from 'angular';
 import _ from 'lodash';
 
 const LIMIT = 50;
@@ -125,4 +126,5 @@ class PhotosGallery {
 
 }
 
-export default PhotosGallery;
+export default angular.module('photos.gallery', [])
+  .service('photosGallery', PhotosGallery);

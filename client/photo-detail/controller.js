@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 class PhotoDetailController {
   /** @ngInject */
   constructor($scope, $stateParams, $state, photosGallery) {
@@ -32,4 +34,5 @@ class PhotoDetailController {
   }
 }
 
-export default PhotoDetailController;
+export default angular.module('photo-detail.controller', [])
+  .controller('photoDetailController', PhotoDetailController);

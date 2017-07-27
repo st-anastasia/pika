@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 class PhotosClient {
   constructor($http, session, Upload) {
     this.$http = $http;
@@ -26,4 +28,5 @@ class PhotosClient {
   }
 }
 
-export default PhotosClient;
+export default angular.module('photos.client', [])
+  .factory('photosClient', PhotosClient);

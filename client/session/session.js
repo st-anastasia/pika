@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 class Session {
 
   /** @ngInject */
@@ -14,4 +16,5 @@ class Session {
   }
 }
 
-export default Session;
+export default angular.module('session.session', [])
+  .service('session', Session)

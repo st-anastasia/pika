@@ -1,3 +1,4 @@
+import angular from 'angular';
 import template from './toolbar.jade';
 
 class PhotosToolbarController {
@@ -50,7 +51,8 @@ class PhotosToolbarController {
   }
 }
 
-export default {
-  template: template(),
-  controller: PhotosToolbarController,
-};
+export default angular.module('photos.toolbar', [])
+  .component('photosToolbar', {
+    template: template(),
+    controller: PhotosToolbarController,
+  });
