@@ -1,3 +1,4 @@
+import angular from 'angular';
 const template = require('./toolbar.jade');
 
 class PhotoDetailToolbarController {
@@ -46,7 +47,8 @@ class PhotoDetailToolbarController {
   }
 }
 
-export default {
-  template: template(),
-  controller: PhotoDetailToolbarController,
-};
+export default angular.module('photo-detail.toolbar', [])
+  .component('photoDetailToolbar',  {
+    template: template(),
+    controller: PhotoDetailToolbarController,
+  });
