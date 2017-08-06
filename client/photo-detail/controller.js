@@ -7,7 +7,7 @@ class PhotoDetailController {
     this.$stateParams = $stateParams;
     this.$state = $state;
 
-    this.isFotoFormOpen = false;
+    this.isPhotoFormOpen = false;
 
     this.photosGallery = photosGallery;
 

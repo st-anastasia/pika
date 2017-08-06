@@ -1,7 +1,7 @@
 { "presets": [
   [ "env", {
     "targets": {
-      "browsers": ["Chrome >= 56", "Firefox >= 51", "Safari >= 10"], 
+      "browsers": ["Chrome >= 60", "Firefox >= 52", "Safari >= 10"],
     },
     "debug": true
   }]

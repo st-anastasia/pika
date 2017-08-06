@@ -27,7 +27,6 @@ class PhotosGallery {
     const self = this;
     if (this.currentPhoto.id === id) return;
 
-    // eslint-disable-next-line no-underscore-dangle
     const foundIndex = this.photos.findIndex(photo => photo._id === id);
     if (foundIndex >= 0) {
       this.setIndex(foundIndex);
