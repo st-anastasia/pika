@@ -33,7 +33,7 @@ class PhotosGallery {
       return;
     }
 
-    this.client.findById(id).then(({ photo }) => {
+    this.client.findById(id).then(({ data: { photo } }) => {
       self.currentPhoto = photo;
       self.disableSliding();
 

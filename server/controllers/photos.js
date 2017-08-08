@@ -22,6 +22,12 @@ controller.index = (req, res) => {
   });
 };
 
+controller.show = (req, res) => {
+  Photo.findOne({ _id: req.params.id })
+    .then( photo => res.status(200).json({ photo }))
+    .catch( () => res.status(500).json({}) );
+}
+
 controller.create = (req, res) => {
   const metadata = req.body.photo || {}
   metadata.owner = ObjectId(req.user.id);
