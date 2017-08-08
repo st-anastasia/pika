@@ -4,11 +4,12 @@ class Session {
 
   /** @ngInject */
   constructor() {
-    this.user = {};
+    this.user = JSON.parse(localStorage.getItem('user')) || {};
   }
 
   auth(user) {
     this.user = user;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   isAuthenticated() {
