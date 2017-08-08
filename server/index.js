@@ -14,11 +14,11 @@ app.use(morgan('dev'));
 
 app.use('/api', jwt({ secret: config.tokenSecret }).unless({ path: '/api/session-token' }));
 
-app.get('/photos/:token', require('./controllers/photo-images').show);
+app.get('/photos/:token', require('./photos/imagesController').show);
 
-app.use('/api', require('./routes/session-tokens'));
-app.use('/api', require('./routes/users'));
-app.use('/api', require('./routes/photos'));
+app.use('/api', require('./sessions/routes'));
+app.use('/api', require('./user/routes'));
+app.use('/api', require('./photos/routes'));
 
 app.use(express.static(path.join(__dirname, '../public')));
 

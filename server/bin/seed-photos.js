@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-faker = require('faker');
+const faker = require('faker');
 const connection = require('../db/connection');
-const User = require('../models/user');
-const photosController = require('../controllers/photos');
+const User = require('../user/user');
+const photosController = require('../photos/controller');
 
 const srcPath = process.argv.slice(2)[0];
 
@@ -19,14 +19,14 @@ const storePhotos = (user) => {
       user: { id: user.id },
       file: { mimetype: 'image/jpeg', path: path.join(srcPath, file) },
       body: {
-        metadata: JSON.stringify({
-          title: faker.random.words(2),
+        photo: {
+          title: faker.random.words(2),../controllers/photos
           description: faker.random.words(10),
-        }),
+        }
       },
     };
 
-    photosController.update(req, res);
+    photosController.create(req, res);
   });
 };
 

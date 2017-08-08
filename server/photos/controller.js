@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const Photo = require('../models/photo');
-const PhotoWriter = require('../models/photo-writer');
+const Photo = require('./photo');
+const PhotoWriter = require('./writer');
 
 const ObjectId = mongoose.Types.ObjectId;
 const controller = {};
