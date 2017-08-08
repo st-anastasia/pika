@@ -29,14 +29,10 @@ class PhotosController {
   }
 
   showPhotos() {
-    const page = this.currentPage();
-    const search = this.$stateParams.search;
+    const page = parseInt(this.$stateParams.page, 10) || this.photosGallery.currentPage;
+    const search = this.$stateParams.search || this.photosGallery.search;
 
     this.photosGallery.showPhotos({ page, search });
-  }
-
-  currentPage() {
-    return parseInt(this.$stateParams.page, 10) || this.photosGallery.currentPage;
   }
 
   pageButtonClass(page) {

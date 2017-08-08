@@ -11,7 +11,7 @@ class PhotosToolbarController {
     this.photosGallery = photosGallery;
     this.photosClient = photosClient;
 
-    this.searchTerm = '';
+    this.searchTerm = photosGallery.search;
     this.uploadProgress = 0;
     this.errorMsg = null;
   }
