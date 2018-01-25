@@ -19,7 +19,7 @@ class PhotosGallery {
 
     this.slidingControls = {
       prev: false,
-      next: true,
+      next: true
     };
   }
 
@@ -42,20 +42,21 @@ class PhotosGallery {
   }
 
   showPhotos(params) {
-    const findParams = _.assign({ search: this.search }, params);
+    const findParams = _.assign(
+      { search: this.search, page: this.currentPage }, 
+      params
+    );
     const self = this;
 
-    return this.client.find(findParams)
-      .then((res) => {
-        _.assign(self, _.pick(res.data, ['photos', 'totalSize']));
-        self.currentPage = findParams.page;
-        self.search = findParams.search;
+    return this.client.find(findParams).then(res => {
+      _.assign(self, _.pick(res.data, ['photos', 'totalSize']));
+      self.currentPage = findParams.page;
+      self.search = findParams.search;
 
-        self.paginate();
-        return self.photos;
-      });
+      self.paginate();
+      return self.photos;
+    });
   }
-
 
   next() {
     return this.slide(1);
@@ -79,7 +80,7 @@ class PhotosGallery {
       return Promise.resolve(this.currentPhoto);
     }
 
-    const slideToNextPage = (photos) => {
+    const slideToNextPage = photos => {
       self.setIndex(step > 0 ? 0 : photos.length - 1);
     };
     return this.showPhotos({ page: nextPage }).then(slideToNextPage);
@@ -92,13 +93,13 @@ class PhotosGallery {
   }
 
   isIndexValid(index) {
-    return (index >= 0 && index < this.photos.length);
+    return index >= 0 && index < this.photos.length;
   }
 
   setSlidingControls() {
     this.slidingControls = {
       prev: this.offset() !== 0,
-      next: this.offset() + 1 !== this.totalSize,
+      next: this.offset() + 1 !== this.totalSize
     };
   }
 
@@ -122,8 +123,8 @@ class PhotosGallery {
 
     this.pages = _.range(start, end);
   }
-
 }
 
-export default angular.module('photos.gallery', [])
+export default angular
+  .module('photos.gallery', [])
   .service('photosGallery', PhotosGallery);

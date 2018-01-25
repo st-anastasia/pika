@@ -24,13 +24,16 @@ class PhotosController {
   }
 
   showPage(page) {
-    this.$state.go('photos', { page, search: this.photosGallery.search },
-                   { location: 'replace' });
+    this.$state.go(
+      'photos', 
+      { page, search: this.photosGallery.search },
+      { location: 'replace' }
+    );
   }
 
   showPhotos() {
-    const page = parseInt(this.$stateParams.page, 10) || this.photosGallery.currentPage;
-    const search = this.$stateParams.search || this.photosGallery.search;
+    const page = parseInt(this.$stateParams.page, 10)
+    const search = this.$stateParams.search
 
     this.photosGallery.showPhotos({ page, search });
   }

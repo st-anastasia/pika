@@ -7,6 +7,14 @@ class SessionController {
     this.$http = $http;
     this.session = session;
 
+    this.index();
+  }
+
+  index() {
+    if (this.session.isAuthenticated()) {
+      return this.$state.go('photos')
+    }
+
     this.create();
   }
 

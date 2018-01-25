@@ -13,24 +13,22 @@ class PhotoWriter {
   execute() {
     const self = this;
 
-    return this.createToken().then(() => {
-      return self.createPhotoData();
-    }).then(() => {
-      return self.save();
-    }).then((photo) => {
-      self.deleteFile();
-
-      return photo;
-    });
+    return this.createToken()
+      .then(() => {
+        return self.createPhotoData();
+      })
+      .then(() => {
+        return self.save();
+      });
   }
 
   save() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const gfs = mongoose.connection.gfs;
       const writeStream = gfs.createWriteStream(this.photoData);
       const readStream = fs.createReadStream(this.photo.file.path);
 
-      writeStream.on('close', (photo) => {
+      writeStream.on('close', photo => {
         this.savedPhoto = photo;
         resolve(photo);
       });
@@ -39,28 +37,26 @@ class PhotoWriter {
     });
   }
 
-  deleteFile() {
-    return new Promise(resolve => fs.unlink(this.photo.file.path, resolve));
-  }
-
   createPhotoData() {
-    return new Promise((resolve) => {
-      const readStream = fs.createReadStream(this.photo.file.path);
-      readStream.on('readable', () => {
+    return new Promise(resolve => {
+      fs.open(this.photo.file.path, 'r', (status, fd) => {
+        var buffer = new Buffer(65635);
+        fs.read(fd, buffer, 0, 65635, 0, () => {
+          const exif = exifParser.create(buffer).parse();
 
-        let exifBuffer = readStream.read(65535);
-        const exif = exifParser.create(exifBuffer).parse();
+          this.photoData = {
+            filename: this.token,
+            content_type: this.photo.file.mimetype,
+            root: 'photos',
+            metadata: this.photo.metadata
+          };
+          _.assign(
+            this.photoData.metadata,
+            _.pick(exif, ['tags', 'imageSize'])
+          );
 
-        this.photoData = {
-          filename: this.token,
-          content_type: this.photo.file.mimetype,
-          root: 'photos',
-          metadata: this.photo.metadata,
-        };
-        _.assign(this.photoData.metadata, _.pick(exif, ['tags', 'imageSize']))
-
-        readStream.destroy();
-        resolve(this.photoData);
+          resolve(this.photoData);
+        });
       });
     });
   }

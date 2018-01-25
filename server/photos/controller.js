@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const fs = require('fs');
 
 const Photo = require('./photo');
 const PhotoWriter = require('./writer');
@@ -13,6 +14,7 @@ controller.index = (req, res) => {
 
   const options = { 'metadata.owner': ObjectId(req.user.id) };
   if (query.search) options.$text = { $search: query.search };
+  console.log("id", req.user.id)
 
   Promise.all([
     Photo.find(options).sort({ uploadDate: 'desc' }).skip(skip).limit(limit),
@@ -34,7 +36,10 @@ controller.create = (req, res) => {
   const photo = { file: req.file, metadata }
 
   return new PhotoWriter(photo).execute()
-    .then(photo => res.status(200).json(photo));
+    .then(photo => { 
+      fs.unlink(photo.file.path, ()=>{});
+      res.status(200).json(photo); 
+    });
 };
 
 controller.update = (req, res) => {
