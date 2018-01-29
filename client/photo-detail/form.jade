@@ -1,17 +1,14 @@
-md-toolbar.md-default-theme.md-hue-1(layout="row")
+md-toolbar.sidenav-right-toolbar.tmd-default-theme.md-hue-1(layout="row")
   h1.md-toolbar-tools Info
   md-button.md-icon-button(aria-label='Close', ng-click='$ctrl.close()')
     md-icon close
 md-content(layout-padding='')
   #photo_detail_input
-    form
-      md-input-container.md-block.md-accent
-        label(for='testInput') Test input
-        input#testInput(type='text', ng-model='data', md-autofocus='')
-  md-divider
+    md-input-container.md-block.md-accent
+      label(for='title') Title
+      input#title(type='text', ng-model='$ctrl.photo.metadata.title', md-autofocus='')
 
   md-list(flex='')
-    md-subheader.md-no-sticky Details
     md-list-item.md-2-line
       md-icon(aria-label='Insert invitation') insert_invitation
       .md-list-item-text
@@ -29,6 +26,9 @@ md-content(layout-padding='')
         h3 {{$ctrl.photo.metadata.title}}
         div
           span(ng-repeat='property in $ctrl.photoDimesions()') {{property}}
+  
+  md-input-container.md-block.md-accent
+    label(for='description') Description
+    textarea#description(ng-model='$ctrl.photo.metadata.description', rows="1")  
 
-  md-button.md-primary(ng-click='$ctrl.close()')
-    | Close Sidenav Right
+
