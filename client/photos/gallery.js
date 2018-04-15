@@ -43,7 +43,7 @@ class PhotosGallery {
 
   showPhotos(params) {
     const findParams = _.assign(
-      { search: this.search, page: this.currentPage }, 
+      { search: this.search, page: this.currentPage },
       params
     );
     const self = this;
