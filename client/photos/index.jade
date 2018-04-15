@@ -12,7 +12,7 @@ md-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
         ng-click="$ctrl.showPhoto(photo._id)"
       )
 
-  div(layout='row')
+  div(layout='row', layout-align= 'center cenert' class='pagination')
     md-button(
       ng-repeat='page in $ctrl.photosGallery.pages'
       ng-class='$ctrl.pageButtonClass(page)'

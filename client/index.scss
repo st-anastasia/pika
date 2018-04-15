@@ -166,3 +166,7 @@ md-toolbar {
 md-toolbar.md-default-theme.md-hue-1:not(.md-menu-toolbar), md-toolbar.md-hue-1:not(.md-menu-toolbar).sidenav-right-toolbar {
   background-color: $text-icon-color;
 }
+
+.pagination .md-button {
+  min-width: 40px;
+}
