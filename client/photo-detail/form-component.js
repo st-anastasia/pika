@@ -15,30 +15,20 @@ class PhotoDetailFormController {
   }
 
   photoExposure() {
-    //console.log("photoExposure()", this.photo)
-    let res = _.pick(this.photo.metadata.tags, [
-      'FNumber',
-      'ExposureTime',
-      'FocalLength',
-      'ISO'
-    ]);
-    res = _.pickBy(res, v => !_.isNil(v));
-
+    tags = this.photo.metadata.tags
+    keys = ['FNumber', 'ExposureTime', 'FocalLength', 'ISO']
     const transformations = {
       FNumber: v => `1 / ${v}`,
       ExposureTime: v => Math.round(1 / v),
       FocalLength: v => `${v} mm`,
       ISO: v => `ISO ${v}`
     };
-    res = _.transform(
-      res,
-      (result, value, key) => {
-        result.push(transformations[key](value));
-      },
-      []
-    );
-
-    return res;
+    return keys
+      .filter((k) => !_.isNil(tags[k]))
+      .map((k) => {
+        value = tags[k]
+        transformations[k](value)
+      });
   }
 
   photoDimesions() {
@@ -51,9 +41,7 @@ class PhotoDetailFormController {
       imageSizeString = `${imageSize.width} x ${imageSize.height}`;
     }
 
-    const length = `${_.round(this.photo.length / 1024 / 1024, 2).toFixed(
-      2
-    )} MB`;
+    const length = `${_.round(this.photo.length / 1024 / 1024, 2).toFixed(2)} MB`;
 
     return [megaPixel, imageSizeString, length].filter(v => !_.isNil(v));
   }

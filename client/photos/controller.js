@@ -32,7 +32,7 @@ class PhotosController {
   }
 
   showPhotos() {
-    const page = parseInt(this.$stateParams.page, 10)
+    const page = parseInt(this.$stateParams.page, 10) || undefined
     const search = this.$stateParams.search
 
     this.photosGallery.showPhotos({ page, search });

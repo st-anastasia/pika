@@ -43,17 +43,16 @@ class PhotosGallery {
 
   showPhotos({search, page=this.currentPage} = {}) {
     const _this = this;
-
     return this.client.find({page, search}).then(res => {
-      _this.photos = res.data.photos
-      _this.totalSize  = res.data.totalSize
-      console.log("PhotosGallery.showPhotos: \n" )
-      console.log(_this.photos)
-      console.log("Total Size: ", _this.totalSize)
-
       _this.currentPage = page;
       _this.search = search;
 
+      _this.totalSize  = res.data.totalSize
+      _this.photos = res.data.photos
+     
+      console.log("PhotosGallery.showPhotos: \n" )
+      console.log(_this.photos)
+      console.log("Total Size: ", _this.totalSize)
       _this.paginate();
       return _this.photos;
     });
