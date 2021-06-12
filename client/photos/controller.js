@@ -8,15 +8,15 @@ class PhotosController {
     this.$state = $state;
 
     this.photosGallery = photosGallery;
-    this.uploadMonths = [];
-    this.photos = {};
+
+    this.photosByMonth = {};
 
     this.initWatchers();
     this.showPhotos();
   }
 
   initWatchers() {
-    this.$scope.$watch(() => this.photosGallery.photos, this.filterPhotosByUploadMonth.bind(this));
+    this.$scope.$watch(() => this.photosGallery.photos, this.filterPhotosByMonth.bind(this));
   }
 
   showPhoto(id) {
@@ -45,20 +45,24 @@ class PhotosController {
     return 'md-raised custom';
   }
 
-  filterPhotosByUploadMonth(photos) {
-    this.photos = photos.reduce((photosByMonth, photo) => {
-      const uploadMonth = this.uploadMonth(photo);
-      if (!photosByMonth[uploadMonth]) photosByMonth[uploadMonth] = [];
+  filterPhotosByMonth(photos) {
+    const res = {};
+    photos.forEach((photo) => {
+      const month = this.monthLabel(photo);
+      if (!res[month]) {
+        res[month] = [];
+      }
 
-      photosByMonth[uploadMonth].push(photo);
-      return photosByMonth;
-    }, {});
+      res[month].push(photo);    
+    });
+    this.photosByMonth = res;
+    console.log("PhotosController.filterPhotosByMonth: \n", this.photos);
   }
 
-  uploadMonth(photo) {
+  monthLabel(photo) {
     const date = new Date(photo.uploadDate);
     const month = date.toLocaleString('en', { month: 'short' });
-    return `${month} ${date.getFullYear()}`;
+    return `${month} ${date.getFullYear()} `;
   }
 }
 

@@ -15,6 +15,7 @@ class PhotoDetailFormController {
   }
 
   photoExposure() {
+    //console.log("photoExposure()", this.photo)
     let res = _.pick(this.photo.metadata.tags, [
       'FNumber',
       'ExposureTime',

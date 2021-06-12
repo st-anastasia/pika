@@ -1,7 +1,7 @@
 import angular from 'angular';
 import _ from 'lodash';
 
-const LIMIT = 50;
+const PHOTOS_PER_PAGE = 50;
 
 class PhotosGallery {
   /** @ngInject */
@@ -24,7 +24,7 @@ class PhotosGallery {
   }
 
   showPhoto(id) {
-    const self = this;
+    const _this = this;
     if (this.currentPhoto.id === id) return;
 
     const foundIndex = this.photos.findIndex(photo => photo._id === id);
@@ -34,27 +34,28 @@ class PhotosGallery {
     }
 
     this.client.findById(id).then(({ data: { photo } }) => {
-      self.currentPhoto = photo;
-      self.disableSliding();
+      _this.currentPhoto = photo;
+      _this.disableSliding();
 
       return photo;
     });
   }
 
-  showPhotos(params) {
-    const findParams = _.assign(
-      { search: this.search, page: this.currentPage },
-      params
-    );
-    const self = this;
+  showPhotos({search, page=this.currentPage} = {}) {
+    const _this = this;
 
-    return this.client.find(findParams).then(res => {
-      _.assign(self, _.pick(res.data, ['photos', 'totalSize']));
-      self.currentPage = findParams.page;
-      self.search = findParams.search;
+    return this.client.find({page, search}).then(res => {
+      _this.photos = res.data.photos
+      _this.totalSize  = res.data.totalSize
+      console.log("PhotosGallery.showPhotos: \n" )
+      console.log(_this.photos)
+      console.log("Total Size: ", _this.totalSize)
 
-      self.paginate();
-      return self.photos;
+      _this.currentPage = page;
+      _this.search = search;
+
+      _this.paginate();
+      return _this.photos;
     });
   }
 
@@ -108,17 +109,18 @@ class PhotosGallery {
   }
 
   offset() {
-    return (this.currentPage - 1) * LIMIT + this.currentIndex;
+    return (this.currentPage - 1) * PHOTOS_PER_PAGE + this.currentIndex;
   }
 
   paginate() {
+    const numberOfPages = 5
     let start = this.currentPage - 2;
     if (start < 1) start = 1;
 
-    let end = start + 5;
-    if (this.totalSize / LIMIT < 5) {
+    let end = start + numberOfPages;
+    if (this.totalSize / PHOTOS_PER_PAGE < numberOfPages) {
       start = 1;
-      end = Math.ceil(this.totalSize / LIMIT) + 1;
+      end = Math.ceil(this.totalSize / PHOTOS_PER_PAGE) + 1;
     }
 
     this.pages = _.range(start, end);

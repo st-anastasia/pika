@@ -22,7 +22,7 @@ class SessionController {
     const _this = this;
     this.$http.post('/api/session-token', { username: 'pika', password: '123456' })
     .then((response) => {
-      _this.session.auth(response.data);
+      _this.session.authenticate(response.data);
       _this.$state.go('photos');
     });
   }
