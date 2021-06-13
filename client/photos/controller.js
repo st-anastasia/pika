@@ -8,7 +8,6 @@ class PhotosController {
     this.$state = $state;
 
     this.photosGallery = photosGallery;
-
     this.photosByMonth = {};
 
     this.initWatchers();
@@ -56,7 +55,7 @@ class PhotosController {
       res[month].push(photo);    
     });
     this.photosByMonth = res;
-    console.log("PhotosController.filterPhotosByMonth: \n", this.photos);
+    console.log("PhotosController.filterPhotosByMonth: \n", this.photosByMonth);
   }
 
   monthLabel(photo) {

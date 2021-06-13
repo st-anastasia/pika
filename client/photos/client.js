@@ -8,8 +8,8 @@ class PhotosClient {
   }
 
   find({search, page = 1} = {}) {
-    console.log("PhotosClient.find", { search, page })
-    return this.$http.get('/api/photos', {params: { search, page }});
+    console.log("PhotosClient.find", { search, page });
+    return this.$http.get("/api/photos", { params: { search, page } });
   }
 
   findById(id) {
