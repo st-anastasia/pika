@@ -47,12 +47,12 @@ class PhotoDetailFormController {
   }
 
   photoDateString() {
-    const date = new Date(this.photo.uploadDate);
+    const date = new Date(this.photo.metadata.createDate);
     return dateformat(date, 'dd. mmm yyyy');
   }
 
   photoTimeString() {
-    const date = new Date(this.photo.uploadDate);
+    const date = new Date(this.photo.metadata.createDate);
     return dateformat(date, 'ddd. hh:mm');
   }
 }

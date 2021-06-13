@@ -41,16 +41,16 @@ class PhotosGallery {
     });
   }
 
-  showPhotos({search, page=this.currentPage} = {}) {
+  showPhotos({ search, page = this.currentPage } = {}) {
     const _this = this;
-    return this.client.find({page, search}).then(res => {
+    return this.client.find({ page, search }).then(res => {
       _this.currentPage = page;
       _this.search = search;
 
-      _this.totalSize  = res.data.totalSize
+      _this.totalSize = res.data.totalSize
       _this.photos = res.data.photos
-     
-      console.log("PhotosGallery.showPhotos: \n" )
+
+      console.log("PhotosGallery.showPhotos: \n")
       console.log(_this.photos)
       console.log("Total Size: ", _this.totalSize)
       _this.paginate();
@@ -112,14 +112,16 @@ class PhotosGallery {
   }
 
   paginate() {
-    const numberOfPages = 5
-    let start = this.currentPage - 2;
+    const numberOfLinks = 7
+    const totalPages = Math.ceil(this.totalSize / PHOTOS_PER_PAGE)
+    let start = this.currentPage - 3;
     if (start < 1) start = 1;
 
-    let end = start + numberOfPages;
-    if (this.totalSize / PHOTOS_PER_PAGE < numberOfPages) {
-      start = 1;
-      end = Math.ceil(this.totalSize / PHOTOS_PER_PAGE) + 1;
+    let end = start + numberOfLinks;
+    if (end > totalPages + 1) {
+      end = totalPages + 1;
+      start = end - numberOfLinks
+      if (start < 1) start = 1;
     }
 
     this.pages = _.range(start, end);

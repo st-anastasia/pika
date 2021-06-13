@@ -17,7 +17,7 @@ controller.index = (req, res) => {
   console.log("id", req.user.id)
 
   Promise.all([
-    Photo.find(options).sort({ uploadDate: 'desc' }).skip(skip).limit(limit),
+    Photo.find(options).sort({ 'metadata.createDate': 'desc' }).skip(skip).limit(limit),
     Photo.find(options).count(),
   ]).then(([photos, totalSize]) => {
     res.json({ photos, totalSize });
@@ -26,8 +26,8 @@ controller.index = (req, res) => {
 
 controller.show = (req, res) => {
   Photo.findOne({ _id: req.params.id })
-    .then( photo => res.status(200).json({ photo }))
-    .catch( () => res.status(500).json({}) );
+    .then(photo => res.status(200).json({ photo }))
+    .catch(() => res.status(500).json({}));
 }
 
 controller.create = (req, res) => {
@@ -36,9 +36,9 @@ controller.create = (req, res) => {
   const photo = { file: req.file, metadata }
 
   return new PhotoWriter(photo).execute()
-    .then(photo => { 
-      fs.unlink(photo.file.path, ()=>{});
-      res.status(200).json(photo); 
+    .then(photo => {
+      fs.unlink(photo.file.path, () => { });
+      res.status(200).json(photo);
     });
 };
 

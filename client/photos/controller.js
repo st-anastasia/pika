@@ -24,7 +24,7 @@ class PhotosController {
 
   showPage(page) {
     this.$state.go(
-      'photos', 
+      'photos',
       { page, search: this.photosGallery.search },
       { location: 'replace' }
     );
@@ -52,14 +52,14 @@ class PhotosController {
         res[month] = [];
       }
 
-      res[month].push(photo);    
+      res[month].push(photo);
     });
     this.photosByMonth = res;
     console.log("PhotosController.filterPhotosByMonth: \n", this.photosByMonth);
   }
 
   monthLabel(photo) {
-    const date = new Date(photo.uploadDate);
+    const date = new Date(photo.metadata.createDate);
     const month = date.toLocaleString('en', { month: 'short' });
     return `${month} ${date.getFullYear()} `;
   }
