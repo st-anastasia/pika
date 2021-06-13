@@ -22,7 +22,7 @@ class PhotosToolbarController {
 
   search() {
     this.photosGallery.showPhotos({ search: this.searchTerm });
-    this.$state.go('photos', { search: this.searchTerm }, { location: 'replace', notify: false });
+    this.$state.go('photos', { search: this.searchTerm, page: 1 }, { location: 'replace', notify: false });
   }
 
   uploadPhotos(photos) {

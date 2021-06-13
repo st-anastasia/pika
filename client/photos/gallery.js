@@ -41,7 +41,7 @@ class PhotosGallery {
     });
   }
 
-  showPhotos({ search, page = this.currentPage } = {}) {
+  showPhotos({ search, page = 1 } = {}) {
     const _this = this;
     return this.client.find({ page, search }).then(res => {
       _this.currentPage = page;
