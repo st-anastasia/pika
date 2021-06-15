@@ -67,9 +67,9 @@ class PhotosGallery {
   }
 
   slide(step = 1) {
-    const self = this;
-    const nextIndex = this.currentIndex + step;
-    const nextPage = this.currentPage + Math.sign(step);
+    const _this = this;
+    let nextIndex = this.currentIndex + step;
+    let nextPage = this.currentPage + Math.sign(step);
 
     if (this.isIndexValid(nextIndex)) {
       this.setIndex(nextIndex);
@@ -81,9 +81,13 @@ class PhotosGallery {
     }
 
     const slideToNextPage = photos => {
-      self.setIndex(step > 0 ? 0 : photos.length - 1);
+      nextIndex = step > 0 ? 0 : photos.length - 1
+      _this.setIndex(nextIndex);
     };
-    return this.showPhotos({ page: nextPage }).then(slideToNextPage);
+
+    return this
+      .showPhotos({ page: nextPage })
+      .then(slideToNextPage);
   }
 
   setIndex(index) {
@@ -112,9 +116,9 @@ class PhotosGallery {
   }
 
   paginate() {
-    const numberOfLinks = 7
+    const numberOfLinks = 5
     const totalPages = Math.ceil(this.totalSize / PHOTOS_PER_PAGE)
-    let start = this.currentPage - 3;
+    let start = this.currentPage - 2;
     if (start < 1) start = 1;
 
     let end = start + numberOfLinks;
