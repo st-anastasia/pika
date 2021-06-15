@@ -31,7 +31,9 @@ class PhotosToolbarController {
 
     const onSuccces = () => {
       uploadedCount += 1;
-      if (uploadedCount === photos.length) self.photosGallery.showPhotos();
+      if (uploadedCount == photos.length) {
+        self.photosGallery.showPhotos();
+      }
     };
 
     const onFailure = (response) => {

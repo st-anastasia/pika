@@ -26,7 +26,7 @@ class PhotosClient {
   }
 
   update(photo) {
-    return this.$http.patch(`/api/photos/${id}`, { photo })
+    return this.$http.patch(`/api/photos/${photo._id}`, { photo: photo.metadata })
   }
 
   delete(id) {

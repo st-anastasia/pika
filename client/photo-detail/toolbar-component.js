@@ -38,7 +38,6 @@ class PhotoDetailToolbarController {
   }
 
   back() {
-    //this.$state.go('photos');
     this.$state.go('photos', { 
       search: this.photosGallery.search, 
       page: this.photosGallery.currentPage 

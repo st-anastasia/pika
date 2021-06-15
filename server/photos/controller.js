@@ -37,16 +37,18 @@ controller.create = (req, res) => {
 
   return new PhotoWriter(photo).execute()
     .then(photo => {
-      fs.unlink(photo.file.path, () => { });
+      fs.unlink(req.file.path, () => { });
       res.status(200).json(photo);
     });
 };
 
-controller.update = (req, res) => {
+controller.update = (req, res) => {  
   Photo.update(
-    { _id: req.params.id }, { $set: { metadata: req.body.photo } }
+    { _id: ObjectId(req.params.id) }, 
+    { metadata: req.body.photo }, 
+    { strict: false }
   ).then(() => res.status(200).json({}))
-    .catch(() => res.status(500).json({}));
+  .catch(() => res.status(500).json({}));
 };
 
 controller.delete = (req, res) => {

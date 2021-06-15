@@ -6,17 +6,26 @@ import template from './form.jade';
 
 class PhotoDetailFormController {
   /** @ngInject */
-  constructor($mdSidenav) {
+  constructor($mdSidenav, photosClient) {
     this.$mdSidenav = $mdSidenav;
+    this.client = photosClient
   }
 
   close() {
     this.$mdSidenav('right').close();
   }
 
+  updatePhoto(){
+    this.client.update(this.photo);
+  }
+
   photoExposure() {
-    tags = this.photo.metadata.tags
-    keys = ['FNumber', 'ExposureTime', 'FocalLength', 'ISO']
+    if (_.isEmpty(this.photo)) {
+      return [];
+    }
+
+    const tags = this.photo.metadata.tags
+    const keys = ['FNumber', 'ExposureTime', 'FocalLength', 'ISO']
     const transformations = {
       FNumber: v => `1 / ${v}`,
       ExposureTime: v => Math.round(1 / v),
@@ -26,12 +35,16 @@ class PhotoDetailFormController {
     return keys
       .filter((k) => !_.isNil(tags[k]))
       .map((k) => {
-        value = tags[k]
-        transformations[k](value)
+        const value = tags[k]
+        return transformations[k](value)
       });
   }
 
   photoDimesions() {
+    if (_.isEmpty(this.photo)) {
+      return [];
+    }
+
     const imageSize = this.photo.metadata.imageSize;
     let megaPixel = null;
     let imageSizeString = null;
@@ -47,11 +60,19 @@ class PhotoDetailFormController {
   }
 
   photoDateString() {
+    if (_.isEmpty(this.photo)) {
+      return '';
+    }
+
     const date = new Date(this.photo.metadata.createDate);
     return dateformat(date, 'dd. mmm yyyy');
   }
 
   photoTimeString() {
+    if (_.isEmpty(this.photo)) {
+      return '';
+    }
+
     const date = new Date(this.photo.metadata.createDate);
     return dateformat(date, 'ddd. hh:mm');
   }

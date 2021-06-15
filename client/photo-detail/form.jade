@@ -6,7 +6,10 @@ md-content(layout-padding='')
   #photo_detail_input
     md-input-container.md-block.md-accent
       label(for='title') Title
-      input#title(type='text', ng-model='$ctrl.photo.metadata.title', md-autofocus='')
+      input#title(
+        type='text', ng-model='$ctrl.photo.metadata.title', md-autofocus='',
+        ng-change='$ctrl.updatePhoto()'
+      )
 
   md-list(flex='')
     md-list-item.md-2-line
@@ -29,6 +32,9 @@ md-content(layout-padding='')
   
   md-input-container.md-block.md-accent
     label(for='description') Description
-    textarea#description(ng-model='$ctrl.photo.metadata.description', rows="1")  
+    textarea#description(
+      ng-model='$ctrl.photo.metadata.description', rows="1",
+      ng-change='$ctrl.updatePhoto()'
+    )  
 
 
