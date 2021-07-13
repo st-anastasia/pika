@@ -15,7 +15,7 @@ class PhotosController {
   }
 
   initWatchers() {
-    this.$scope.$watch(() => this.photosGallery.photos, this.filterPhotosByMonth.bind(this));
+    this.$scope.$watch(() => this.photosGallery.photos, this.groupPhotosByMonth.bind(this));
   }
 
   showPhoto(id) {
@@ -44,7 +44,7 @@ class PhotosController {
     return 'md-raised custom';
   }
 
-  filterPhotosByMonth(photos) {
+  groupPhotosByMonth(photos) {
     const res = {};
     photos.forEach((photo) => {
       const month = this.monthLabel(photo);
@@ -55,7 +55,7 @@ class PhotosController {
       res[month].push(photo);
     });
     this.photosByMonth = res;
-    console.log("PhotosController.filterPhotosByMonth: \n", this.photosByMonth);
+    console.log("PhotosController.groupPhotosByMonth: \n", this.photosByMonth);
   }
 
   monthLabel(photo) {

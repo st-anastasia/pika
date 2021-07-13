@@ -1,5 +1,5 @@
-import angular from 'angular';
-import _ from 'lodash';
+import angular from "angular";
+import _ from "lodash";
 
 const PHOTOS_PER_PAGE = 50;
 
@@ -19,7 +19,7 @@ class PhotosGallery {
 
     this.slidingControls = {
       prev: false,
-      next: true
+      next: true,
     };
   }
 
@@ -27,7 +27,7 @@ class PhotosGallery {
     const _this = this;
     if (this.currentPhoto.id === id) return;
 
-    const foundIndex = this.photos.findIndex(photo => photo._id === id);
+    const foundIndex = this.photos.findIndex((photo) => photo._id === id);
     if (foundIndex >= 0) {
       this.setIndex(foundIndex);
       return;
@@ -43,16 +43,16 @@ class PhotosGallery {
 
   showPhotos({ search, page = 1 } = {}) {
     const _this = this;
-    return this.client.find({ page, search }).then(res => {
+    return this.client.find({ page, search }).then((res) => {
       _this.currentPage = page;
       _this.search = search;
 
-      _this.totalSize = res.data.totalSize
-      _this.photos = res.data.photos
+      _this.totalSize = res.data.totalSize;
+      _this.photos = res.data.photos;
 
-      console.log("PhotosGallery.showPhotos: \n")
-      console.log(_this.photos)
-      console.log("Total Size: ", _this.totalSize)
+      console.log("PhotosGallery.showPhotos: \n");
+      console.log(_this.photos);
+      console.log("Total Size: ", _this.totalSize);
       _this.paginate();
       return _this.photos;
     });
@@ -80,14 +80,12 @@ class PhotosGallery {
       return Promise.resolve(this.currentPhoto);
     }
 
-    const slideToNextPage = photos => {
-      nextIndex = step > 0 ? 0 : photos.length - 1
+    const slideToNextPage = (photos) => {
+      nextIndex = step > 0 ? 0 : photos.length - 1;
       _this.setIndex(nextIndex);
     };
 
-    return this
-      .showPhotos({ page: nextPage })
-      .then(slideToNextPage);
+    return this.showPhotos({ page: nextPage }).then(slideToNextPage);
   }
 
   setIndex(index) {
@@ -103,7 +101,7 @@ class PhotosGallery {
   setSlidingControls() {
     this.slidingControls = {
       prev: this.offset() !== 0,
-      next: this.offset() + 1 !== this.totalSize
+      next: this.offset() + 1 !== this.totalSize,
     };
   }
 
@@ -116,15 +114,15 @@ class PhotosGallery {
   }
 
   paginate() {
-    const numberOfLinks = 5
-    const totalPages = Math.ceil(this.totalSize / PHOTOS_PER_PAGE)
+    const numberOfLinks = 5;
+    const totalPages = Math.ceil(this.totalSize / PHOTOS_PER_PAGE);
     let start = this.currentPage - 2;
     if (start < 1) start = 1;
 
     let end = start + numberOfLinks;
     if (end > totalPages + 1) {
       end = totalPages + 1;
-      start = end - numberOfLinks
+      start = end - numberOfLinks;
       if (start < 1) start = 1;
     }
 
@@ -133,5 +131,5 @@ class PhotosGallery {
 }
 
 export default angular
-  .module('photos.gallery', [])
-  .service('photosGallery', PhotosGallery);
+  .module("photos.gallery", [])
+  .service("photosGallery", PhotosGallery);
