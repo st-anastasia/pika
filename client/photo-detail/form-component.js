@@ -2,7 +2,7 @@ import angular from 'angular';
 import dateformat from 'dateformat';
 import _ from 'lodash';
 
-import template from './form.jade';
+import template from './form.pug';
 
 class PhotoDetailFormController {
   /** @ngInject */

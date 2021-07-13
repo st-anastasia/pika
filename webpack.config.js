@@ -35,7 +35,7 @@ module.exports = {
       ]})},
       {test: /\.js$/, use: ['ng-annotate-loader','babel-loader'],
         exclude: /node_modules|bower_components/},
-      {test: /\.jade$/, use: 'pug-loader'},
+      {test: /\.pug$/, use: 'pug-loader'},
       {test: /\.(png|jpg|svg|woff)$/, use: {
         loader: 'file-loader',
         options: {name: '[path][name]-[hash].[ext]'}

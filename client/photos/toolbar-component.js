@@ -1,5 +1,5 @@
 import angular from 'angular';
-import template from './toolbar.jade';
+import template from './toolbar.pug';
 
 class PhotosToolbarController {
   /** @ngInject */

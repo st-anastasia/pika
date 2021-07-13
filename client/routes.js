@@ -1,5 +1,5 @@
-const photosTemplate = require('./photos/index.jade');
-const photoDetailTemplate = require('./photo-detail/index.jade');
+const photosTemplate = require('./photos/index.pug');
+const photoDetailTemplate = require('./photo-detail/index.pug');
 
 function routesConfig($stateProvider, $urlRouterProvider) {
   $stateProvider

@@ -1,5 +1,5 @@
 import angular from 'angular';
-import template from './index.jade';
+import template from './index.pug';
 
 class SideMenuController {
 

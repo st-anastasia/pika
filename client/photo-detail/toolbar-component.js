@@ -1,5 +1,5 @@
 import angular from 'angular';
-const template = require('./toolbar.jade');
+const template = require('./toolbar.pug');
 
 class PhotoDetailToolbarController {
   /** @ngInject */
