@@ -12,7 +12,7 @@ const res = {
 };
 
 const storePhotos = user => {
-  console.log("reading: ", srcPath); 
+  console.log("reading: ", srcPath);
   console.log("user", user);
 
   fs

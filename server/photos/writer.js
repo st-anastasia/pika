@@ -43,6 +43,10 @@ class PhotoWriter {
         var buffer = new Buffer(65635);
         fs.read(fd, buffer, 0, 65635, 0, () => {
           const exif = exifParser.create(buffer).parse();
+          const metadata = this.photo.metadata || {};
+          metadata.tags = exif.tags;
+          metadata.imageSize = exif.imageSize;
+          metadata.createDate = new Date(metadata.tags.CreateDate * 1000)
 
           this.photoData = {
             filename: this.token,
@@ -50,10 +54,6 @@ class PhotoWriter {
             root: 'photos',
             metadata: this.photo.metadata
           };
-          _.assign(
-            this.photoData.metadata,
-            _.pick(exif, ['tags', 'imageSize'])
-          );
 
           resolve(this.photoData);
         });

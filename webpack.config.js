@@ -35,7 +35,7 @@ module.exports = {
       ]})},
       {test: /\.js$/, use: ['ng-annotate-loader','babel-loader'],
         exclude: /node_modules|bower_components/},
-      {test: /\.jade$/, use: 'pug-loader'},
+      {test: /\.pug$/, use: 'pug-loader'},
       {test: /\.(png|jpg|svg|woff)$/, use: {
         loader: 'file-loader',
         options: {name: '[path][name]-[hash].[ext]'}
@@ -43,7 +43,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('styles.bundle.css'),
+    new ExtractTextPlugin('index.bundle.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,

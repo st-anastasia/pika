@@ -1,5 +1,5 @@
 import angular from 'angular';
-const template = require('./toolbar.jade');
+const template = require('./toolbar.pug');
 
 class PhotoDetailToolbarController {
   /** @ngInject */
@@ -38,7 +38,10 @@ class PhotoDetailToolbarController {
   }
 
   back() {
-    this.$state.go('photos');
+    this.$state.go('photos', { 
+      search: this.photosGallery.search, 
+      page: this.photosGallery.currentPage 
+    });
   }
 
   deletePhoto() {

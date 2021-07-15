@@ -7,10 +7,11 @@ const PhotoSchema = new Schema({
   contentType: String,
   length: Number,
   chunkSize: Number,
-  uploadData: Date,
+  uploadDate: Date,
   metadata: {
     title: String,
     description: String,
+    createDate: Date,
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
   },
   md5: String,

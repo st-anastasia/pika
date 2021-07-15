@@ -7,20 +7,26 @@ class PhotosClient {
     this.Upload = Upload;
   }
 
-  find(params = {}) {
-    return this.$http.get('/api/photos', { params });
+  find({search, page = 1} = {}) {
+    console.log("PhotosClient.find", { search, page });
+    return this.$http.get("/api/photos", { params: { search, page } });
   }
 
   findById(id) {
     return this.$http.get(`/api/photos/${id}`);
   }
 
-  create(params) {
+  create(photo) {
+    console.log("PhotosClient.create", photo)
     return this.Upload.upload({
       headers: { Authorization: `Bearer ${this.session.user.token}` },
       url: '/api/photos',
-      data: params,
+      data: { photo },
     });
+  }
+
+  update(photo) {
+    return this.$http.patch(`/api/photos/${photo._id}`, { photo: photo.metadata })
   }
 
   delete(id) {
