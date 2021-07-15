@@ -43,7 +43,7 @@
     "angular-route": "^1.5.8",
     "angular-sanitize": "^1.5.7",
     "angular-ui-router": "^0.4.2",
-    "base64url": "^2.0.0",
+    "base64url": "^3.0.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.16.1",
     "dateformat": "^2.0.0",
