@@ -1,5 +1,5 @@
 import angular from 'angular';
-import template from './toolbar.jade';
+import template from './toolbar.pug';
 
 class PhotosToolbarController {
   /** @ngInject */
@@ -21,17 +21,19 @@ class PhotosToolbarController {
   }
 
   search() {
-    this.photosGallery.showPhotos({ search: this.searchTerm });
-    this.$state.go('photos', { search: this.searchTerm }, { location: 'replace', notify: false });
+    this.photosGallery.showPhotos({ search: this.searchTerm, page: 1 });
+    this.$state.go('photos', { search: this.searchTerm, page: 1 }, { location: 'replace', notify: false });
   }
 
-  uploadPhotos(files) {
+  uploadPhotos(photos) {
     const self = this;
     let uploadedCount = 0;
 
     const onSuccces = () => {
       uploadedCount += 1;
-      if (uploadedCount === files.length) self.photosGallery.showPhotos();
+      if (uploadedCount == photos.length) {
+        self.photosGallery.showPhotos();
+      }
     };
 
     const onFailure = (response) => {
@@ -41,12 +43,12 @@ class PhotosToolbarController {
     };
 
     const onProgress = (event) => {
-      const percentage = (100.0 * (event.loaded / files.size));
+      const percentage = (100.0 * (event.loaded / photos.size));
       self.uploadProgress = Math.min(100, parseInt(percentage, 10));
     };
 
-    files.forEach((file) => {
-      this.photosClient.create({ photo: file }).then(onSuccces, onFailure, onProgress);
+    photos.forEach((photo) => {
+      this.photosClient.create(photo).then(onSuccces, onFailure, onProgress);
     });
   }
 }

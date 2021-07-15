@@ -1,0 +1,20 @@
+photos-toolbar
+
+md-content(md-scroll-y, layout='column', flex='', layout-fill, layout-padding)
+  div(ng-repeat='(monthLabel, photos) in $ctrl.photosByMonth')
+
+    md-content(layout-padding) {{monthLabel}}
+
+    md-grid-list(flex md-cols='6', md-cols-xs='1', md-cols-sm='4', md-row-height='4:3', md-gutter='10px')
+      md-grid-tile(
+        ng-repeat='photo in photos'
+        ng-style="{ 'background-image': 'url(' + photo.src + ')', 'background-size' : 'cover'}"
+        ng-click="$ctrl.showPhoto(photo._id)"
+      )
+
+  div(layout='row', layout-align= 'center cenert', class='pagination')
+    md-button(
+      ng-repeat='page in $ctrl.photosGallery.pages'
+      ng-class='$ctrl.pageButtonClass(page)'
+      ng-click='$ctrl.showPage(page)'
+   ) {{page}}

@@ -2,45 +2,49 @@ import angular from 'angular';
 import dateformat from 'dateformat';
 import _ from 'lodash';
 
-import template from './form.jade';
+import template from './form.pug';
 
 class PhotoDetailFormController {
   /** @ngInject */
-  constructor($mdSidenav) {
+  constructor($mdSidenav, photosClient) {
     this.$mdSidenav = $mdSidenav;
+    this.client = photosClient
   }
 
   close() {
     this.$mdSidenav('right').close();
   }
 
-  photoExposure() {
-    let res = _.pick(this.photo.metadata.tags, [
-      'FNumber',
-      'ExposureTime',
-      'FocalLength',
-      'ISO'
-    ]);
-    res = _.pickBy(res, v => !_.isNil(v));
+  updatePhoto(){
+    this.client.update(this.photo);
+  }
 
+  photoExposure() {
+    if (_.isEmpty(this.photo)) {
+      return [];
+    }
+
+    const tags = this.photo.metadata.tags
+    const keys = ['FNumber', 'ExposureTime', 'FocalLength', 'ISO']
     const transformations = {
       FNumber: v => `1 / ${v}`,
       ExposureTime: v => Math.round(1 / v),
       FocalLength: v => `${v} mm`,
       ISO: v => `ISO ${v}`
     };
-    res = _.transform(
-      res,
-      (result, value, key) => {
-        result.push(transformations[key](value));
-      },
-      []
-    );
-
-    return res;
+    return keys
+      .filter((k) => !_.isNil(tags[k]))
+      .map((k) => {
+        const value = tags[k]
+        return transformations[k](value)
+      });
   }
 
   photoDimesions() {
+    if (_.isEmpty(this.photo)) {
+      return [];
+    }
+
     const imageSize = this.photo.metadata.imageSize;
     let megaPixel = null;
     let imageSizeString = null;
@@ -50,20 +54,26 @@ class PhotoDetailFormController {
       imageSizeString = `${imageSize.width} x ${imageSize.height}`;
     }
 
-    const length = `${_.round(this.photo.length / 1024 / 1024, 2).toFixed(
-      2
-    )} MB`;
+    const length = `${_.round(this.photo.length / 1024 / 1024, 2).toFixed(2)} MB`;
 
     return [megaPixel, imageSizeString, length].filter(v => !_.isNil(v));
   }
 
   photoDateString() {
-    const date = new Date(this.photo.uploadDate);
+    if (_.isEmpty(this.photo)) {
+      return '';
+    }
+
+    const date = new Date(this.photo.metadata.createDate);
     return dateformat(date, 'dd. mmm yyyy');
   }
 
   photoTimeString() {
-    const date = new Date(this.photo.uploadDate);
+    if (_.isEmpty(this.photo)) {
+      return '';
+    }
+
+    const date = new Date(this.photo.metadata.createDate);
     return dateformat(date, 'ddd. hh:mm');
   }
 }

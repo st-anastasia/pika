@@ -7,7 +7,7 @@ class Session {
     this.user = JSON.parse(localStorage.getItem('user')) || {};
   }
 
-  auth(user) {
+  authenticate(user) {
     this.user = user;
     localStorage.setItem('user', JSON.stringify(user));
   }
