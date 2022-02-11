@@ -23,7 +23,7 @@
     "file-loader": "^0.11.1",
     "ng-annotate-loader": "^0.6.0",
     "node-libs-browser": "^2.0.0",
-    "node-sass": "^4.5.0",
+    "node-sass": "^7.0.0",
     "pug": "^2.0.0-beta11",
     "pug-loader": "^2.3.0",
     "repl.history": "^0.1.4",
